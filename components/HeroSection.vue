@@ -95,7 +95,11 @@ export default {
 
 <style scoped>
 .hero-section {
-  background-color: #000;
+  background-image: url(/public/bg.gif);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   position: relative;
 }
 

@@ -1,7 +1,7 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-500 via-red-600 to-red-700 pt-10 lg:px-10 text-white overflow-hidden"
+    class="relative flex flex-col lg:flex-row bg-red-700 to-red-700 pt-10 lg:px-10 text-white overflow-hidden"
   >
     <!-- Men Text -->
     <div
@@ -32,7 +32,7 @@
         src="/imgs/4.png"
         alt="Man"
         :class="[
-          'w-full sm:w-1/2 aspect-[3/4] object-contain sm:object-cover rounded-lg shadow-lg transition-all duration-1000',
+          'w-full sm:w-1/2  object-contain sm:object-cover  transition-all duration-1000',
           inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
         ]"
       />
@@ -40,7 +40,7 @@
         src="/imgs/5.png"
         alt="Woman"
         :class="[
-          'w-full sm:w-1/2 aspect-[3/4] object-contain sm:object-cover grayscale rounded-lg shadow-lg transition-all duration-1000',
+          'w-full sm:w-1/2  object-contain sm:object-cover grayscale   transition-all duration-1000',
           inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
         ]"
       />
