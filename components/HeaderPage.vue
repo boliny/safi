@@ -1,30 +1,39 @@
 <template>
   <nav
-    class="sticky top-0 left-0 w-full bg-black bg-opacity-90 backdrop-blur-md z-50 shadow-md"
+    :class="[
+      'sticky top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-lg',
+      isScrolled ? 'bg-gray-900/95 shadow-lg py-2' : 'bg-gray-950/80 py-5',
+    ]"
   >
     <div
-      class="container mx-auto flex justify-between items-center p-4 flex-wrap"
+      class="container mx-auto flex justify-between items-center flex-wrap px-4"
     >
       <!-- Logo & Social Icons -->
       <div class="flex items-center space-x-4">
-        <div class="cursor-pointer" @click="goToHome">
+        <div
+          class="cursor-pointer transition-transform duration-300"
+          @click="goToHome"
+        >
           <NuxtImg
             src="/logo-01.png"
             alt="Coach Online Logo"
-            class="h-18 w-auto"
+            :class="[
+              'transition-all duration-300',
+              isScrolled ? 'h-12' : 'h-20',
+            ]"
           />
         </div>
         <div class="hidden md:flex space-x-3">
-          <a href="#" class="text-white transition icon-link">
+          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
             <Icon name="mdi:facebook" class="icon-link" />
           </a>
-          <a href="#" class="text-white transition icon-link">
+          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
             <Icon name="mdi:twitter" class="icon-link" />
           </a>
-          <a href="#" class="text-white transition icon-link">
+          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
             <Icon name="mdi:linkedin" class="icon-link" />
           </a>
-          <a href="#" class="text-white transition icon-link">
+          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
             <Icon name="mdi:instagram" class="icon-link" />
           </a>
         </div>
@@ -32,7 +41,7 @@
 
       <!-- Mobile Menu Button -->
       <button
-        class="md:hidden text-white focus:outline-none text-2xl"
+        class="md:hidden text-white focus:outline-none text-3xl"
         @click="toggleMenu"
       >
         <Icon name="mdi:menu" />
@@ -49,18 +58,16 @@
           <li>
             <a
               :class="{ active: activePage === 'home' }"
-              class="nav-link cursor-pointer"
+              class="nav-link"
               @click="goToHome"
               >Home</a
             >
           </li>
 
-          <!-- Dropdown Menu -->
+          <!-- Dropdown -->
           <li class="relative">
-            <a
-              class="nav-link flex items-center cursor-pointer"
-              @click="toggleDropdown"
-              >Start Here <Icon name="mdi:chevron-down" class="ml-1" />
+            <a class="nav-link flex items-center" @click="toggleDropdown">
+              Start Here <Icon name="mdi:chevron-down" class="ml-1" />
             </a>
             <transition name="fade">
               <ul
@@ -68,14 +75,10 @@
                 class="dropdown-menu md:absolute md:left-0 md:top-full w-full md:w-48"
               >
                 <li>
-                  <a class="dropdown-item cursor-pointer" @click="goToPlan"
-                    >For Individuals</a
-                  >
+                  <a class="dropdown-item" @click="goToPlan">For Individuals</a>
                 </li>
                 <li>
-                  <a class="dropdown-item cursor-pointer" @click="goToPlan"
-                    >For Business</a
-                  >
+                  <a class="dropdown-item" @click="goToPlan">For Business</a>
                 </li>
               </ul>
             </transition>
@@ -84,16 +87,16 @@
           <li>
             <a
               :class="{ active: activePage === 'blog' }"
-              class="nav-link cursor-pointer"
+              class="nav-link"
               @click="goToBlog"
               >Blog</a
             >
           </li>
-          <li><a href="#" class="nav-link">Shop</a></li>
+          <li><a class="nav-link" href="#">Shop</a></li>
           <li>
             <a
               :class="{ active: activePage === 'contact' }"
-              class="nav-link cursor-pointer"
+              class="nav-link"
               @click="goToContact"
               >Contact</a
             >
@@ -111,14 +114,15 @@ export default {
       menuOpen: false,
       dropdownVisible: false,
       activePage: '',
+      isScrolled: false,
     }
   },
   mounted() {
-    window.addEventListener('scroll', this.closeMenuOnScroll)
+    window.addEventListener('scroll', this.handleScroll)
     document.addEventListener('click', this.handleClickOutside)
   },
   beforeUnmount() {
-    window.removeEventListener('scroll', this.closeMenuOnScroll)
+    window.removeEventListener('scroll', this.handleScroll)
     document.removeEventListener('click', this.handleClickOutside)
   },
   methods: {
@@ -131,23 +135,24 @@ export default {
     goToContact() {
       this.activePage = 'contact'
       this.menuOpen = false
-      navigateTo('/contact', { external: false })
+      navigateTo('/contact')
     },
     goToHome() {
       this.activePage = 'home'
       this.menuOpen = false
-      navigateTo('/', { external: false })
+      navigateTo('/')
     },
     goToPlan() {
       this.menuOpen = false
-      navigateTo('/plan', { external: false })
+      navigateTo('/plan')
     },
     goToBlog() {
       this.activePage = 'blog'
       this.menuOpen = false
-      navigateTo('/blog', { external: false })
+      navigateTo('/blog')
     },
-    closeMenuOnScroll() {
+    handleScroll() {
+      this.isScrolled = window.scrollY > 10
       this.menuOpen = false
       this.dropdownVisible = false
     },
@@ -162,33 +167,20 @@ export default {
 </script>
 
 <style scoped>
-/* Links */
 .nav-link {
   position: relative;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   text-transform: uppercase;
-  color: #ffffff;
+  color: #f3f3f3;
   border-radius: 0.375rem;
-  transition: color 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .nav-link:hover {
-  color: #ffa200;
-  animation: flash-color 0.3s ease-in-out;
-}
-
-@keyframes flash-color {
-  0% {
-    color: #ffffff;
-  }
-  50% {
-    color: #ff6600;
-  }
-  100% {
-    color: #ffa200;
-  }
+  color: #ff9f1c;
+  transform: translateY(-2px);
 }
 
 .nav-link::after {
@@ -198,8 +190,8 @@ export default {
   bottom: -4px;
   width: 0;
   height: 2px;
-  background: #ffa200;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ff9f1c;
+  transition: all 0.3s ease-in-out;
   transform: translateX(-50%) scaleX(0);
   transform-origin: center;
 }
@@ -207,41 +199,42 @@ export default {
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
-  transform: translateX(-50%) scaleX(1.2);
+  transform: translateX(-50%) scaleX(1);
 }
 
 .nav-link.active {
-  color: #ffa200;
+  color: #ff9f1c;
 }
 
 /* Dropdown */
 .dropdown-menu {
-  background-color: rgba(20, 20, 20, 0.95);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #1f1f1f;
+  border-radius: 0.5rem;
   padding: 0.5rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .dropdown-item {
   display: block;
   padding: 0.75rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #ffffff;
-  transition: background-color 0.3s ease-in-out;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #f3f3f3;
+  transition: all 0.3s ease-in-out;
 }
 
 .dropdown-item:hover {
-  background-color: rgba(255, 0, 0, 0.2);
+  background-color: #ff9f1c22;
+  color: #ff9f1c;
 }
 
-/* Dropdown Transition */
+/* Fade Transition */
 .fade-enter-active,
 .fade-leave-active {
   transition:
-    opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
-
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
@@ -250,12 +243,13 @@ export default {
 
 /* Icons */
 .icon-link {
-  font-size: 1.6rem;
-  transition: transform 0.3s ease, color 0.3s ease;
+  font-size: 1.8rem;
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
 }
-
 .icon-link:hover {
-  transform: scale(1.4);
-  color: #ff6600;
+  transform: scale(1.3);
+  color: #ff9f1c;
 }
 </style>
