@@ -3,5 +3,7 @@
     <HeroSection />
     <AboutUs />
     <FeaturesPage />
+    <PlayNow />
+    <CalendarBox />
   </div>
 </template>
