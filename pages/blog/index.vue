@@ -12,28 +12,28 @@
         <!-- Featured Post -->
         <div
           v-if="filteredPosts.length"
-          @click="goToMain()"
           class="cursor-pointer"
+          @click="goToMain()"
         >
           <div class="relative overflow-hidden rounded-lg group">
-            <img
+            <NuxtImg
               :src="filteredPosts[0].thumbnail"
               alt="Post Image"
               class="w-full h-56 sm:h-64 transition-transform duration-500 delay-150 group-hover:scale-105"
             />
             <div
               class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            ></div>
+            />
           </div>
           <div
             class="text-xs sm:text-sm text-gray-500 mt-2 flex flex-wrap items-center gap-2 justify-center"
           >
-            <span><i class="fas fa-calendar-alt mr-1"></i> Apr 8, 2025</span>
-            <span><i class="fas fa-eye mr-1"></i> 980</span>
+            <span><i class="fas fa-calendar-alt mr-1" /> Apr 8, 2025</span>
+            <span><i class="fas fa-eye mr-1" /> 980</span>
             <span class="flex items-center space-x-1 cursor-pointer">
-              <i class="fas fa-heart text-red-500"></i><span>245</span>
+              <i class="fas fa-heart text-red-500" /><span>245</span>
             </span>
-            <span><i class="fas fa-share-alt mr-1"></i> Share</span>
+            <span><i class="fas fa-share-alt mr-1" /> Share</span>
           </div>
           <div class="max-w-2xl mx-auto text-center mt-6 sm:mt-10">
             <p class="text-xs sm:text-sm uppercase tracking-wide text-gray-500">
@@ -63,17 +63,17 @@
             class="max-w-full text-center"
           >
             <div
-              @click="goToItem(post.id)"
               class="relative overflow-hidden rounded-lg cursor-pointer group"
+              @click="goToItem(post.id)"
             >
-              <img
+              <NuxtImg
                 :src="post.thumbnail"
                 alt="Post Image"
                 class="w-full h-40 sm:h-48 object-cover transition-transform duration-500 delay-150 group-hover:scale-105"
               />
               <div
                 class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              ></div>
+              />
             </div>
             <p
               class="text-xs sm:text-sm uppercase tracking-wide text-gray-500 mt-2"
@@ -81,16 +81,16 @@
               {{ post.category }}
             </p>
             <h1
-              @click="goToItem(post.id)"
               class="text-lg sm:text-2xl font-bold mt-2 cursor-pointer hover:text-blue-600 transition-colors"
+              @click="goToItem(post.id)"
             >
               {{ post.title }}
             </h1>
             <div
               class="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm text-gray-500 mt-2"
             >
-              <span><i class="fas fa-calendar-alt mr-1"></i> Apr 8, 2025</span>
-              <span><i class="fas fa-eye mr-1"></i> {{ post.views }}</span>
+              <span><i class="fas fa-calendar-alt mr-1" /> Apr 8, 2025</span>
+              <span><i class="fas fa-eye mr-1" /> {{ post.views }}</span>
               <span
                 class="flex items-center space-x-1 cursor-pointer"
                 @click="toggleLike(post.id)"
@@ -102,17 +102,17 @@
                       ? 'text-red-500'
                       : 'text-gray-400'
                   "
-                ></i>
+                />
                 <span>{{ post.likes }}</span>
               </span>
-              <span><i class="fas fa-share-alt mr-1"></i> Share</span>
+              <span><i class="fas fa-share-alt mr-1" /> Share</span>
             </div>
             <p class="text-gray-700 mt-4 leading-relaxed text-sm sm:text-base">
               {{ post.description }}
             </p>
             <button
-              @click="goToItem(post.id)"
               class="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-black rounded-full text-black hover:bg-black hover:text-white transition-all delay-150 text-sm cursor-pointer"
+              @click="goToItem(post.id)"
             >
               READ MORE
             </button>

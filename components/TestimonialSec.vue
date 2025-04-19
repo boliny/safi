@@ -4,7 +4,7 @@
       RESULTS I HAVE HELPED CREATE
     </h2>
 
-    <div class="relative max-w-5xl mx-auto">
+    <div class="relative max-w-xl mx-auto">
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(testimonial, index) in testimonials"
@@ -12,7 +12,7 @@
           class="keen-slider__slide card"
         >
           <div
-            class="max-w-md mx-auto bg-white rounded-xl shadow-md p-8 border border-gray-200 text-center"
+            class="bg-white shadow-md p-8 border border-gray-200 text-center"
           >
             <div class="flex justify-center mb-3">
               <svg
@@ -46,13 +46,13 @@
         </div>
       </div>
 
+      <!-- الزر السابق -->
       <button
-        v-if="showNavigation"
-        class="prev-btn absolute left-[-80px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow flex items-center justify-center cursor-pointer"
+        class="prev-btn hidden md:flex absolute left-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
         @click="prevSlide"
       >
         <svg
-          class="w-7 h-7 text-gray-600"
+          class="w-6 h-6 text-gray-600"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -66,12 +66,13 @@
         </svg>
       </button>
 
+      <!-- الزر التالي -->
       <button
-        class="next-btn absolute right-[-80px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow flex items-center justify-center cursor-pointer"
+        class="next-btn hidden md:flex absolute right-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
         @click="nextSlide"
       >
         <svg
-          class="w-7 h-7 text-gray-600"
+          class="w-6 h-6 text-gray-600"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -97,56 +98,32 @@ export default {
   setup() {
     const sliderRef = ref(null)
     const slider = ref(null)
-    const slidesPerView = ref(3)
-    const showNavigation = ref(true)
-    const showPagination = ref(false)
-
-    const updateSliderSettings = () => {
-      if (window.innerWidth < 768) {
-        slidesPerView.value = 1
-        showNavigation.value = false
-        showPagination.value = true
-      } else {
-        slidesPerView.value = 3
-        showNavigation.value = true
-        showPagination.value = false
-      }
-
-      if (slider.value) {
-        slider.value.update({
-          loop: true,
-          slides: { perView: slidesPerView.value, spacing: 20 },
-        })
-      }
-    }
 
     onMounted(() => {
-      updateSliderSettings()
       slider.value = new KeenSlider(sliderRef.value, {
         loop: true,
-        slides: { perView: slidesPerView.value, spacing: 20 },
+        slides: { perView: 1, spacing: 20 },
         created(s) {
           setInterval(() => {
             s.moveToIdx(s.track.details.rel + 1, true)
-          }, 3000) // MARKER: تم إضافة التشغيل التلقائي بدون توقف
+          }, 3000)
         },
       })
-      window.addEventListener('resize', updateSliderSettings)
     })
 
     onUnmounted(() => {
-      window.removeEventListener('resize', updateSliderSettings)
+      if (slider.value) {
+        slider.value.destroy()
+      }
     })
 
-    const prevSlide = () => slider.value.prev()
-    const nextSlide = () => slider.value.next()
+    const prevSlide = () => slider.value?.prev()
+    const nextSlide = () => slider.value?.next()
 
     return {
       sliderRef,
       prevSlide,
       nextSlide,
-      showNavigation,
-      showPagination,
       testimonials: [
         {
           text: 'This service helped me grow my business tremendously!',

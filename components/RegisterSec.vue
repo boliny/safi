@@ -17,7 +17,8 @@
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-red-700 transition duration-300"
+          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white cursor-pointer hover:text-red-700 transition duration-300"
+          @click="goToRegister"
         >
           JOIN NOW
         </button>
@@ -64,7 +65,8 @@
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-red-700 transition duration-300"
+          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white cursor-pointer hover:text-red-700 transition duration-300"
+          @click="goToRegisterWomen"
         >
           JOIN NOW
         </button>
@@ -98,4 +100,12 @@ onUnmounted(() => {
     observer.unobserve(sectionRef.value)
   }
 })
+
+const router = useRouter()
+const goToRegister = () => {
+  router.push('/register-men')
+}
+const goToRegisterWomen = () => {
+  router.push('/register-women')
+}
 </script>

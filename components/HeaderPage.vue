@@ -1,8 +1,8 @@
 <template>
   <header
     :class="[
-      'fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out',
-      isScrolled ? 'bg-white shadow-lg' : 'bg-transparent',
+      'sticky top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out',
+      isScrolled ? 'bg-white shadow-lg' : 'bg-black/90',
     ]"
   >
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">

@@ -1,174 +1,281 @@
 <template>
-  <section class="bg-cream flex flex-col md:flex-row-reverse items-center">
-    <!-- Image Section -->
-    <div class="md:w-1/3 w-full">
-      <NuxtImg
-        src="https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2018/09/011-550x362.jpg"
-        alt="Contact Image"
-        class="w-full h-screen"
-      />
-    </div>
+  <div class="min-h-screen bg-gray-50 py-10 px-4">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6">
+      <h1 class="text-3xl font-bold text-center text-red-600 mb-6">
+        Men's Registration
+      </h1>
 
-    <!-- Contact Form Section -->
-    <div class="md:w-2/3 w-full px-4 md:px-8">
-      <div class="text-center md:text-left">
-        <p class="text-sm font-semibold text-gray-600">READY TO START?</p>
-        <h2 class="text-3xl font-bold text-gray-900 mt-2">CONTACT ME</h2>
-      </div>
-
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-building"
-          >
-            <path d="M3 21h18M9 8v13M15 8v13M3 9l9-7 9 7v12H3V9z" />
-          </svg>
-          <p class="font-semibold">The Company Name Inc.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-map-pin"
-          >
-            <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <p>8901 Marmora Road, Glasgow, D04 89GR.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-phone"
-          >
-            <path
-              d="M22 16.92V19a2 2 0 0 1-2.18 2A19.74 19.74 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 .91l1.83 3.05a2 2 0 0 1-.45 2.54l-1.27 1a16 16 0 0 0 6.88 6.88l1-1.27a2 2 0 0 1 2.54-.45l3.05 1.83a2 2 0 0 1 .91 2z"
-            />
-          </svg>
-          <p>+1 800 559 6580 / +1 800 889 9898</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-mail"
-          >
-            <path d="M4 4h16v16H4z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          <p>mail@demolink.org</p>
-        </div>
-      </div>
-
-      <div class="mt-8">
-        <p class="text-center md:text-left font-semibold text-gray-700 mb-4">
-          OR JUST DROP ME A LINE
-        </p>
-        <form
-          class="grid grid-cols-1 md:grid-cols-2 gap-4"
-          @submit.prevent="submitForm"
-        >
+      <form
+        @submit.prevent="submitForm"
+        class="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        <!-- Name -->
+        <div>
+          <label class="block text-gray-700">Full Name</label>
           <input
             v-model="form.name"
-            type="text"
-            placeholder="NAME"
-            class="input-field"
+            placeholder="Full Name"
+            class="input"
             required
           />
+        </div>
+
+        <!-- Age -->
+        <div>
+          <label class="block text-gray-700">Age</label>
+          <input
+            v-model="form.age"
+            type="number"
+            placeholder="Age"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Address -->
+        <div>
+          <label class="block text-gray-700">Address</label>
+          <input
+            v-model="form.address"
+            placeholder="Address"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-gray-700">Email</label>
           <input
             v-model="form.email"
             type="email"
-            placeholder="EMAIL"
-            class="input-field"
+            placeholder="Email"
+            class="input"
             required
           />
-          <textarea
-            v-model="form.message"
-            placeholder="MESSAGE"
-            class="input-field h-32 md:col-span-2"
+        </div>
+
+        <!-- Facebook -->
+        <div>
+          <label class="block text-gray-700">Facebook Profile</label>
+          <input
+            v-model="form.facebook"
+            placeholder="Facebook Profile"
+            class="input"
             required
           />
-        </form>
-        <button
-          type="submit"
-          class="bg-black my-10 cursor-pointer text-white px-6 py-2 rounded-md md:w-auto flex items-center gap-2 md:col-span-2"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-send"
-          >
-            <line x1="22" y1="2" x2="11" y2="13" />
-            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-          </svg>
-          Submit
-        </button>
-      </div>
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-gray-700">Phone Number</label>
+          <input
+            v-model="form.phone"
+            placeholder="Phone Number"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Birthdate -->
+        <div>
+          <label class="block text-gray-700">Birthdate</label>
+          <input v-model="form.birthdate" type="date" class="input" required />
+        </div>
+
+        <!-- Height -->
+        <div>
+          <label class="block text-gray-700">Height (cm)</label>
+          <input
+            v-model="form.height"
+            type="number"
+            placeholder="Height (cm)"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Weight -->
+        <div>
+          <label class="block text-gray-700">Weight (kg)</label>
+          <input
+            v-model="form.weight"
+            type="number"
+            placeholder="Weight (kg)"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Front Body Image -->
+        <div class="col-span-2">
+          <label class="block text-gray-700">Front Body Image (Optional)</label>
+          <div class="flex flex-col items-center justify-center">
+            <input
+              type="file"
+              @change="handleFile($event, 'frontImage')"
+              accept="image/*"
+              class="file-input"
+            />
+            <span class="text-sm text-gray-500">Choose your front image</span>
+          </div>
+        </div>
+
+        <!-- Back Body Image -->
+        <div class="col-span-2">
+          <label class="block text-gray-700">Back Body Image (Optional)</label>
+          <div class="flex flex-col items-center justify-center">
+            <input
+              type="file"
+              @change="handleFile($event, 'backImage')"
+              accept="image/*"
+              class="file-input"
+            />
+            <span class="text-sm text-gray-500">Choose your back image</span>
+          </div>
+        </div>
+
+        <!-- Illness -->
+        <div>
+          <label class="block text-gray-700">Illness</label>
+          <select v-model="form.illness" class="input" required>
+            <option value="">Select Illness</option>
+            <option>None</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Injury -->
+        <div>
+          <label class="block text-gray-700">Injury</label>
+          <select v-model="form.injuries" class="input" required>
+            <option value="">Select Injury</option>
+            <option>None</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <!-- Level -->
+        <div>
+          <label class="block text-gray-700">Level</label>
+          <select v-model="form.level" class="input" required>
+            <option disabled value="">Select Level</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
+
+        <!-- Consistency -->
+        <div>
+          <label class="block text-gray-700">Consistency</label>
+          <select v-model="form.consistency" class="input" required>
+            <option disabled value="">Are you consistent?</option>
+            <option>Consistent</option>
+            <option>Inactive</option>
+          </select>
+        </div>
+
+        <!-- Workout Location -->
+        <div>
+          <label class="block text-gray-700">Workout Location</label>
+          <select v-model="form.place" class="input" required>
+            <option disabled value="">Workout Location</option>
+            <option>Home</option>
+            <option>Gym</option>
+          </select>
+        </div>
+
+        <!-- Workout Days per Week -->
+        <div>
+          <label class="block text-gray-700">Workout Days per Week</label>
+          <input
+            v-model="form.daysPerWeek"
+            type="number"
+            placeholder="Workout Days per Week"
+            class="input"
+            required
+          />
+        </div>
+
+        <!-- Submit Button -->
+        <div class="col-span-2 text-center">
+          <button type="submit" class="submit-btn">Submit</button>
+        </div>
+      </form>
     </div>
-  </section>
+  </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+const form = reactive({
+  name: '',
+  age: '',
+  address: '',
+  email: '',
+  facebook: '',
+  phone: '',
+  birthdate: '',
+  height: '',
+  weight: '',
+  frontImage: null,
+  backImage: null,
+  illness: '',
+  injuries: '',
+  level: '',
+  consistency: '',
+  place: '',
+  daysPerWeek: '',
+})
 
-const form = ref({ name: '', email: '', message: '' })
+const handleFile = (event, key) => {
+  const file = event.target.files[0]
+  if (file) form[key] = file
+}
 
-const submitForm = () => {
-  alert(
-    `Message Sent!\nName: ${form.value.name}\nEmail: ${form.value.email}\nMessage: ${form.value.message}`
-  )
-  form.value = { name: '', email: '', message: '' } // Clear form
+const submitForm = async () => {
+  const formData = new FormData()
+  for (const key in form) {
+    if (form[key]) formData.append(key, form[key])
+  }
+
+  try {
+    const res = await fetch('/api/register-men', {
+      method: 'POST',
+      body: formData,
+    })
+
+    const data = await res.json()
+    alert('Submitted successfully!')
+  } catch (err) {
+    console.error(err)
+    alert('Error while submitting')
+  }
 }
 </script>
 
 <style scoped>
-.bg-cream {
-  background-color: #fdfaf3;
+.input {
+  @apply p-2 border border-gray-300 rounded-lg w-full;
 }
-.input-field {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
+
+.file-input {
+  @apply border-2 border-dashed border-gray-300 p-4 rounded-lg w-full text-center cursor-pointer;
 }
-.input-field:focus {
-  border-color: #000;
+
+.submit-btn {
+  @apply bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 px-4 rounded mt-4 hover:bg-red-700 cursor-pointer;
 }
-button svg {
-  margin-right: 8px;
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

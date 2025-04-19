@@ -1,7 +1,7 @@
 <template>
   <div>
     <HeroSection />
-    <AboutUs />
+    <RegisterSec />
     <FeaturesPage />
     <PlayNow />
     <CalendarBox />
