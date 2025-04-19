@@ -8,7 +8,7 @@
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div
         class="text-2xl font-bold text-orange-500 cursor-pointer"
-        @click="goTo('/')"
+        @click="navigateAndClose('/')"
       >
         <NuxtImg src="/logo-01.png" alt="logo" class="w-15 h-15" />
       </div>
@@ -18,10 +18,14 @@
         <a
           v-for="link in links"
           :key="link.label"
-          :class="navLinkClass"
-          @click="goTo(link.path)"
-          >{{ link.label }}</a
+          :class="[
+            navLinkClass(link.path),
+            isActive(link.path) ? 'active' : '',
+          ]"
+          @click="navigateAndClose(link.path)"
         >
+          {{ link.label }}
+        </a>
 
         <!-- Social Icons -->
         <div class="flex space-x-4 ml-4">
@@ -69,6 +73,7 @@
             <li v-for="link in links" :key="link.label">
               <a
                 class="block text-xl font-medium text-gray-700 hover:text-orange-500"
+                :class="isActive(link.path) ? 'text-orange-500 font-bold' : ''"
                 @click="navigateAndClose(link.path)"
               >
                 {{ link.label }}
@@ -95,19 +100,20 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 const isScrolled = ref(false)
 const showSidebar = ref(false)
 
 const toggleSidebar = () => (showSidebar.value = !showSidebar.value)
 const closeSidebar = () => (showSidebar.value = false)
+
 const navigateAndClose = (path) => {
-  goTo(path)
+  router.push(path)
   closeSidebar()
 }
-const goTo = (path) => router.push(path)
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 80
@@ -136,13 +142,15 @@ const socialIcons = [
   { name: 'mdi:whatsapp', link: 'https://wa.me/123456789' },
 ]
 
-const navLinkClass = computed(() => {
+const isActive = (path) => route.path === path
+
+const navLinkClass = (path) => {
   return `text-xl nav-link cursor-pointer font-semibold transition-colors duration-300 ${
     isScrolled.value
       ? 'text-black hover:text-orange-500'
       : 'text-white hover:text-orange-300'
-  }`
-})
+  } ${isActive(path) ? 'active' : ''}`
+}
 
 const iconClass = computed(() => {
   return `text-2xl transition-transform duration-300 transform hover:scale-110 ${
@@ -187,16 +195,5 @@ const sidebarClass = computed(() => {
 
 .nav-link.active {
   color: #ffcc00;
-}
-
-.sidebar-transition-enter-active,
-.sidebar-transition-leave-active {
-  transition: all 0.5s ease-in-out;
-}
-
-.sidebar-transition-enter-from,
-.sidebar-transition-leave-to {
-  opacity: 0;
-  transform: scale(0.5) translateX(-100%);
 }
 </style>

@@ -2,15 +2,15 @@
   <div class="bg-cream py-10">
     <h2 class="text-center text-2xl md:text-3xl font-bold mb-6">Blog</h2>
 
-    <div class="relative max-w-5xl mx-auto">
+    <div class="relative max-w-5xl mx-auto px-4">
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(blog, index) in blogs"
           :key="index"
           class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
         >
-          <NuxtImg :src="blog.image" class="w-full h-48 object-cover" />
-          <div class="p-6">
+          <NuxtImg :src="blog.image" class="w-full h-56 object-cover" />
+          <div class="p-4">
             <h3 class="text-lg font-semibold text-gray-900">
               {{ blog.title }}
             </h3>
@@ -22,43 +22,6 @@
           </div>
         </div>
       </div>
-      <!-- أزرار التنقل (مخفية على الهواتف) -->
-      <button
-        class="hidden md:flex prev-btn absolute left-2 md:left-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
-        @click="prevSlide"
-      >
-        <svg
-          class="w-6 h-6 text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </button>
-      <button
-        class="hidden md:flex next-btn absolute right-2 md:right-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
-        @click="nextSlide"
-      >
-        <svg
-          class="w-6 h-6 text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </button>
     </div>
 
     <div class="flex justify-center mt-6">
@@ -67,19 +30,21 @@
       >
         <span
           class="absolute inset-0 bg-gray-700 transform translate-y-full opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 flex items-center justify-center"
-          >GO TO BLOG</span
         >
+          GO TO BLOG
+        </span>
         <span
           class="relative transition-all duration-300 group-hover:translate-y-2 group-hover:opacity-0"
-          >All Posts</span
         >
+          All Posts
+        </span>
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import KeenSlider from 'keen-slider'
 import 'keen-slider/keen-slider.min.css'
 
@@ -87,6 +52,8 @@ export default {
   setup() {
     const sliderRef = ref(null)
     let sliderInstance = null
+    let interval = null
+
     const blogs = ref([
       {
         image: 'https://picsum.photos/400/300?random=1',
@@ -113,14 +80,30 @@ export default {
     onMounted(() => {
       sliderInstance = new KeenSlider(sliderRef.value, {
         loop: true,
-        slides: { perView: 3, spacing: 20 },
+        breakpoints: {
+          '(min-width: 768px)': {
+            slides: { perView: 2, spacing: 20 },
+          },
+          '(min-width: 1024px)': {
+            slides: { perView: 3, spacing: 24 },
+          },
+        },
+        slides: { perView: 1, spacing: 15 }, // الوضع الافتراضي للموبايل
       })
+
+      interval = setInterval(() => {
+        if (sliderInstance) {
+          sliderInstance.next()
+        }
+      }, 3000)
     })
 
-    const prevSlide = () => sliderInstance.prev()
-    const nextSlide = () => sliderInstance.next()
+    onBeforeUnmount(() => {
+      if (interval) clearInterval(interval)
+      if (sliderInstance) sliderInstance.destroy()
+    })
 
-    return { blogs, prevSlide, nextSlide, sliderRef }
+    return { blogs, sliderRef }
   },
 }
 </script>
