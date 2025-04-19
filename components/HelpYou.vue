@@ -26,7 +26,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             :d="service.iconPath"
-          ></path>
+          />
         </svg>
         <h2 class="text-lg md:text-xl font-semibold mb-2 text-dark-blue">
           {{ service.title }}

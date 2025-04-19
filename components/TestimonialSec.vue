@@ -24,7 +24,7 @@
               >
                 <path
                   d="M10 15.27L16.18 19l-1.64-7.03L19 7.24l-7.19-.61L10 0 8.19 6.63 1 7.24l5.46 4.73L4.82 19z"
-                ></path>
+                />
               </svg>
             </div>
             <p
@@ -33,7 +33,7 @@
               "{{ testimonial.text }}"
             </p>
             <div class="mt-4 flex justify-center">
-              <img
+              <NuxtImg
                 :src="testimonial.image"
                 class="w-20 h-20 rounded-full border-2 border-gray-300"
               />
@@ -48,8 +48,8 @@
 
       <button
         v-if="showNavigation"
-        @click="prevSlide"
         class="prev-btn absolute left-[-80px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow flex items-center justify-center cursor-pointer"
+        @click="prevSlide"
       >
         <svg
           class="w-7 h-7 text-gray-600"
@@ -62,13 +62,13 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             d="M15 19l-7-7 7-7"
-          ></path>
+          />
         </svg>
       </button>
 
       <button
-        @click="nextSlide"
         class="next-btn absolute right-[-80px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow flex items-center justify-center cursor-pointer"
+        @click="nextSlide"
       >
         <svg
           class="w-7 h-7 text-gray-600"
@@ -81,7 +81,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             d="M9 5l7 7-7 7"
-          ></path>
+          />
         </svg>
       </button>
     </div>

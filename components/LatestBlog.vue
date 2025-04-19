@@ -9,7 +9,7 @@
           :key="index"
           class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
         >
-          <img :src="blog.image" class="w-full h-48 object-cover" />
+          <NuxtImg :src="blog.image" class="w-full h-48 object-cover" />
           <div class="p-6">
             <h3 class="text-lg font-semibold text-gray-900">
               {{ blog.title }}
@@ -24,8 +24,8 @@
       </div>
       <!-- أزرار التنقل (مخفية على الهواتف) -->
       <button
-        @click="prevSlide"
         class="hidden md:flex prev-btn absolute left-2 md:left-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
+        @click="prevSlide"
       >
         <svg
           class="w-6 h-6 text-gray-600"
@@ -38,12 +38,12 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             d="M15 19l-7-7 7-7"
-          ></path>
+          />
         </svg>
       </button>
       <button
-        @click="nextSlide"
         class="hidden md:flex next-btn absolute right-2 md:right-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
+        @click="nextSlide"
       >
         <svg
           class="w-6 h-6 text-gray-600"
@@ -56,7 +56,7 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             d="M9 5l7 7-7 7"
-          ></path>
+          />
         </svg>
       </button>
     </div>
