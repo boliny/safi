@@ -10,5 +10,7 @@
     <RecentCourse />
     <HelpYou />
     <LatestBlog />
+    <StateCounter />
+    <SignUp />
   </div>
 </template>

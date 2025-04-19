@@ -129,24 +129,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-const { data } = await useFetch('https://dummyjson.com/products')
-const posts = ref([])
-const likedPosts = ref([])
-
-onMounted(() => {
-  posts.value = data.value.products.map((post) => ({
-    ...post,
-    views: getRandomViews(),
-    likes: getRandomLikes(),
-  }))
-})
-
-const filteredPosts = computed(() => posts.value.filter(Boolean))
 const getRandomViews = () => Math.floor(Math.random() * 1000 + 100)
 const getRandomLikes = () => Math.floor(Math.random() * 300 + 20)
+
+// نستخدم transform هنا لتعديل البيانات بدل ما نعدلها بعدين
+const { data } = await useFetch('https://dummyjson.com/products', {
+  transform: (res) => {
+    return {
+      ...res,
+      products: res.products.map((post) => ({
+        ...post,
+        views: getRandomViews(),
+        likes: getRandomLikes(),
+      })),
+    }
+  },
+})
+
+const posts = ref(data.value.products || [])
+const likedPosts = ref([])
+
+const filteredPosts = computed(() => posts.value.filter(Boolean))
 
 const toggleLike = (postId) => {
   const index = posts.value.findIndex((p) => p.id === postId)
