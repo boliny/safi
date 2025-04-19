@@ -1,255 +1,224 @@
 <template>
-  <nav
+  <header
     :class="[
-      'sticky top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-lg',
-      isScrolled ? 'bg-gray-900/95 shadow-lg py-2' : 'bg-gray-950/80 py-5',
+      'fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out',
+      isScrolled ? 'bg-white shadow-lg' : 'bg-transparent',
     ]"
   >
-    <div
-      class="container mx-auto flex justify-between items-center flex-wrap px-4"
-    >
-      <!-- Logo & Social Icons -->
-      <div class="flex items-center space-x-4">
-        <div
-          class="cursor-pointer transition-transform duration-300"
-          @click="goToHome"
-        >
-          <NuxtImg
-            src="/logo-01.png"
-            alt="Coach Online Logo"
-            :class="[
-              'transition-all duration-300',
-              isScrolled ? 'h-12' : 'h-20',
-            ]"
-          />
-        </div>
-        <div class="hidden md:flex space-x-3">
-          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
-            <Icon name="mdi:facebook" class="icon-link" />
-          </a>
-          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
-            <Icon name="mdi:twitter" class="icon-link" />
-          </a>
-          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
-            <Icon name="mdi:linkedin" class="icon-link" />
-          </a>
-          <a href="#" class="text-orange-400 hover:text-orange-300 transition">
-            <Icon name="mdi:instagram" class="icon-link" />
-          </a>
-        </div>
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button
-        class="md:hidden text-white focus:outline-none text-3xl"
-        @click="toggleMenu"
-      >
-        <Icon name="mdi:menu" />
-      </button>
-
-      <!-- Navigation Links -->
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
       <div
-        :class="{ hidden: !menuOpen, flex: menuOpen }"
-        class="md:flex md:items-center md:space-x-6 w-full md:w-auto mt-4 md:mt-0 flex-col md:flex-row"
+        class="text-2xl font-bold text-orange-500 cursor-pointer"
+        @click="goTo('/')"
       >
-        <ul
-          class="flex flex-col md:flex-row md:space-x-4 items-center w-full md:w-auto"
-        >
-          <li>
-            <a
-              :class="{ active: activePage === 'home' }"
-              class="nav-link"
-              @click="goToHome"
-              >Home</a
-            >
-          </li>
-
-          <!-- Dropdown -->
-          <li class="relative">
-            <a class="nav-link flex items-center" @click="toggleDropdown">
-              Start Here <Icon name="mdi:chevron-down" class="ml-1" />
-            </a>
-            <transition name="fade">
-              <ul
-                v-if="dropdownVisible"
-                class="dropdown-menu md:absolute md:left-0 md:top-full w-full md:w-48"
-              >
-                <li>
-                  <a class="dropdown-item" @click="goToPlan">For Individuals</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" @click="goToPlan">For Business</a>
-                </li>
-              </ul>
-            </transition>
-          </li>
-
-          <li>
-            <a
-              :class="{ active: activePage === 'blog' }"
-              class="nav-link"
-              @click="goToBlog"
-              >Blog</a
-            >
-          </li>
-          <li><a class="nav-link" href="#">Shop</a></li>
-          <li>
-            <a
-              :class="{ active: activePage === 'contact' }"
-              class="nav-link"
-              @click="goToContact"
-              >Contact</a
-            >
-          </li>
-        </ul>
+        <NuxtImg src="/logo-01.png" alt="logo" class="w-15 h-15" />
       </div>
+
+      <!-- Desktop Links -->
+      <nav class="hidden md:flex items-center space-x-6">
+        <a
+          v-for="link in links"
+          :key="link.label"
+          :class="[navLinkClass]"
+          @click="goTo(link.path)"
+          >{{ link.label }}</a
+        >
+
+        <!-- Social Icons -->
+        <div class="flex space-x-4 ml-4">
+          <a
+            v-for="icon in socialIcons"
+            :key="icon.name"
+            :href="icon.link"
+            target="_blank"
+            :class="[iconClass]"
+          >
+            <Icon :name="icon.name" />
+          </a>
+        </div>
+      </nav>
+
+      <!-- Hamburger Menu -->
+      <button class="md:hidden" @click="toggleSidebar">
+        <Icon
+          name="mdi:menu"
+          :class="isScrolled ? 'text-black' : 'text-white'"
+          class="text-3xl"
+        />
+      </button>
     </div>
-  </nav>
+
+    <!-- Overlay and Sidebar -->
+    <transition
+      name="sidebar-transition"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @leave="leave"
+    >
+      <div v-if="showSidebar" class="fixed inset-0 z-40">
+        <!-- Overlay -->
+        <div
+          class="absolute inset-0 bg-black bg-opacity-60"
+          @click="closeSidebar"
+        />
+
+        <!-- Sidebar on the left -->
+        <div
+          class="absolute top-0 left-0 w-3/4 sm:w-1/2 h-full bg-white p-8 z-50 transform"
+          :class="sidebarClass"
+        >
+          <button class="absolute top-4 right-4 text-2xl" @click="closeSidebar">
+            <Icon name="mdi:close" />
+          </button>
+
+          <ul class="mt-16 space-y-6">
+            <li v-for="link in links" :key="link.label">
+              <a
+                class="block text-xl font-medium text-gray-700 hover:text-orange-500"
+                @click="navigateAndClose(link.path)"
+              >
+                {{ link.label }}
+              </a>
+            </li>
+          </ul>
+
+          <div class="flex space-x-4 mt-10">
+            <a
+              v-for="icon in socialIcons"
+              :key="icon.name"
+              :href="icon.link"
+              target="_blank"
+              class="text-xl text-gray-700 hover:text-orange-500 transition-colors"
+            >
+              <Icon :name="icon.name" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </transition>
+  </header>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      menuOpen: false,
-      dropdownVisible: false,
-      activePage: '',
-      isScrolled: false,
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-    document.addEventListener('click', this.handleClickOutside)
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-    document.removeEventListener('click', this.handleClickOutside)
-  },
-  methods: {
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen
-    },
-    toggleDropdown() {
-      this.dropdownVisible = !this.dropdownVisible
-    },
-    goToContact() {
-      this.activePage = 'contact'
-      this.menuOpen = false
-      navigateTo('/contact')
-    },
-    goToHome() {
-      this.activePage = 'home'
-      this.menuOpen = false
-      navigateTo('/')
-    },
-    goToPlan() {
-      this.menuOpen = false
-      navigateTo('/plan')
-    },
-    goToBlog() {
-      this.activePage = 'blog'
-      this.menuOpen = false
-      navigateTo('/blog')
-    },
-    handleScroll() {
-      this.isScrolled = window.scrollY > 10
-      this.menuOpen = false
-      this.dropdownVisible = false
-    },
-    handleClickOutside(event) {
-      if (!this.$el.contains(event.target)) {
-        this.menuOpen = false
-        this.dropdownVisible = false
-      }
-    },
-  },
+<script setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const isScrolled = ref(false)
+const showSidebar = ref(false)
+
+const toggleSidebar = () => (showSidebar.value = !showSidebar.value)
+const closeSidebar = () => (showSidebar.value = false)
+const navigateAndClose = (path) => {
+  goTo(path)
+  closeSidebar()
+}
+const goTo = (path) => router.push(path)
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 80
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
+
+const links = [
+  { label: 'Home', path: '/' },
+  { label: 'Start Here', path: '/start' },
+  { label: 'Blog', path: '/blog' },
+  { label: 'Shop', path: '/shop' },
+  { label: 'Contact', path: '/contact' },
+]
+
+const socialIcons = [
+  { name: 'mdi:facebook', link: 'https://facebook.com' },
+  { name: 'mdi:instagram', link: 'https://instagram.com' },
+  { name: 'mdi:youtube', link: 'https://youtube.com' },
+  { name: 'mdi:whatsapp', link: 'https://wa.me/123456789' },
+]
+
+const navLinkClass = computed(() => {
+  return `text-xl nav-link cursor-pointer font-semibold transition-colors duration-300 ${isScrolled.value ? 'text-black hover:text-orange-500' : 'text-white hover:text-orange-300'}`
+})
+
+const iconClass = computed(() => {
+  return `text-xl  transition-colors duration-300 ${isScrolled.value ? 'text-black hover:text-orange-500' : 'text-white hover:text-orange-300'}`
+})
+
+const sidebarClass = computed(() => {
+  return showSidebar.value
+    ? 'translate-x-0 opacity-100'
+    : 'translate-x-full opacity-0'
+})
+
+const beforeEnter = (el) => {
+  el.style.transitionDelay = '0.2s' // التأخير قبل أن يبدأ الانتقال
+}
+
+const enter = (el, done) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  el.offsetHeight // trigger reflow to restart the transition
+  el.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out'
+  done()
+}
+
+const leave = (el, done) => {
+  el.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out'
+  done()
 }
 </script>
 
 <style scoped>
 .nav-link {
   position: relative;
-  padding: 0.6rem 1.2rem;
+  padding: 0.5rem 1rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: bold;
   text-transform: uppercase;
-  color: #f3f3f3;
   border-radius: 0.375rem;
   transition: all 0.3s ease-in-out;
-}
-
-.nav-link:hover {
-  color: #ff9f1c;
-  transform: translateY(-2px);
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -4px;
+  bottom: -3px;
   width: 0;
   height: 2px;
-  background: #ff9f1c;
+  background: #ff0000; /* Red underline */
   transition: all 0.3s ease-in-out;
-  transform: translateX(-50%) scaleX(0);
-  transform-origin: center;
+  transform: translateX(-50%);
 }
 
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
-  transform: translateX(-50%) scaleX(1);
 }
 
 .nav-link.active {
-  color: #ff9f1c;
+  color: #ffcc00; /* Yellow for active link */
 }
 
-/* Dropdown */
-.dropdown-menu {
-  background-color: #1f1f1f;
-  border-radius: 0.5rem;
-  padding: 0.5rem 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.dropdown-item {
-  display: block;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #f3f3f3;
-  transition: all 0.3s ease-in-out;
-}
-
-.dropdown-item:hover {
-  background-color: #ff9f1c22;
-  color: #ff9f1c;
-}
-
-/* Fade Transition */
-.fade-enter-active,
-.fade-leave-active {
+.sidebar-transition-enter-active,
+.sidebar-transition-leave-active {
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+    transform 0.5s ease-in-out,
+    opacity 0.5s ease-in-out;
 }
-.fade-enter,
-.fade-leave-to {
+
+.sidebar-transition-enter-from,
+.sidebar-transition-leave-to {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateX(-100%); /* ظهور من اليسار */
 }
 
-/* Icons */
-.icon-link {
-  font-size: 1.8rem;
-  transition:
-    transform 0.3s ease,
-    color 0.3s ease;
-}
-.icon-link:hover {
-  transform: scale(1.3);
-  color: #ff9f1c;
+.sidebar-transition-leave-to {
+  opacity: 0;
+  transform: translateX(-100%); /* اختفاء إلى اليسار */
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-900 p-6 text-white">
+  <div class="min-h-screen bg-black/80 p-6 text-white">
     <h1 class="text-2xl font-bold text-center mb-4">ATHLETE TIMETABLE</h1>
 
     <div
@@ -8,7 +8,7 @@
       <div
         v-for="(card, index) in cards"
         :key="index"
-        class="relative lg:h-80 overflow-hidden group"
+        class="relative lg:h-100 overflow-hidden group"
       >
         <NuxtImg
           :src="card.image"
@@ -17,7 +17,7 @@
         />
         <!-- Red overlay -->
         <div
-          class="absolute inset-0 bg-black/20  group-hover:bg-red-600/50 transition duration-300"
+          class="absolute inset-0 bg-black/20 group-hover:bg-red-600/50 transition duration-300"
         />
         <!-- Text overlay -->
         <div class="absolute inset-0 flex flex-col justify-end p-3 z-10">
