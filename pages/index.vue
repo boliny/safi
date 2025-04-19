@@ -5,5 +5,9 @@
     <FeaturesPage />
     <PlayNow />
     <CalendarBox />
+    <MyVideo />
+    <TestimonialSec />
+    <RecentCourse />
+    <HelpYou />
   </div>
 </template>
