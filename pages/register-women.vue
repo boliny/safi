@@ -1,7 +1,7 @@
 <!-- pages/register-women.vue -->
 <template>
   <form
-    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-10 max-w-4xl mx-auto"
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-10 mt-5 max-w-4xl mx-auto"
     @submit.prevent="submitForm"
   >
     <!-- Basic fields -->
@@ -10,52 +10,52 @@
       type="text"
       placeholder="Full Name"
       class="input"
-    >
-    <input v-model="form.age" type="number" placeholder="Age" class="input" >
+    />
+    <input v-model="form.age" type="number" placeholder="Age" class="input" />
     <input
       v-model="form.address"
       type="text"
       placeholder="Address"
       class="input"
-    >
+    />
     <input
       v-model="form.email"
       type="email"
       placeholder="Email"
       class="input"
-    >
+    />
     <input
       v-model="form.facebook"
       type="text"
       placeholder="Facebook Profile Link"
       class="input"
-    >
+    />
     <input
       v-model="form.phone"
       type="text"
       placeholder="Phone Number"
       class="input"
-    >
+    />
     <input
       v-model="form.birthdate"
       type="date"
       placeholder="Date of Birth"
       class="input"
-    >
+    />
     <input
       v-model="form.height"
       type="number"
       step="0.1"
       placeholder="Height (cm)"
       class="input"
-    >
+    />
     <input
       v-model="form.weight"
       type="number"
       step="0.1"
       placeholder="Weight (kg)"
       class="input"
-    >
+    />
 
     <!-- New fields for women -->
     <input
@@ -64,14 +64,14 @@
       step="0.1"
       placeholder="Neck Size (cm) - optional"
       class="input"
-    >
+    />
     <input
       v-model="form.waist"
       type="number"
       step="0.1"
       placeholder="Waist Size (cm) - optional"
       class="input"
-    >
+    />
 
     <!-- Injuries -->
     <select v-model="form.injuries" class="input">
@@ -127,7 +127,7 @@
       type="number"
       placeholder="Days per week"
       class="input"
-    >
+    />
 
     <!-- Feedback Message -->
     <div
