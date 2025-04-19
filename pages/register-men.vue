@@ -8,54 +8,54 @@
         placeholder="Full Name"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.age"
         type="number"
         placeholder="Age"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.address"
         placeholder="Address"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.email"
         type="email"
         placeholder="Email"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.facebook"
         placeholder="Facebook Profile"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.phone"
         placeholder="Phone Number"
         class="input"
         required
-      />
-      <input v-model="form.birthdate" type="date" class="input" required />
+      >
+      <input v-model="form.birthdate" type="date" class="input" required >
       <input
         v-model="form.height"
         type="number"
         placeholder="Height (cm)"
         class="input"
         required
-      />
+      >
       <input
         v-model="form.weight"
         type="number"
         placeholder="Weight (kg)"
         class="input"
         required
-      />
+      >
 
       <div>
         <label>Front Body Image (Optional)</label>
@@ -63,7 +63,7 @@
           type="file"
           accept="image/*"
           @change="handleFile($event, 'frontImage')"
-        />
+        >
       </div>
       <div>
         <label>Back Body Image (Optional)</label>
@@ -71,7 +71,7 @@
           type="file"
           accept="image/*"
           @change="handleFile($event, 'backImage')"
-        />
+        >
       </div>
 
       <div>
@@ -80,7 +80,7 @@
           v-model="form.illness"
           placeholder="Write illnesses or leave empty"
           class="input"
-        />
+        >
       </div>
 
       <div>
@@ -89,7 +89,7 @@
           v-model="form.injuries"
           placeholder="Write injuries or leave empty"
           class="input"
-        />
+        >
       </div>
 
       <select v-model="form.level" class="input" required>
@@ -117,7 +117,7 @@
         placeholder="Workout Days per Week"
         class="input"
         required
-      />
+      >
 
       <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded">
         Submit

@@ -19,7 +19,7 @@
             <NuxtImg
               :src="filteredPosts[0].thumbnail"
               alt="Post Image"
-              class="w-full h-56 sm:h-64 transition-transform duration-500 delay-150 group-hover:scale-105"
+              class="w-full h-[250px] sm:h-[300px] object-contain transition-transform duration-500 delay-150 group-hover:scale-105"
             />
             <div
               class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -69,7 +69,7 @@
               <NuxtImg
                 :src="post.thumbnail"
                 alt="Post Image"
-                class="w-full h-40 sm:h-48 object-cover transition-transform duration-500 delay-150 group-hover:scale-105"
+                class="w-full h-[250px] sm:h-[300px] object-contain transition-transform duration-500 delay-150 group-hover:scale-105"
               />
               <div
                 class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"

@@ -4,7 +4,7 @@
       RESULTS I HAVE HELPED CREATE
     </h2>
 
-    <div class="relative max-w-xl mx-auto">
+    <div class="relative max-w-6xl mx-auto">
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(testimonial, index) in testimonials"
@@ -12,7 +12,7 @@
           class="keen-slider__slide card"
         >
           <div
-            class="bg-white shadow-md p-8 border border-gray-200 text-center"
+            class="bg-white w-full max-w-[400px] shadow-md p-8 border border-gray-200 text-center"
           >
             <div class="flex justify-center mb-3">
               <svg
@@ -102,7 +102,18 @@ export default {
     onMounted(() => {
       slider.value = new KeenSlider(sliderRef.value, {
         loop: true,
-        slides: { perView: 1, spacing: 20 },
+        slides: {
+          perView: 1,
+          spacing: 20,
+        },
+        breakpoints: {
+          '(min-width: 768px)': {
+            slides: {
+              perView: 3,
+              spacing: 20,
+            },
+          },
+        },
         created(s) {
           setInterval(() => {
             s.moveToIdx(s.track.details.rel + 1, true)

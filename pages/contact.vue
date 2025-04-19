@@ -6,8 +6,8 @@
       </h1>
 
       <form
-        @submit.prevent="submitForm"
         class="grid grid-cols-1 md:grid-cols-2 gap-6"
+        @submit.prevent="submitForm"
       >
         <!-- Name -->
         <div>
@@ -17,7 +17,7 @@
             placeholder="Full Name"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Age -->
@@ -29,7 +29,7 @@
             placeholder="Age"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Address -->
@@ -40,7 +40,7 @@
             placeholder="Address"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Email -->
@@ -52,7 +52,7 @@
             placeholder="Email"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Facebook -->
@@ -63,7 +63,7 @@
             placeholder="Facebook Profile"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Phone -->
@@ -74,13 +74,13 @@
             placeholder="Phone Number"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Birthdate -->
         <div>
           <label class="block text-gray-700">Birthdate</label>
-          <input v-model="form.birthdate" type="date" class="input" required />
+          <input v-model="form.birthdate" type="date" class="input" required >
         </div>
 
         <!-- Height -->
@@ -92,7 +92,7 @@
             placeholder="Height (cm)"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Weight -->
@@ -104,7 +104,7 @@
             placeholder="Weight (kg)"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Front Body Image -->
@@ -113,10 +113,10 @@
           <div class="flex flex-col items-center justify-center">
             <input
               type="file"
-              @change="handleFile($event, 'frontImage')"
               accept="image/*"
               class="file-input"
-            />
+              @change="handleFile($event, 'frontImage')"
+            >
             <span class="text-sm text-gray-500">Choose your front image</span>
           </div>
         </div>
@@ -127,10 +127,10 @@
           <div class="flex flex-col items-center justify-center">
             <input
               type="file"
-              @change="handleFile($event, 'backImage')"
               accept="image/*"
               class="file-input"
-            />
+              @change="handleFile($event, 'backImage')"
+            >
             <span class="text-sm text-gray-500">Choose your back image</span>
           </div>
         </div>
@@ -195,7 +195,7 @@
             placeholder="Workout Days per Week"
             class="input"
             required
-          />
+          >
         </div>
 
         <!-- Submit Button -->
@@ -245,7 +245,7 @@ const submitForm = async () => {
       body: formData,
     })
 
-    const data = await res.json()
+    await res.json()
     alert('Submitted successfully!')
   } catch (err) {
     console.error(err)
