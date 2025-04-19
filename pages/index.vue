@@ -9,5 +9,6 @@
     <TestimonialSec />
     <RecentCourse />
     <HelpYou />
+    <LatestBlog />
   </div>
 </template>
