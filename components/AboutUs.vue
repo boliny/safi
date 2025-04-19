@@ -1,23 +1,23 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative flex flex-col lg:flex-row bg-red-700 to-red-700 pt-10 lg:px-10 text-white overflow-hidden"
+    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-700 to-red-800 pt-16 pb-12 lg:px-20 text-white overflow-hidden"
   >
     <!-- Men Text -->
     <div
-      class="lg:w-1/4 w-full flex items-center justify-end lg:pr-8 text-right z-10 mb-6 lg:mb-0 px-4"
+      class="lg:w-1/4 w-full flex items-center justify-end lg:pr-10 text-right z-10 mb-10 lg:mb-0 px-6"
     >
-      <div class="text-left lg:text-right">
-        <h2 class="text-3xl font-bold mb-2">MEN CLASS</h2>
-        <p class="text-sm mb-2 text-gray-100">
+      <div class="text-left lg:text-right space-y-4">
+        <h2 class="text-4xl font-extrabold">MEN CLASS</h2>
+        <p class="text-sm text-gray-200 leading-relaxed">
           Lorem ipsum dolor sit amet, consectetur adi sollicitudin.
         </p>
-        <p class="text-sm mb-4 text-gray-200">
+        <p class="text-sm text-gray-300 leading-relaxed">
           Suspendisse pulvinar, velit nec pharetra interdum, ante tellus ornare
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-5 py-2 rounded-md cursor-pointer hover:bg-white hover:text-red-600 transition duration-300"
+          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-red-700 transition duration-300"
         >
           JOIN NOW
         </button>
@@ -26,41 +26,45 @@
 
     <!-- Center Images -->
     <div
-      class="lg:w-1/2 w-full flex flex-col sm:flex-row items-center justify-center gap-4 px-4 mb-6 lg:mb-0"
+      class="lg:w-1/2 w-full flex flex-col sm:flex-row items-center justify-center gap-4 px-6"
     >
       <NuxtImg
-        src="/imgs/4.png"
+        src="/imgs/41.png"
         alt="Man"
         :class="[
-          'w-full sm:w-1/2  object-contain sm:object-cover  transition-all duration-1000',
-          inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
+          'w-full sm:w-1/2 object-contain h-64 sm:h-96 transition-all duration-1000',
+          inView
+            ? 'translate-y-0 opacity-100 scale-100'
+            : 'translate-y-10 opacity-0 scale-90',
         ]"
       />
       <NuxtImg
-        src="/imgs/5.png"
+        src="/imgs/51.png"
         alt="Woman"
         :class="[
-          'w-full sm:w-1/2  object-contain sm:object-cover grayscale   transition-all duration-1000',
-          inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0',
+          'w-full sm:w-1/2 object-contain h-64 sm:h-96 grayscale transition-all duration-1000 delay-200',
+          inView
+            ? 'translate-y-0 opacity-100 scale-100'
+            : 'translate-y-10 opacity-0 scale-90',
         ]"
       />
     </div>
 
     <!-- Women Text -->
     <div
-      class="lg:w-1/4 w-full flex items-center justify-start lg:pl-8 text-left z-10 px-4"
+      class="lg:w-1/4 w-full flex items-center justify-start lg:pl-10 text-left z-10 px-6 mt-10 lg:mt-0"
     >
-      <div class="text-left">
-        <h2 class="text-3xl font-bold mb-2">WOMEN CLASS</h2>
-        <p class="text-sm mb-2 text-gray-100">
+      <div class="space-y-4">
+        <h2 class="text-4xl font-extrabold">WOMEN CLASS</h2>
+        <p class="text-sm text-gray-200 leading-relaxed">
           Lorem ipsum dolor sit amet, consectetur adi sollicitudin.
         </p>
-        <p class="text-sm mb-4 text-gray-200">
+        <p class="text-sm text-gray-300 leading-relaxed">
           Suspendisse pulvinar, velit nec pharetra interdum, ante tellus ornare
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-5 py-2 rounded-md cursor-pointer hover:bg-white hover:text-red-600 transition duration-300"
+          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white hover:text-red-700 transition duration-300"
         >
           JOIN NOW
         </button>

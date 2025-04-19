@@ -18,7 +18,7 @@
         <a
           v-for="link in links"
           :key="link.label"
-          :class="[navLinkClass]"
+          :class="navLinkClass"
           @click="goTo(link.path)"
           >{{ link.label }}</a
         >
@@ -30,7 +30,7 @@
             :key="icon.name"
             :href="icon.link"
             target="_blank"
-            :class="[iconClass]"
+            :class="iconClass"
           >
             <Icon :name="icon.name" />
           </a>
@@ -42,31 +42,26 @@
         <Icon
           name="mdi:menu"
           :class="isScrolled ? 'text-black' : 'text-white'"
-          class="text-3xl"
+          class="text-4xl"
         />
       </button>
     </div>
 
     <!-- Overlay and Sidebar -->
-    <transition
-      name="sidebar-transition"
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @leave="leave"
-    >
+    <transition name="sidebar-transition">
       <div v-if="showSidebar" class="fixed inset-0 z-40">
         <!-- Overlay -->
         <div
-          class="absolute inset-0 bg-black bg-opacity-60"
+          class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm"
           @click="closeSidebar"
         />
 
-        <!-- Sidebar on the left -->
+        <!-- Sidebar -->
         <div
-          class="absolute top-0 left-0 w-3/4 sm:w-1/2 h-full bg-white p-8 z-50 transform"
+          class="absolute top-0 left-0 w-3/4 sm:w-1/2 h-full bg-white p-8 z-50 transform scale-95 transition-all duration-500 ease-in-out"
           :class="sidebarClass"
         >
-          <button class="absolute top-4 right-4 text-2xl" @click="closeSidebar">
+          <button class="absolute top-4 right-4 text-3xl" @click="closeSidebar">
             <Icon name="mdi:close" />
           </button>
 
@@ -87,7 +82,7 @@
               :key="icon.name"
               :href="icon.link"
               target="_blank"
-              class="text-xl text-gray-700 hover:text-orange-500 transition-colors"
+              class="text-2xl text-gray-700 hover:text-orange-500 transition-transform duration-300 transform hover:scale-110"
             >
               <Icon :name="icon.name" />
             </a>
@@ -142,34 +137,24 @@ const socialIcons = [
 ]
 
 const navLinkClass = computed(() => {
-  return `text-xl nav-link cursor-pointer font-semibold transition-colors duration-300 ${isScrolled.value ? 'text-black hover:text-orange-500' : 'text-white hover:text-orange-300'}`
+  return `text-xl nav-link cursor-pointer font-semibold transition-colors duration-300 ${
+    isScrolled.value
+      ? 'text-black hover:text-orange-500'
+      : 'text-white hover:text-orange-300'
+  }`
 })
 
 const iconClass = computed(() => {
-  return `text-xl  transition-colors duration-300 ${isScrolled.value ? 'text-black hover:text-orange-500' : 'text-white hover:text-orange-300'}`
+  return `text-2xl transition-transform duration-300 transform hover:scale-110 ${
+    isScrolled.value
+      ? 'text-black hover:text-orange-500'
+      : 'text-white hover:text-orange-300'
+  }`
 })
 
 const sidebarClass = computed(() => {
-  return showSidebar.value
-    ? 'translate-x-0 opacity-100'
-    : 'translate-x-full opacity-0'
+  return showSidebar.value ? 'scale-100' : 'scale-95 opacity-0'
 })
-
-const beforeEnter = (el) => {
-  el.style.transitionDelay = '0.2s' // التأخير قبل أن يبدأ الانتقال
-}
-
-const enter = (el, done) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  el.offsetHeight // trigger reflow to restart the transition
-  el.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out'
-  done()
-}
-
-const leave = (el, done) => {
-  el.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out'
-  done()
-}
 </script>
 
 <style scoped>
@@ -190,7 +175,7 @@ const leave = (el, done) => {
   bottom: -3px;
   width: 0;
   height: 2px;
-  background: #ff0000; /* Red underline */
+  background: #ff0000;
   transition: all 0.3s ease-in-out;
   transform: translateX(-50%);
 }
@@ -201,24 +186,17 @@ const leave = (el, done) => {
 }
 
 .nav-link.active {
-  color: #ffcc00; /* Yellow for active link */
+  color: #ffcc00;
 }
 
 .sidebar-transition-enter-active,
 .sidebar-transition-leave-active {
-  transition:
-    transform 0.5s ease-in-out,
-    opacity 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .sidebar-transition-enter-from,
 .sidebar-transition-leave-to {
   opacity: 0;
-  transform: translateX(-100%); /* ظهور من اليسار */
-}
-
-.sidebar-transition-leave-to {
-  opacity: 0;
-  transform: translateX(-100%); /* اختفاء إلى اليسار */
+  transform: scale(0.5) translateX(-100%);
 }
 </style>

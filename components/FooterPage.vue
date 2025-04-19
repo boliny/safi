@@ -4,7 +4,7 @@
       <!-- Site Info -->
       <div>
         <h2 class="text-2xl font-semibold text-white mb-2">
-          ATHLETE TIMETABLE
+          Safi
         </h2>
         <p class="text-sm text-gray-400 leading-relaxed">
           A smart way to track your fitness journey with structured routines and
