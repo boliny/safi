@@ -11,6 +11,6 @@
     <HelpYou />
     <LatestBlog />
     <StateCounter />
-    <SignUp />
+    <SignupSec />
   </div>
 </template>
