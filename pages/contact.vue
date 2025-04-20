@@ -255,17 +255,7 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.input {
-  @apply p-2 border border-gray-300 rounded-lg w-full;
-}
 
-.file-input {
-  @apply border-2 border-dashed border-gray-300 p-4 rounded-lg w-full text-center cursor-pointer;
-}
-
-.submit-btn {
-  @apply bg-gradient-to-r from-red-600 to-orange-600 text-white py-2 px-4 rounded mt-4 hover:bg-red-700 cursor-pointer;
-}
 
 @media (min-width: 640px) {
   .grid {
