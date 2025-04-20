@@ -1,7 +1,6 @@
 <template>
   <section
     class="relative bg-cover bg-center bg-no-repeat py-20 px-8 text-white flex items-center justify-center"
-    :style="`background-image: url('/newsletter-bg.jpg')`"
   >
     <div class="absolute inset-0 bg-gray-900 bg-opacity-70" />
     <div class="relative z-10 max-w-3xl mx-auto text-center">
@@ -68,11 +67,3 @@
     </div>
   </section>
 </template>
-
-<script setup>
-// No script needed for this component
-</script>
-
-<style scoped>
-/* Add global styles if needed */
-</style>
