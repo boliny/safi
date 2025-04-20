@@ -1,12 +1,12 @@
 <template>
-  <div class="app-wrapper">
+  <div class="app-wrapper" :class="{ dark: colorMode === 'dark' }">
     <!-- Global Mouse Circle -->
     <div
       class="global-mouse-circle"
       :style="{ transform: `translate(${x}px, ${y}px)` }"
     />
 
-    <!-- دي بترندر الصفحة واللاي أوت تلقائي -->
+    <!-- Render Layout and Page -->
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -15,12 +15,13 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { useColorMode } from '@vueuse/core'
 
 const x = ref(0)
 const y = ref(0)
 
 function handleMouseMove(e) {
-  x.value = e.clientX - 25 // Adjust the circle to center around the mouse
+  x.value = e.clientX - 25
   y.value = e.clientY - 25
 }
 
@@ -31,14 +32,12 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
 })
+
+// 🌙 Color Mode
+const colorMode = useColorMode()
 </script>
 
 <style>
-.app-wrapper {
-  position: relative;
-}
-
-/* Mouse Circle */
 .global-mouse-circle {
   position: fixed;
   top: 0;
@@ -57,25 +56,13 @@ onUnmounted(() => {
   transform-origin: center;
 }
 
-/* Hover Effect */
 .global-mouse-circle:hover {
   transform: scale(1.2);
 }
 
-/* Hide the circle on mobile */
 @media (max-width: 768px) {
   .global-mouse-circle {
     display: none;
   }
-}
-
-/* Custom cursor on interactive elements */
-a,
-button,
-.cursor-pointer,
-input[type='button'],
-input[type='submit'],
-label {
-  cursor: grab; /* تقدر تغيرها لـ pointer أو custom image */
 }
 </style>

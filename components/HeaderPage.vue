@@ -2,7 +2,7 @@
   <header
     :class="[
       'sticky top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out',
-      isScrolled ? 'bg-white shadow-lg' : 'bg-black/90',
+      colorMode === 'dark' ? 'bg-black text-white' : 'bg-white text-black',
     ]"
   >
     <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -15,6 +15,26 @@
 
       <!-- Desktop Links -->
       <nav class="hidden md:flex items-center space-x-6">
+        <!-- Toggle Dark Mode -->
+        <div
+          @click="toggleDark"
+          class="w-16 h-8 bg-gray-300 dark:bg-gray-700 rounded-full p-1 flex items-center cursor-pointer transition-colors duration-500"
+        >
+          <div
+            class="w-6 h-6 rounded-full bg-white dark:bg-yellow-400 transform transition-transform duration-500 flex items-center justify-center"
+            :class="colorMode === 'dark' ? 'translate-x-8' : 'translate-x-0'"
+          >
+            <Icon
+              :name="
+                colorMode === 'dark'
+                  ? 'mdi:weather-night'
+                  : 'mdi:white-balance-sunny'
+              "
+              class="text-sm text-black"
+            />
+          </div>
+        </div>
+
         <a
           v-for="link in links"
           :key="link.label"
@@ -45,7 +65,7 @@
       <button class="md:hidden cursor-pointer" @click="toggleSidebar">
         <Icon
           name="mdi:menu"
-          :class="isScrolled ? 'text-black' : 'text-white'"
+          :class="colorMode === 'dark' ? 'text-white' : 'text-black'"
           class="text-4xl"
         />
       </button>
@@ -55,7 +75,7 @@
     <transition name="fade">
       <div
         v-if="showSidebar"
-        class="fixed inset-0 bg-black/50 bg-opacity-50 backdrop-blur-sm z-40"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
         @click="closeSidebar"
       />
     </transition>
@@ -64,7 +84,10 @@
     <transition name="slide-left">
       <div
         v-if="showSidebar"
-        class="fixed top-0 left-0 w-1/2 h-full bg-white p-8 z-50"
+        class="fixed top-0 left-0 w-2/3 h-full p-8 z-50"
+        :class="
+          colorMode === 'dark' ? 'bg-black text-white' : 'bg-white text-black'
+        "
       >
         <button
           class="absolute cursor-pointer top-4 right-4 text-3xl"
@@ -73,11 +96,36 @@
           <Icon name="mdi:close" />
         </button>
 
+        <!-- Dark Mode Toggle for Sidebar on Mobile -->
+        <div
+          class="w-16 h-8 bg-gray-300 dark:bg-gray-700 rounded-full p-1 flex items-center cursor-pointer transition-colors duration-500 mt-8"
+          @click="toggleDark"
+        >
+          <div
+            class="w-6 h-6 rounded-full bg-white dark:bg-yellow-400 transform transition-transform duration-500 flex items-center justify-center"
+            :class="colorMode === 'dark' ? 'translate-x-8' : 'translate-x-0'"
+          >
+            <Icon
+              :name="
+                colorMode === 'dark'
+                  ? 'mdi:weather-night'
+                  : 'mdi:white-balance-sunny'
+              "
+              class="text-sm text-black"
+            />
+          </div>
+        </div>
+
         <ul class="mt-16 space-y-6">
           <li v-for="link in links" :key="link.label">
             <a
-              class="block text-xl font-medium text-gray-700 hover:text-orange-500"
-              :class="isActive(link.path) ? 'text-orange-500 font-bold' : ''"
+              class="block cursor-pointer text-xl font-medium text-gray-700 dark:text-gray-200 hover:text-orange-500"
+              :class="
+                (isActive(link.path) ? 'text-orange-500 font-bold' : '',
+                colorMode === 'dark'
+                  ? 'bg-black text-white'
+                  : 'bg-white text-black')
+              "
               @click="navigateAndClose(link.path)"
             >
               {{ link.label }}
@@ -91,7 +139,8 @@
             :key="icon.name"
             :href="icon.link"
             target="_blank"
-            class="text-2xl text-gray-700 hover:text-orange-500 transition-transform duration-300 transform hover:scale-110"
+            class="text-2xl text-gray-700 dark:text-gray-300 hover:text-orange-500 transition-transform duration-300 transform hover:scale-110"
+            :class="colorMode === 'dark' ? 'text-white' : 'text-black'"
           >
             <Icon :name="icon.name" />
           </a>
@@ -102,12 +151,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useColorMode } from '@vueuse/core'
+
+const colorMode = useColorMode({
+  emitAuto: true,
+  modes: {
+    dark: 'dark',
+    light: 'light',
+  },
+  storageKey: 'vueuse-color-scheme',
+})
+
+const toggleDark = () => {
+  colorMode.value = colorMode.value === 'dark' ? 'light' : 'dark'
+}
 
 const router = useRouter()
 const route = useRoute()
-const isScrolled = ref(false)
+
 const showSidebar = ref(false)
 
 const toggleSidebar = () => (showSidebar.value = !showSidebar.value)
@@ -117,18 +180,6 @@ const navigateAndClose = (path) => {
   router.push(path)
   closeSidebar()
 }
-
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 80
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
 
 const links = [
   { label: 'Home', path: '/' },
@@ -149,21 +200,19 @@ const isActive = (path) => route.path === path
 
 const navLinkClass = (path) => {
   return `text-xl nav-link cursor-pointer font-semibold transition-colors duration-300 ${
-    isScrolled.value
-      ? 'text-black hover:text-orange-500'
-      : 'text-white hover:text-orange-300'
+    colorMode.value === 'dark'
+      ? 'text-white hover:text-orange-300'
+      : 'text-black hover:text-orange-500'
   } ${isActive(path) ? 'active' : ''}`
 }
 
 const iconClass = computed(() => {
   return `text-2xl transition-transform duration-300 transform hover:scale-110 ${
-    isScrolled.value
-      ? 'text-black hover:text-orange-500'
-      : 'text-white hover:text-orange-300'
+    colorMode.value === 'dark'
+      ? 'text-white hover:text-orange-300'
+      : 'text-black hover:text-orange-500'
   }`
 })
-
-// Remove unused computed property
 </script>
 
 <style scoped>

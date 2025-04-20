@@ -1,157 +1,162 @@
 <!-- pages/register-women.vue -->
 <template>
-  <form
-    class="grid grid-cols-1 md:grid-cols-2 gap-4 p-10 mt-5 max-w-4xl mx-auto"
-    @submit.prevent="submitForm"
-  >
-    <!-- Basic fields -->
-    <input
-      v-model="form.name"
-      type="text"
-      placeholder="Full Name"
-      class="input"
-    />
-    <input v-model="form.age" type="number" placeholder="Age" class="input" />
-    <input
-      v-model="form.address"
-      type="text"
-      placeholder="Address"
-      class="input"
-    />
-    <input
-      v-model="form.email"
-      type="email"
-      placeholder="Email"
-      class="input"
-    />
-    <input
-      v-model="form.facebook"
-      type="text"
-      placeholder="Facebook Profile Link"
-      class="input"
-    />
-    <input
-      v-model="form.phone"
-      type="text"
-      placeholder="Phone Number"
-      class="input"
-    />
-    <input
-      v-model="form.birthdate"
-      type="date"
-      placeholder="Date of Birth"
-      class="input"
-    />
-    <input
-      v-model="form.height"
-      type="number"
-      step="0.1"
-      placeholder="Height (cm)"
-      class="input"
-    />
-    <input
-      v-model="form.weight"
-      type="number"
-      step="0.1"
-      placeholder="Weight (kg)"
-      class="input"
-    />
-
-    <!-- New fields for women -->
-    <input
-      v-model="form.neck"
-      type="number"
-      step="0.1"
-      placeholder="Neck Size (cm) - optional"
-      class="input"
-    />
-    <input
-      v-model="form.waist"
-      type="number"
-      step="0.1"
-      placeholder="Waist Size (cm) - optional"
-      class="input"
-    />
-
-    <!-- Injuries -->
-    <select v-model="form.injuries" class="input">
-      <option value="">Do you have any injuries?</option>
-      <option value="none">None</option>
-      <option value="yes">Yes (please specify below)</option>
-    </select>
-    <textarea
-      v-if="form.injuries === 'yes'"
-      v-model="form.injuryDetails"
-      placeholder="List your injuries"
-      class="input col-span-2"
-    />
-
-    <!-- Diseases -->
-    <select v-model="form.diseases" class="input">
-      <option value="">Do you have any diseases?</option>
-      <option value="none">None</option>
-      <option value="yes">Yes (please specify below)</option>
-    </select>
-    <textarea
-      v-if="form.diseases === 'yes'"
-      v-model="form.diseaseDetails"
-      placeholder="List your diseases"
-      class="input col-span-2"
-    />
-
-    <!-- Level -->
-    <select v-model="form.level" class="input">
-      <option value="">Training Level</option>
-      <option value="beginner">Beginner</option>
-      <option value="intermediate">Intermediate</option>
-      <option value="advanced">Advanced</option>
-    </select>
-
-    <!-- Continuity -->
-    <select v-model="form.continuity" class="input">
-      <option value="">Training Consistency</option>
-      <option value="consistent">Consistent</option>
-      <option value="paused">Paused</option>
-    </select>
-
-    <!-- Training Place -->
-    <select v-model="form.trainingPlace" class="input">
-      <option value="">Training Location</option>
-      <option value="home">Home</option>
-      <option value="gym">Gym</option>
-    </select>
-
-    <!-- Training Days -->
-    <input
-      v-model="form.trainingDays"
-      type="number"
-      placeholder="Days per week"
-      class="input"
-    />
-
-    <!-- Feedback Message -->
-    <div
-      v-if="loading"
-      class="col-span-2 text-center text-orange-600 font-semibold"
+  <div class="max-w-2xl mx-auto p-10">
+    <h1 class="text-2xl font-bold mb-4 text-center">
+      Women's Registration Form
+    </h1>
+    <form
+      class="flex flex-col gap-4 p-6 mt-5 max-w-xl mx-auto"
+      @submit.prevent="submitForm"
     >
-      Submitting...
-    </div>
-    <div
-      v-if="message"
-      class="col-span-2 text-center font-semibold"
-      :class="messageColor"
-    >
-      {{ message }}
-    </div>
+      <!-- Basic fields -->
+      <input
+        v-model="form.name"
+        type="text"
+        placeholder="Full Name"
+        class="input"
+      />
+      <input v-model="form.age" type="number" placeholder="Age" class="input" />
+      <input
+        v-model="form.address"
+        type="text"
+        placeholder="Address"
+        class="input"
+      />
+      <input
+        v-model="form.email"
+        type="email"
+        placeholder="Email"
+        class="input"
+      />
+      <input
+        v-model="form.facebook"
+        type="text"
+        placeholder="Facebook Profile Link"
+        class="input"
+      />
+      <input
+        v-model="form.phone"
+        type="text"
+        placeholder="Phone Number"
+        class="input"
+      />
+      <input
+        v-model="form.birthdate"
+        type="date"
+        placeholder="Date of Birth"
+        class="input"
+      />
+      <input
+        v-model="form.height"
+        type="number"
+        step="0.1"
+        placeholder="Height (cm)"
+        class="input"
+      />
+      <input
+        v-model="form.weight"
+        type="number"
+        step="0.1"
+        placeholder="Weight (kg)"
+        class="input"
+      />
 
-    <!-- Submit Button -->
-    <button
-      type="submit"
-      class="col-span-2 bg-red-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded cursor-pointer transition"
-    >
-      Submit
-    </button>
-  </form>
+      <!-- New fields for women -->
+      <input
+        v-model="form.neck"
+        type="number"
+        step="0.1"
+        placeholder="Neck Size (cm) - optional"
+        class="input"
+      />
+      <input
+        v-model="form.waist"
+        type="number"
+        step="0.1"
+        placeholder="Waist Size (cm) - optional"
+        class="input"
+      />
+
+      <!-- Injuries -->
+      <select v-model="form.injuries" class="input">
+        <option value="">Do you have any injuries?</option>
+        <option value="none">None</option>
+        <option value="yes">Yes (please specify below)</option>
+      </select>
+      <textarea
+        v-if="form.injuries === 'yes'"
+        v-model="form.injuryDetails"
+        placeholder="List your injuries"
+        class="input col-span-2"
+      />
+
+      <!-- Diseases -->
+      <select v-model="form.diseases" class="input">
+        <option value="">Do you have any diseases?</option>
+        <option value="none">None</option>
+        <option value="yes">Yes (please specify below)</option>
+      </select>
+      <textarea
+        v-if="form.diseases === 'yes'"
+        v-model="form.diseaseDetails"
+        placeholder="List your diseases"
+        class="input col-span-2"
+      />
+
+      <!-- Level -->
+      <select v-model="form.level" class="input">
+        <option value="">Training Level</option>
+        <option value="beginner">Beginner</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="advanced">Advanced</option>
+      </select>
+
+      <!-- Continuity -->
+      <select v-model="form.continuity" class="input">
+        <option value="">Training Consistency</option>
+        <option value="consistent">Consistent</option>
+        <option value="paused">Paused</option>
+      </select>
+
+      <!-- Training Place -->
+      <select v-model="form.trainingPlace" class="input">
+        <option value="">Training Location</option>
+        <option value="home">Home</option>
+        <option value="gym">Gym</option>
+      </select>
+
+      <!-- Training Days -->
+      <input
+        v-model="form.trainingDays"
+        type="number"
+        placeholder="Days per week"
+        class="input"
+      />
+
+      <!-- Feedback Message -->
+      <div
+        v-if="loading"
+        class="col-span-2 text-center text-orange-600 font-semibold"
+      >
+        Submitting...
+      </div>
+      <div
+        v-if="message"
+        class="col-span-2 text-center font-semibold"
+        :class="messageColor"
+      >
+        {{ message }}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="col-span-2 bg-red-600 hover:bg-orange-500 text-white font-bold py-2 px-4 rounded cursor-pointer transition"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
 </template>
 
 <script setup>
@@ -202,4 +207,24 @@ const submitForm = async () => {
     loading.value = false
   }
 }
+useHead({
+  title: 'تسجيل النساء - موقع التدريب',
+  meta: [
+    {
+      name: 'description',
+      content: 'سجلي الآن في برنامج التدريب الخاص بالنساء',
+    },
+    {
+      name: 'keywords',
+      content: 'تسجيل, تدريب نساء, استمارة, جيم, تمارين منزلية',
+    },
+    { name: 'author', content: 'اسم المدرب أو اسم الموقع' },
+    { property: 'og:title', content: 'تسجيل النساء - موقع التدريب' },
+    {
+      property: 'og:description',
+      content: 'انضمي إلى أقوى برامج التدريب المخصصة للسيدات',
+    },
+    { property: 'og:type', content: 'website' },
+  ],
+})
 </script>

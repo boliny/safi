@@ -19,6 +19,7 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/tailwind.css'],
   modules: [
+    '@nuxtjs/color-mode',
     '@nuxt/eslint',
     '@nuxt/icon',
     '@nuxt/ui',
