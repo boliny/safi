@@ -38,18 +38,15 @@ onUnmounted(() => {
   position: relative;
 }
 
+/* Mouse Circle */
 .global-mouse-circle {
   position: fixed;
   top: 0;
   left: 0;
-  width: 25px; /* Adjusted size */
-  height: 25px; /* Adjusted size */
-  background: radial-gradient(
-    circle,
-    rgba(255, 0, 0, 0.6),
-    rgba(0, 0, 0, 0.2)
-  ); /* Gradient background */
-  border: 2px solid rgba(255, 0, 0, 0.2); /* More pronounced border */
+  width: 25px;
+  height: 25px;
+  background: radial-gradient(circle, rgba(255, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
+  border: 2px solid rgba(255, 0, 0, 0.2);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
@@ -60,8 +57,25 @@ onUnmounted(() => {
   transform-origin: center;
 }
 
-/* Optional: Hover effect to change the circle's size */
+/* Hover Effect */
 .global-mouse-circle:hover {
-  transform: scale(1.2); /* Enlarge the circle on hover */
+  transform: scale(1.2);
+}
+
+/* Hide the circle on mobile */
+@media (max-width: 768px) {
+  .global-mouse-circle {
+    display: none;
+  }
+}
+
+/* Custom cursor on interactive elements */
+a,
+button,
+.cursor-pointer,
+input[type='button'],
+input[type='submit'],
+label {
+  cursor: grab; /* تقدر تغيرها لـ pointer أو custom image */
 }
 </style>

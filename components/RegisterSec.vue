@@ -1,7 +1,7 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-700 to-red-800 pt-16 pb-12 lg:px-20 text-white overflow-hidden"
+    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-700 to-red-800  pt-16 pb-12 lg:px-20 text-white overflow-hidden"
   >
     <!-- Men Text -->
     <div

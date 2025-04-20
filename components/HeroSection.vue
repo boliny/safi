@@ -1,6 +1,6 @@
 <template>
   <div
-    class="hero-section flex flex-col md:flex-row text-white h-screen overflow-hidden"
+    class="hero-section flex flex-col md:flex-row text-white min-h-screen overflow-hidden"
     @mousemove="handleMouseMove"
   >
     <!-- Image Section -->
@@ -101,14 +101,18 @@ export default {
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .image-container {
-  height: 50vh;
+  height: auto;
+  padding: 1rem 0;
 }
 @media (min-width: 768px) {
   .image-container {
     height: 100vh;
+    padding: 0;
   }
 }
 

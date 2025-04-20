@@ -42,7 +42,7 @@
       </nav>
 
       <!-- Hamburger Menu -->
-      <button class="md:hidden" @click="toggleSidebar">
+      <button class="md:hidden cursor-pointer" @click="toggleSidebar">
         <Icon
           name="mdi:menu"
           :class="isScrolled ? 'text-black' : 'text-white'"
@@ -51,47 +51,50 @@
       </button>
     </div>
 
-    <!-- Overlay and Sidebar -->
-    <transition name="sidebar-transition">
-      <div v-if="showSidebar" class="fixed inset-0 z-40">
-        <!-- Overlay -->
-        <div
-          class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm"
+    <!-- Overlay -->
+    <transition name="fade">
+      <div
+        v-if="showSidebar"
+        class="fixed inset-0 bg-black/50 bg-opacity-50 backdrop-blur-sm z-40"
+        @click="closeSidebar"
+      />
+    </transition>
+
+    <!-- Sidebar -->
+    <transition name="slide-left">
+      <div
+        v-if="showSidebar"
+        class="fixed top-0 left-0 w-1/2 h-full bg-white p-8 z-50"
+      >
+        <button
+          class="absolute cursor-pointer top-4 right-4 text-3xl"
           @click="closeSidebar"
-        />
-
-        <!-- Sidebar -->
-        <div
-          class="absolute top-0 left-0 w-3/4 sm:w-1/2 h-full bg-white p-8 z-50 transform scale-95 transition-all duration-500 ease-in-out"
-          :class="sidebarClass"
         >
-          <button class="absolute top-4 right-4 text-3xl" @click="closeSidebar">
-            <Icon name="mdi:close" />
-          </button>
+          <Icon name="mdi:close" />
+        </button>
 
-          <ul class="mt-16 space-y-6">
-            <li v-for="link in links" :key="link.label">
-              <a
-                class="block text-xl font-medium text-gray-700 hover:text-orange-500"
-                :class="isActive(link.path) ? 'text-orange-500 font-bold' : ''"
-                @click="navigateAndClose(link.path)"
-              >
-                {{ link.label }}
-              </a>
-            </li>
-          </ul>
-
-          <div class="flex space-x-4 mt-10">
+        <ul class="mt-16 space-y-6">
+          <li v-for="link in links" :key="link.label">
             <a
-              v-for="icon in socialIcons"
-              :key="icon.name"
-              :href="icon.link"
-              target="_blank"
-              class="text-2xl text-gray-700 hover:text-orange-500 transition-transform duration-300 transform hover:scale-110"
+              class="block text-xl font-medium text-gray-700 hover:text-orange-500"
+              :class="isActive(link.path) ? 'text-orange-500 font-bold' : ''"
+              @click="navigateAndClose(link.path)"
             >
-              <Icon :name="icon.name" />
+              {{ link.label }}
             </a>
-          </div>
+          </li>
+        </ul>
+
+        <div class="flex space-x-4 mt-10">
+          <a
+            v-for="icon in socialIcons"
+            :key="icon.name"
+            :href="icon.link"
+            target="_blank"
+            class="text-2xl text-gray-700 hover:text-orange-500 transition-transform duration-300 transform hover:scale-110"
+          >
+            <Icon :name="icon.name" />
+          </a>
         </div>
       </div>
     </transition>
@@ -160,9 +163,7 @@ const iconClass = computed(() => {
   }`
 })
 
-const sidebarClass = computed(() => {
-  return showSidebar.value ? 'scale-100' : 'scale-95 opacity-0'
-})
+// Remove unused computed property
 </script>
 
 <style scoped>
@@ -195,5 +196,27 @@ const sidebarClass = computed(() => {
 
 .nav-link.active {
   color: #ffcc00;
+}
+
+/* Overlay fade */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Sidebar slide-in */
+.slide-left-enter-active {
+  transition: transform 0.4s ease;
+}
+.slide-left-leave-active {
+  transition: transform 0.3s ease;
+}
+.slide-left-enter-from,
+.slide-left-leave-to {
+  transform: translateX(-100%);
 }
 </style>
