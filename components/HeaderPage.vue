@@ -15,26 +15,8 @@
 
       <!-- Desktop Links -->
       <nav class="hidden md:flex items-center space-x-6">
-        <!-- Toggle Dark Mode -->
-        <div
-          @click="toggleDark"
-          class="w-16 h-8 bg-gray-300 dark:bg-gray-700 rounded-full p-1 flex items-center cursor-pointer transition-colors duration-500"
-        >
-          <div
-            class="w-6 h-6 rounded-full bg-white dark:bg-yellow-400 transform transition-transform duration-500 flex items-center justify-center"
-            :class="colorMode === 'dark' ? 'translate-x-8' : 'translate-x-0'"
-          >
-            <Icon
-              :name="
-                colorMode === 'dark'
-                  ? 'mdi:weather-night'
-                  : 'mdi:white-balance-sunny'
-              "
-              class="text-sm text-black"
-            />
-          </div>
-        </div>
-
+        <ThemeToggle />
+        <LocaleSwitcher />
         <a
           v-for="link in links"
           :key="link.label"
@@ -97,24 +79,7 @@
         </button>
 
         <!-- Dark Mode Toggle for Sidebar on Mobile -->
-        <div
-          class="w-16 h-8 bg-gray-300 dark:bg-gray-700 rounded-full p-1 flex items-center cursor-pointer transition-colors duration-500 mt-8"
-          @click="toggleDark"
-        >
-          <div
-            class="w-6 h-6 rounded-full bg-white dark:bg-yellow-400 transform transition-transform duration-500 flex items-center justify-center"
-            :class="colorMode === 'dark' ? 'translate-x-8' : 'translate-x-0'"
-          >
-            <Icon
-              :name="
-                colorMode === 'dark'
-                  ? 'mdi:weather-night'
-                  : 'mdi:white-balance-sunny'
-              "
-              class="text-sm text-black"
-            />
-          </div>
-        </div>
+        <ThemeToggle />
 
         <ul class="mt-16 space-y-6">
           <li v-for="link in links" :key="link.label">
@@ -163,10 +128,6 @@ const colorMode = useColorMode({
   },
   storageKey: 'vueuse-color-scheme',
 })
-
-const toggleDark = () => {
-  colorMode.value = colorMode.value === 'dark' ? 'light' : 'dark'
-}
 
 const router = useRouter()
 const route = useRoute()

@@ -1,5 +1,9 @@
 <template>
-  <div class="app-wrapper" :class="{ dark: colorMode === 'dark' }">
+  <div
+    class="app-wrapper"
+    :class="{ dark: colorMode === 'dark' }"
+    :dir="locale === 'ar' ? 'rtl' : 'ltr'"
+  >
     <!-- Global Mouse Circle -->
     <div
       class="global-mouse-circle"
@@ -35,6 +39,7 @@ onUnmounted(() => {
 
 // 🌙 Color Mode
 const colorMode = useColorMode()
+const { locale } = useI18n()
 </script>
 
 <style>

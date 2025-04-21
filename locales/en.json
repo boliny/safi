@@ -1,0 +1,19 @@
+{
+  "header": {
+    "home": "Home",
+    "blog": "Blog",
+    "about": "About"
+  },
+  "blog": {
+    "title": "Welcome to the blog",
+    "read_more": "Read more"
+  },
+  "footer": {
+    "copyright": "All rights reserved"
+  },
+  "about": {
+    "title": "About",
+    "description": "This is the about page"
+  },
+  "toggleLanguage": "Switch to Arabic"
+}
