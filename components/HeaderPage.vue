@@ -16,7 +16,6 @@
       <!-- Desktop Links -->
       <nav class="hidden md:flex items-center space-x-6">
         <ThemeToggle />
-        <LocaleSwitcher />
         <a
           v-for="link in links"
           :key="link.label"

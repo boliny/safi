@@ -19,7 +19,6 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/tailwind.css'],
   modules: [
-    '@nuxtjs/i18n',
     '@nuxtjs/color-mode',
     '@nuxt/eslint',
     '@nuxt/icon',
@@ -27,33 +26,4 @@ export default defineNuxtConfig({
     '@nuxt/fonts',
     '@nuxt/image',
   ],
-  i18n: {
-    locales: [
-      {
-        code: 'en',
-        name: 'English',
-        file: 'en.json',
-        dir: 'ltr', // تحديد اتجاه النص
-      },
-      {
-        code: 'ar',
-        name: 'Arabic',
-        file: 'ar.json',
-        dir: 'rtl', // تحديد اتجاه النص
-      },
-    ],
-    defaultLocale: 'en',
-    lazy: true,
-    langDir: 'locales',
-    vueI18n: './i18n/i18n.config.ts',
-    strategy: 'prefix',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      fallbackLocale: 'en',
-    },
-    bundle: {
-      optimizeTranslationDirective: false, // أو true لو حابب تفعلها يدويًا
-    },
-  },
 })

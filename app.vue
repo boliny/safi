@@ -39,7 +39,6 @@ onUnmounted(() => {
 
 // 🌙 Color Mode
 const colorMode = useColorMode()
-const { locale } = useI18n()
 </script>
 
 <style>
