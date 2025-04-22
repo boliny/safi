@@ -42,6 +42,9 @@ const colorMode = useColorMode()
 </script>
 
 <style>
+body {
+  font-family: 'Montserrat', sans-serif;
+}
 .global-mouse-circle {
   position: fixed;
   top: 0;

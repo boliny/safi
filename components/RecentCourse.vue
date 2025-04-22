@@ -9,12 +9,12 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
       <!-- Gold Offer -->
       <div
-        class="bg-gradient-to-br from-[#FFD700] to-[#FFA500] shadow-xl text-white p-6 flex flex-col rounded-xl"
+        class="bg-gradient-to-br from-[#FFD700] to-[#FFA500] shadow-xl p-6 flex flex-col rounded-xl"
       >
         <h3 class="text-2xl font-bold text-center uppercase mb-4">Gold</h3>
         <p class="text-center mb-4 text-lg">متابعة يومية على واتساب</p>
         <table
-          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
+          class="w-full text-lg bg-white text-black overflow-hidden rounded-md"
         >
           <thead class="bg-yellow-300 text-black">
             <tr>
@@ -46,7 +46,7 @@
           </tbody>
         </table>
         <button
-          class="mt-6 bg-white text-yellow-600 font-bold py-2 px-4 rounded hover:bg-yellow-100"
+          class="mt-6 cursor-pointer bg-white text-yellow-600 font-bold py-2 px-4 rounded hover:bg-yellow-100"
         >
           اشترك الآن
         </button>
@@ -61,7 +61,7 @@
           متابعة يوم الاثنين والجمعة فقط على واتساب
         </p>
         <table
-          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
+          class="w-full text-lg bg-white text-black overflow-hidden rounded-md"
         >
           <thead class="bg-gray-400 text-black">
             <tr>
@@ -93,7 +93,7 @@
           </tbody>
         </table>
         <button
-          class="mt-6 bg-white text-gray-800 font-bold py-2 px-4 rounded hover:bg-gray-200"
+          class="mt-6 cursor-pointer bg-white text-gray-800 font-bold py-2 px-4 rounded hover:bg-gray-200"
         >
           اشترك الآن
         </button>
@@ -108,7 +108,7 @@
           برنامج كامل بكل التفاصيل بدون متابعة
         </p>
         <table
-          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
+          class="w-full text-lg bg-white text-black overflow-hidden rounded-md"
         >
           <thead class="bg-red-300 text-black">
             <tr>
@@ -140,7 +140,7 @@
           </tbody>
         </table>
         <button
-          class="mt-6 bg-white text-red-700 font-bold py-2 px-4 rounded hover:bg-red-100"
+          class="mt-6 cursor-pointer bg-white text-red-700 font-bold py-2 px-4 rounded hover:bg-red-100"
         >
           اشترك الآن
         </button>
