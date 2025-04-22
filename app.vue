@@ -7,11 +7,10 @@
     />
 
     <!-- Apply transition to NuxtPage -->
-    <transition name="page">
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
-    </transition>
+
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
@@ -37,10 +36,19 @@ onUnmounted(() => {
 
 // 🌙 Color Mode
 const colorMode = useColorMode()
+
+useHead({
+  link: [
+    {
+      rel: 'stylesheet',
+      href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap',
+    },
+  ],
+})
 </script>
 
 <style>
-body {
+html {
   font-family: 'Montserrat', sans-serif;
 }
 .global-mouse-circle {
@@ -69,14 +77,5 @@ body {
   .global-mouse-circle {
     display: none;
   }
-}
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
 }
 </style>

@@ -26,10 +26,4 @@ useHead({
     { property: 'og:type', content: 'website' },
   ],
 })
-definePageMeta({
-  pageTransition: {
-    name: 'bounce',
-    mode: 'out-in', // default
-  },
-})
 </script>

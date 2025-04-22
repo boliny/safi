@@ -34,9 +34,9 @@
           our mamas
         </p>
         <button
-          class="mt-6 cursor-pointer bg-red-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-orange-500 transition duration-300 w-full sm:w-auto"
+          class="bg-red-600 mt-5 hover:bg-orange-500 font-bold cursor-pointer text-white hover:text-black py-3 px-8 rounded-xl shadow-lg transform hover:scale-110 transition duration-300"
         >
-          START FOR FREE
+          START NOw
         </button>
       </div>
     </div>
