@@ -5,91 +5,33 @@
       <NuxtImg
         src="/imgs/10.JPG"
         alt="Contact Image"
-        class="w-full min-h-screen"
+        class="w-full h-full object-cover min-h-screen"
       />
     </div>
 
     <!-- Contact Form Section -->
-    <div class="md:w-2/3 w-full px-4 md:px-8">
+    <div class="md:w-2/3 w-full px-6 md:px-12 py-10">
       <div class="text-center md:text-left">
-        <p class="text-sm font-semibold text-gray-600">READY TO START?</p>
-        <h2 class="text-3xl font-bold text-gray-900 mt-2">CONTACT ME</h2>
+        <p
+          class="text-sm font-semibold text-orange-500 uppercase tracking-wide"
+        >
+          جاهز تبدأ؟
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold text-black mt-2">
+          تواصل معي
+        </h2>
       </div>
 
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-building"
-          >
-            <path d="M3 21h18M9 8v13M15 8v13M3 9l9-7 9 7v12H3V9z" />
-          </svg>
-          <p class="font-semibold">The Company Name Inc.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-map-pin"
-          >
-            <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
-          <p>8901 Marmora Road, Glasgow, D04 89GR.</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-phone"
-          >
-            <path
-              d="M22 16.92V19a2 2 0 0 1-2.18 2A19.74 19.74 0 0 1 3 5.18 2 2 0 0 1 5 3h2.09a2 2 0 0 1 2 .91l1.83 3.05a2 2 0 0 1-.45 2.54l-1.27 1a16 16 0 0 0 6.88 6.88l1-1.27a2 2 0 0 1 2.54-.45l3.05 1.83a2 2 0 0 1 .91 2z"
-            />
-          </svg>
-          <p>+1 800 559 6580 / +1 800 889 9898</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-mail"
-          >
-            <path d="M4 4h16v16H4z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          <p>mail@demolink.org</p>
-        </div>
+      <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-800">
+        <InfoItem icon="building" text="The Company Name Inc." />
+        <InfoItem icon="map-pin" text="8901 Marmora Road, Glasgow, D04 89GR." />
+        <InfoItem icon="phone" text="+1 800 559 6580 / +1 800 889 9898" />
+        <InfoItem icon="mail" text="mail@demolink.org" />
       </div>
 
-      <div class="mt-8">
-        <p class="text-center md:text-left font-semibold text-gray-700 mb-4">
-          OR JUST DROP ME A LINE
+      <div class="mt-10">
+        <p class="text-center md:text-left font-medium text-gray-800 mb-4">
+          أو ابعتلي رسالة مباشرة
         </p>
         <form
           @submit.prevent="submitForm"
@@ -98,44 +40,31 @@
           <input
             v-model="form.name"
             type="text"
-            placeholder="NAME"
+            placeholder="الاسم"
             class="input-field"
             required
           />
           <input
             v-model="form.email"
             type="email"
-            placeholder="EMAIL"
+            placeholder="البريد الإلكتروني"
             class="input-field"
             required
           />
           <textarea
             v-model="form.message"
-            placeholder="MESSAGE"
-            class="input-field h-32 md:col-span-2"
+            placeholder="الرسالة"
+            class="input-field h-32 md:col-span-2 resize-none"
             required
           />
-        </form>
-        <button
-          type="submit"
-          class="bg-black my-10 cursor-pointer text-white px-6 py-2 rounded-md md:w-auto flex items-center gap-2 md:col-span-2"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="feather feather-send"
+          <button
+            type="submit"
+            class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-md md:col-span-2 transition-all duration-300 flex justify-center items-center gap-2"
           >
-            <line x1="22" y1="2" x2="11" y2="13" />
-            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-          </svg>
-          Submit
-        </button>
+            <SendIcon />
+            أرسل
+          </button>
+        </form>
       </div>
     </div>
   </section>
@@ -148,10 +77,11 @@ const form = ref({ name: '', email: '', message: '' })
 
 const submitForm = () => {
   alert(
-    `Message Sent!\nName: ${form.value.name}\nEmail: ${form.value.email}\nMessage: ${form.value.message}`
+    `تم إرسال الرسالة!\nالاسم: ${form.value.name}\nالبريد: ${form.value.email}\nالرسالة: ${form.value.message}`
   )
-  form.value = { name: '', email: '', message: '' } // Clear form
+  form.value = { name: '', email: '', message: '' }
 }
+
 useHead({
   title: 'تواصل معي',
   meta: [
@@ -165,21 +95,48 @@ useHead({
 })
 </script>
 
+<script>
+const InfoItem = {
+  props: ['icon', 'text'],
+  template: `
+    <div class="flex items-center gap-3 text-sm">
+      <component :is="'feather-' + icon" class="w-5 h-5 text-black" />
+      <p class="font-medium">{{ text }}</p>
+    </div>
+  `,
+}
+const SendIcon = {
+  template: `
+    <svg
+      class="w-5 h-5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <line x1="22" y1="2" x2="11" y2="13" />
+      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+    </svg>
+  `,
+}
+</script>
+
 <style scoped>
 .bg-cream {
   background-color: #fdfaf3;
 }
 .input-field {
   width: 100%;
-  padding: 10px;
+  padding: 12px 16px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
   outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
 }
 .input-field:focus {
-  border-color: #000;
-}
-button svg {
-  margin-right: 8px;
+  border-color: #f97316; /* برتقالي */
 }
 </style>
