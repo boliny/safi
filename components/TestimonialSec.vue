@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-gradient-to-br from-red-600 to-orange-600 py-10 overflow-hidden"
-  >
+  <div class="bg-gradient-to-r from-red-700 to-red-800 py-10 overflow-hidden">
     <h2 class="text-center text-2xl md:text-3xl font-bold text-white mb-6">
       RESULTS I HAVE HELPED CREATE
     </h2>

@@ -1,5 +1,5 @@
 <template>
-  <section class="bg-black text-white py-16 px-6 min-h-screen">
+  <section class="bg-gray-900 text-white py-16 px-6 min-h-screen">
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl md:text-5xl font-bold text-red-500 mb-8 text-center">
         سياسة الخصوصية
