@@ -14,7 +14,7 @@
       </div>
 
       <!-- Desktop Links -->
-      <nav class="hidden md:flex items-center space-x-6">
+      <nav class="hidden md:flex items-center space-x-4">
         <ThemeToggle />
         <a
           v-for="link in links"
@@ -29,7 +29,7 @@
         </a>
 
         <!-- Social Icons -->
-        <div class="flex space-x-4 ml-4">
+        <!-- <div class="flex space-x-4 ml-4">
           <a
             v-for="icon in socialIcons"
             :key="icon.name"
@@ -39,7 +39,7 @@
           >
             <Icon :name="icon.name" />
           </a>
-        </div>
+        </div> -->
       </nav>
 
       <!-- Hamburger Menu -->
@@ -115,7 +115,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useColorMode } from '@vueuse/core'
 
@@ -143,18 +143,19 @@ const navigateAndClose = (path) => {
 
 const links = [
   { label: 'Home', path: '/' },
-  { label: 'Start Here', path: '/start' },
   { label: 'Blog', path: '/blog' },
   { label: 'Shop', path: '/shop' },
   { label: 'Contact', path: '/contact' },
+  { label: 'About', path: '/about' },
+  { label: 'Privacy', path: '/privacy' },
 ]
 
-const socialIcons = [
-  { name: 'mdi:facebook', link: 'https://facebook.com' },
-  { name: 'mdi:instagram', link: 'https://instagram.com' },
-  { name: 'mdi:youtube', link: 'https://youtube.com' },
-  { name: 'mdi:whatsapp', link: 'https://wa.me/123456789' },
-]
+// const socialIcons = [
+//   { name: 'mdi:facebook', link: 'https://facebook.com' },
+//   { name: 'mdi:instagram', link: 'https://instagram.com' },
+//   { name: 'mdi:youtube', link: 'https://youtube.com' },
+//   { name: 'mdi:whatsapp', link: 'https://wa.me/123456789' },
+// ]
 
 const isActive = (path) => route.path === path
 
@@ -166,13 +167,13 @@ const navLinkClass = (path) => {
   } ${isActive(path) ? 'active' : ''}`
 }
 
-const iconClass = computed(() => {
-  return `text-2xl transition-transform duration-300 transform hover:scale-110 ${
-    colorMode.value === 'dark'
-      ? 'text-white hover:text-orange-300'
-      : 'text-black hover:text-orange-500'
-  }`
-})
+// const iconClass = computed(() => {
+//   return `text-2xl transition-transform duration-300 transform hover:scale-110 ${
+//     colorMode.value === 'dark'
+//       ? 'text-white hover:text-orange-300'
+//       : 'text-black hover:text-orange-500'
+//   }`
+// })
 </script>
 
 <style scoped>

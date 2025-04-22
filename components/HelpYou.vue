@@ -1,7 +1,9 @@
 <template>
-  <div class="about-section p-6 md:p-12 bg-light-gray">
+  <div
+    class="about-section bg-gradient-to-br from-red-600 to-orange-600 p-10 md:p-12"
+  >
     <h1
-      class="text-center text-2xl md:text-4xl font-bold leading-snug my-8 uppercase text-dark-blue"
+      class="text-center text-2xl md:text-4xl font-bold my-8 uppercase text-white"
     >
       I can help you with
     </h1>

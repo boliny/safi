@@ -19,9 +19,7 @@
     <div
       class="text-container w-full md:w-1/2 lg:w-[40%] flex flex-col justify-center px-6 sm:px-8 lg:px-10 py-8 md:py-16"
     >
-      <p class="mb-4 lg:text-3xl font-bold text-red-500">
-        Hi, I am Richard Hopkins.
-      </p>
+      <p class="mb-4 lg:text-3xl font-bold text-red-500">Hi, I am Mustafa.</p>
       <h1
         class="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-3 text-white leading-tight"
       >

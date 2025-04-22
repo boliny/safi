@@ -4,7 +4,6 @@
     <RegisterSec />
     <FeaturesPage />
     <PlayNow />
-    <CalendarBox />
     <MyVideo />
     <TestimonialSec />
     <RecentCourse />

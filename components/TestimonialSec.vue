@@ -1,24 +1,26 @@
 <template>
-  <div class="bg-light-blue py-10">
-    <h2 class="text-center text-2xl md:text-3xl font-bold mb-6">
+  <div
+    class="bg-gradient-to-br from-red-600 to-orange-600 py-10 overflow-hidden"
+  >
+    <h2 class="text-center text-2xl md:text-3xl font-bold text-white mb-6">
       RESULTS I HAVE HELPED CREATE
     </h2>
 
-    <div class="relative max-w-6xl mx-auto">
+    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(testimonial, index) in testimonials"
           :key="index"
-          class="keen-slider__slide card"
+          class="keen-slider__slide flex justify-center"
         >
           <div
-            class="bg-white w-full max-w-[400px] shadow-md p-8 border border-gray-200 text-center"
+            class="bg-white w-full max-w-[340px] sm:max-w-[400px] shadow-lg p-6 border border-orange-500 rounded-lg text-center"
           >
             <div class="flex justify-center mb-3">
               <svg
                 v-for="star in 5"
                 :key="star"
-                class="w-6 h-6 text-yellow-500"
+                class="w-5 h-5 text-yellow-500"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -27,32 +29,30 @@
                 />
               </svg>
             </div>
-            <p
-              class="text-gray-700 text-base italic leading-relaxed line-clamp-6"
-            >
+            <p class="text-gray-700 text-sm italic leading-relaxed mb-4">
               "{{ testimonial.text }}"
             </p>
-            <div class="mt-4 flex justify-center">
+            <div class="flex justify-center mb-2">
               <NuxtImg
                 :src="testimonial.image"
-                class="w-20 h-20 rounded-full border-2 border-gray-300"
+                class="w-16 h-16 rounded-full border-2 border-orange-400"
               />
             </div>
-            <h3 class="mt-3 text-lg font-semibold text-gray-900">
+            <h3 class="text-base font-semibold text-black">
               {{ testimonial.name }}
             </h3>
-            <p class="text-blue-500 text-sm">{{ testimonial.role }}</p>
+            <p class="text-gray-600 text-sm">{{ testimonial.role }}</p>
           </div>
         </div>
       </div>
 
       <!-- الزر السابق -->
       <button
-        class="prev-btn hidden md:flex absolute left-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
+        class="prev-btn hidden md:flex absolute left-[-40px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
         @click="prevSlide"
       >
         <svg
-          class="w-6 h-6 text-gray-600"
+          class="w-6 h-6 text-orange-600"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -68,11 +68,11 @@
 
       <!-- الزر التالي -->
       <button
-        class="next-btn hidden md:flex absolute right-[-60px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
+        class="next-btn hidden md:flex absolute right-[-40px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
         @click="nextSlide"
       >
         <svg
-          class="w-6 h-6 text-gray-600"
+          class="w-6 h-6 text-orange-600"
           fill="none"
           stroke="currentColor"
           stroke-width="2"
@@ -104,7 +104,7 @@ export default {
         loop: true,
         slides: {
           perView: 1,
-          spacing: 20,
+          spacing: 16,
         },
         breakpoints: {
           '(min-width: 768px)': {
@@ -166,8 +166,9 @@ export default {
 }
 </script>
 
-<style>
-.bg-light-blue {
-  background-color: #e3f2fd;
+<style scoped>
+/* لتفادي سكرول أفقي */
+body {
+  overflow-x: hidden;
 }
 </style>

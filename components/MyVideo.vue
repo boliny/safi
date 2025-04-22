@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-gradient-to-r from-red-900 to-orange-600 min-h-screen flex items-center justify-center p-4 sm:p-6"
+    class="bg-gradient-to-r from-gray-900 to-gray-500 flex items-center justify-center p-4 sm:p-6"
   >
     <div class="flex flex-col md:flex-row items-center w-full gap-12 p-6">
       <!-- القسم الأيسر - فيديو يوتيوب -->
@@ -10,7 +10,7 @@
             width="560"
             height="315"
             class="absolute top-0 left-0 w-full h-full"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            src="https://www.youtube.com/embed/5CgBlFfPal8"
             frameborder="0"
             allowfullscreen
           />
@@ -34,7 +34,7 @@
           our mamas
         </p>
         <button
-          class="mt-6 cursor-pointer bg-yellow-400 text-black font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-500 transition duration-300 w-full sm:w-auto"
+          class="mt-6 cursor-pointer bg-red-500 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-orange-500 transition duration-300 w-full sm:w-auto"
         >
           START FOR FREE
         </button>

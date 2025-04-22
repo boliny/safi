@@ -1,13 +1,15 @@
 <template>
-  <div class="bg-cream py-10">
-    <h2 class="text-center text-2xl md:text-3xl font-bold mb-6">Blog</h2>
+  <div class="bg-gradient-to-r from-gray-900 to-gray-500 py-10">
+    <h2 class="text-center text-2xl md:text-3xl font-bold mb-6 text-white">
+      Blog
+    </h2>
 
     <div class="relative max-w-5xl mx-auto px-4">
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(blog, index) in blogs"
           :key="index"
-          class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden border border-gray-200"
+          class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden"
         >
           <NuxtImg :src="blog.image" class="w-full h-56 object-cover" />
           <div class="p-4">

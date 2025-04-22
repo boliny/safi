@@ -1,130 +1,150 @@
 <template>
-  <div class="bg-gradient-to-r from-indigo-700 to-purple-600 py-10">
+  <section class="bg-gradient-to-r from-gray-900 to-gray-500 py-16 px-4">
     <h2
-      class="text-center text-white uppercase text-2xl md:text-3xl font-bold mb-6"
+      class="text-3xl md:text-4xl font-bold text-center text-white uppercase mb-10"
     >
-      Recent Courses
+      العروض والباقات
     </h2>
 
-    <div class="relative max-w-5xl mx-auto">
-      <div ref="sliderRef" class="keen-slider">
-        <div
-          v-for="(course, index) in courses"
-          :key="index"
-          class="keen-slider__slide bg-slate-200/20 shadow-md overflow-hidden"
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <!-- Gold Offer -->
+      <div
+        class="bg-gradient-to-br from-[#FFD700] to-[#FFA500] shadow-xl text-white p-6 flex flex-col rounded-xl"
+      >
+        <h3 class="text-2xl font-bold text-center uppercase mb-4">Gold</h3>
+        <p class="text-center mb-4 text-lg">متابعة يومية على واتساب</p>
+        <table
+          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
         >
-          <NuxtImg :src="course.image" class="w-full h-48 object-cover" />
-          <div class="p-15">
-            <p class="text-green-400 font-bold">{{ course.price }}</p>
-            <h3 class="text-lg text-white font-semibold mt-2">
-              {{ course.title }}
-            </h3>
-            <p class="text-sm text-gray-200 mt-1">{{ course.date }}</p>
-          </div>
-        </div>
+          <thead class="bg-yellow-300 text-black">
+            <tr>
+              <th class="py-2 px-4 text-left">المدة</th>
+              <th class="py-2 px-4 text-left">السعر</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">12 أسبوع</td>
+              <td class="py-2 px-4">3000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">16 أسبوع</td>
+              <td class="py-2 px-4">4000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">20 أسبوع</td>
+              <td class="py-2 px-4">5000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">24 أسبوع</td>
+              <td class="py-2 px-4">6000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">48 أسبوع</td>
+              <td class="py-2 px-4">10000 جنيه</td>
+            </tr>
+          </tbody>
+        </table>
+        <button
+          class="mt-6 bg-white text-yellow-600 font-bold py-2 px-4 rounded hover:bg-yellow-100"
+        >
+          اشترك الآن
+        </button>
       </div>
 
-      <!-- أزرار التنقل (مخفية على الهواتف) -->
-      <button
-        class="hidden md:flex prev-btn absolute left-2 md:left-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
-        @click="prevSlide"
+      <!-- Silver Offer -->
+      <div
+        class="bg-gradient-to-br from-[#dcdcdc] to-[#a9a9a9] shadow-xl text-black p-6 flex flex-col rounded-xl"
       >
-        <svg
-          class="w-6 h-6 text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
+        <h3 class="text-2xl font-bold text-center uppercase mb-4">Silver</h3>
+        <p class="text-center mb-4 text-md">
+          متابعة يوم الاثنين والجمعة فقط على واتساب
+        </p>
+        <table
+          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-      </button>
+          <thead class="bg-gray-400 text-black">
+            <tr>
+              <th class="py-2 px-4 text-left">المدة</th>
+              <th class="py-2 px-4 text-left">السعر</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">12 أسبوع</td>
+              <td class="py-2 px-4">2800 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">16 أسبوع</td>
+              <td class="py-2 px-4">3600 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">20 أسبوع</td>
+              <td class="py-2 px-4">4800 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">24 أسبوع</td>
+              <td class="py-2 px-4">5600 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">48 أسبوع</td>
+              <td class="py-2 px-4">9000 جنيه</td>
+            </tr>
+          </tbody>
+        </table>
+        <button
+          class="mt-6 bg-white text-gray-800 font-bold py-2 px-4 rounded hover:bg-gray-200"
+        >
+          اشترك الآن
+        </button>
+      </div>
 
-      <button
-        class="hidden md:flex next-btn absolute right-2 md:right-[-70px] top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white rounded-full shadow items-center justify-center cursor-pointer z-10"
-        @click="nextSlide"
+      <!-- Bronze Offer -->
+      <div
+        class="bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] shadow-xl text-white p-6 flex flex-col rounded-xl"
       >
-        <svg
-          class="w-6 h-6 text-gray-600"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
+        <h3 class="text-2xl font-bold text-center uppercase mb-4">Bronze</h3>
+        <p class="text-center mb-4 text-lg">
+          برنامج كامل بكل التفاصيل بدون متابعة
+        </p>
+        <table
+          class="w-full text-sm bg-white text-black overflow-hidden rounded-md"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9 5l7 7-7 7"
-          />
-        </svg>
-      </button>
+          <thead class="bg-red-300 text-black">
+            <tr>
+              <th class="py-2 px-4 text-left">المدة</th>
+              <th class="py-2 px-4 text-left">السعر</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">12 أسبوع</td>
+              <td class="py-2 px-4">2000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">16 أسبوع</td>
+              <td class="py-2 px-4">2500 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">20 أسبوع</td>
+              <td class="py-2 px-4">3000 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">24 أسبوع</td>
+              <td class="py-2 px-4">3500 جنيه</td>
+            </tr>
+            <tr class="border-b border-gray-300">
+              <td class="py-2 px-4">48 أسبوع</td>
+              <td class="py-2 px-4">4000 جنيه</td>
+            </tr>
+          </tbody>
+        </table>
+        <button
+          class="mt-6 bg-white text-red-700 font-bold py-2 px-4 rounded hover:bg-red-100"
+        >
+          اشترك الآن
+        </button>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
-
-<script>
-import { ref, onMounted, onUnmounted } from 'vue'
-import KeenSlider from 'keen-slider'
-import 'keen-slider/keen-slider.min.css'
-
-export default {
-  setup() {
-    const sliderRef = ref(null)
-    let sliderInstance = null
-    const courses = [
-      {
-        title: 'BECOME YOUR OWN LIFE COACH',
-        price: '$59',
-        date: 'May 8, 2018',
-        image:
-          'https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2018/09/011-550x362.jpg',
-      },
-      {
-        title: 'DISCOVER YOURSELF',
-        price: '$0',
-        date: 'Sep 12, 2018',
-        image:
-          'https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2018/09/010-550x362.jpg',
-      },
-      {
-        title: 'PERSUASION MASTERCLASS',
-        price: '$39',
-        date: 'Sep 10, 2018',
-        image:
-          'https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2018/09/012-550x362.jpg',
-      },
-      {
-        title: 'LEADERSHIP SKILLS',
-        price: '$49',
-        date: 'Dec 15, 2019',
-        image:
-          'https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2018/05/015-550x362.jpg',
-      },
-    ]
-
-    onMounted(() => {
-      sliderInstance = new KeenSlider(sliderRef.value, {
-        loop: true,
-        slides: { perView: 1, spacing: 10 },
-        breakpoints: {
-          '(min-width: 640px)': { slides: { perView: 2, spacing: 15 } },
-          '(min-width: 1024px)': { slides: { perView: 3, spacing: 20 } },
-        },
-      })
-    })
-
-    const prevSlide = () => sliderInstance?.prev()
-    const nextSlide = () => sliderInstance?.next()
-
-    onUnmounted(() => {
-      if (sliderInstance) sliderInstance.destroy()
-    })
-
-    return { courses, prevSlide, nextSlide, sliderRef }
-  },
-}
-</script>
