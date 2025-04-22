@@ -109,9 +109,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.bg-cream {
-  background-color: #f5e6ca;
-}
-</style>

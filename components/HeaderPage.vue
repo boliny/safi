@@ -144,7 +144,6 @@ const navigateAndClose = (path) => {
 const links = [
   { label: 'Home', path: '/' },
   { label: 'Blog', path: '/blog' },
-  { label: 'Shop', path: '/shop' },
   { label: 'Contact', path: '/contact' },
   { label: 'About', path: '/about' },
   { label: 'Privacy', path: '/privacy' },

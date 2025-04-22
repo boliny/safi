@@ -1,19 +1,17 @@
 <template>
-  <div
-    class="app-wrapper"
-    :class="{ dark: colorMode === 'dark' }"
-    :dir="locale === 'ar' ? 'rtl' : 'ltr'"
-  >
+  <div class="app-wrapper" :class="{ dark: colorMode === 'dark' }">
     <!-- Global Mouse Circle -->
     <div
       class="global-mouse-circle"
       :style="{ transform: `translate(${x}px, ${y}px)` }"
     />
 
-    <!-- Render Layout and Page -->
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <!-- Apply transition to NuxtPage -->
+    <transition name="page">
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </transition>
   </div>
 </template>
 
@@ -71,5 +69,14 @@ body {
   .global-mouse-circle {
     display: none;
   }
+}
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
 }
 </style>
