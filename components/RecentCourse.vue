@@ -9,7 +9,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
       <!-- Gold Offer -->
       <div
-        class="bg-gradient-to-br from-[#FFD700] to-[#FFA500] shadow-xl p-6 flex flex-col rounded-xl"
+        class="bg-gradient-to-br from-[#ffd900] to-[#ad750c] shadow-xl p-6 flex flex-col rounded-xl"
       >
         <h3 class="text-2xl font-bold text-center uppercase mb-4">Gold</h3>
         <p class="text-center mb-4 text-lg">متابعة يومية على واتساب</p>
