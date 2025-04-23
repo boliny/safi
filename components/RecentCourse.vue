@@ -141,8 +141,8 @@
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
 
-        <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Bronze</h3>
-        <p class="text-center mb-4 text-lg">
+        <h3 class="text-2xl uppercase mb-4 drop-shadow">Bronze</h3>
+        <p class="text-center mb-2 text-lg">
           Full detailed program without follow-up
         </p>
 
