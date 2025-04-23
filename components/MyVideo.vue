@@ -36,7 +36,7 @@
         <button
           class="bg-red-600 mt-5 hover:bg-orange-500 font-bold cursor-pointer text-white hover:text-black py-3 px-8 rounded-xl shadow-lg transform hover:scale-110 transition duration-300"
         >
-          START NOw
+          START NOW
         </button>
       </div>
     </div>
