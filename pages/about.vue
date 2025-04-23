@@ -76,10 +76,6 @@ const journeySteps = [
 </script>
 
 <style scoped>
-h2 {
-  font-family: 'Cairo', sans-serif;
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);

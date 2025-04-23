@@ -12,11 +12,14 @@
         class="relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <div
+          class="absolute right-30 rotate-135 w-100 h-10 bg-gradient-to-br from-yellow-400 via-white to-yellow-700 animate-shine rounded-t-2xl"
+        />
+        <div
           class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        ></div>
+        />
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
-        ></div>
+        />
 
         <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Gold</h3>
         <p class="text-center mb-4 text-lg">Daily follow-up on WhatsApp</p>
@@ -24,7 +27,7 @@
         <table
           class="w-full text-lg bg-white text-black overflow-hidden rounded-md"
         >
-          <thead class="bg-yellow-300">
+          <thead class="bg-yellow-400">
             <tr>
               <th class="py-2 px-4">Duration</th>
               <th class="py-2 px-4">Price</th>
@@ -55,7 +58,7 @@
         </table>
 
         <button
-          class="mt-6 bg-white text-yellow-800 font-bold py-2 px-4 rounded hover:bg-yellow-100 transition duration-200"
+          class="mt-6 cursor-pointer w-full py-2 bg-red-600 rounded-full font-semibold hover:bg-red-700 transition"
         >
           Subscribe Now
         </button>
@@ -66,11 +69,14 @@
         class="relative bg-gradient-to-br from-gray-300 to-gray-500 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <div
+          class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-gray-300 to-gray-500 animate-shine rounded-t-2xl"
+        />
+        <div
           class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        ></div>
+        />
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
-        ></div>
+        />
 
         <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Silver</h3>
         <p class="text-center mb-4 text-md">
@@ -111,7 +117,7 @@
         </table>
 
         <button
-          class="mt-6 bg-white text-gray-900 font-bold py-2 px-4 rounded hover:bg-gray-200 transition duration-200"
+          class="mt-6 cursor-pointer w-full py-2 bg-red-600 rounded-full font-semibold hover:bg-red-700 transition"
         >
           Subscribe Now
         </button>
@@ -122,11 +128,14 @@
         class="relative bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <div
+          class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] animate-shine rounded-t-2xl"
+        />
+        <div
           class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        ></div>
+        />
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
-        ></div>
+        />
 
         <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Bronze</h3>
         <p class="text-center mb-4 text-lg">
@@ -167,7 +176,7 @@
         </table>
 
         <button
-          class="mt-6 bg-white text-red-700 font-bold py-2 px-4 rounded hover:bg-red-100 transition duration-200"
+          class="mt-6 w-full cursor-pointer py-2 bg-red-600 rounded-full font-semibold hover:bg-red-900 transition"
         >
           Subscribe Now
         </button>
@@ -175,3 +184,29 @@
     </div>
   </section>
 </template>
+
+<style scoped>
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 2.5s linear infinite;
+}
+
+/* Apply a diagonal gradient for the shine effect */
+.animate-shine {
+  background-size: 200% 200%;
+  animation: shine 2.5s linear infinite;
+}
+
+tr {
+  border-bottom: 1px solid #000;
+}
+</style>

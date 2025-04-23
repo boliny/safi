@@ -7,6 +7,7 @@
     <MyVideo />
     <TestimonialSec />
     <RecentCourse />
+    <TestSec />
     <HelpYou />
     <LatestBlog />
     <StateCounter />
