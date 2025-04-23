@@ -11,18 +11,22 @@
       <div
         class="relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <div
-          class="absolute right-30 rotate-135 w-100 h-10 bg-gradient-to-br from-yellow-400 via-white to-yellow-700 animate-shine rounded-t-2xl"
-        />
-        <div
-          class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        />
+        <!-- <div
+          class="absolute inset-0 w-full h-full -z-10 bg-gradient-to-br from-yellow-400 via-white to-yellow-700 animate-shine rounded-t-2xl"
+        /> -->
+        <!-- <div
+          class="absolute inset-0 bg-white opacity-30 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
+        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
 
-        <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Gold</h3>
-        <p class="text-center mb-4 text-lg">Daily follow-up on WhatsApp</p>
+        <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow text-black">
+          Gold
+        </h3>
+        <p class="text-center mb-9 text-lg text-black font-bold">
+          Daily follow-up on WhatsApp
+        </p>
 
         <table
           class="w-full text-lg bg-white text-black overflow-hidden rounded-md"
@@ -68,12 +72,12 @@
       <div
         class="relative bg-gradient-to-br from-gray-300 to-gray-500 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <div
+        <!-- <div
           class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-gray-300 to-gray-500 animate-shine rounded-t-2xl"
         />
         <div
           class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        />
+        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
@@ -127,12 +131,12 @@
       <div
         class="relative bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <div
+        <!-- <div
           class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] animate-shine rounded-t-2xl"
         />
         <div
           class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        />
+        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
@@ -207,6 +211,11 @@
 }
 
 tr {
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #777;
+}
+h3,
+p {
+  color: black;
+  font-weight: bold;
 }
 </style>

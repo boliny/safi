@@ -20,9 +20,16 @@
       <h1 class="text-4xl md:text-7xl font-bold mb-6">Training Today</h1>
       <button
         class="border cursor-pointer border-white px-6 py-2 text-sm hover:bg-white hover:text-red-700 transition"
+        @click="goToBmi"
       >
         Play Now
       </button>
     </div>
   </section>
 </template>
+
+<script setup>
+const goToBmi = () => {
+  navigateTo('/bmi')
+}
+</script>
