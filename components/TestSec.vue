@@ -15,12 +15,44 @@
             plan
           </li>
           <li class="flex items-center">
-            <span class="text-lg mr-2">✅</span> Weekly follow-up via WhatsApp
+            <span class="text-lg mr-2">✅</span> Daily follow-up via WhatsApp
           </li>
           <li class="flex items-center">
             <span class="text-lg mr-2">✅</span> Monthly progress review
           </li>
         </ul>
+        <table
+          class="w-full text-center text-lg mt-4 bg-white text-black overflow-hidden rounded-md"
+        >
+          <thead class="bg-yellow-400">
+            <tr>
+              <th class="py-2 px-4">Duration</th>
+              <th class="py-2 px-4">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="py-2 px-4">12 weeks</td>
+              <td class="py-2 px-4">3000 EGP</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4">16 weeks</td>
+              <td class="py-2 px-4">4000 EGP</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4">20 weeks</td>
+              <td class="py-2 px-4">5000 EGP</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4">24 weeks</td>
+              <td class="py-2 px-4">6000 EGP</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-4">48 weeks</td>
+              <td class="py-2 px-4">10000 EGP</td>
+            </tr>
+          </tbody>
+        </table>
         <button
           class="mt-6 w-full py-2 bg-red-600 rounded-full font-semibold hover:bg-red-700 transition"
         >
