@@ -24,7 +24,7 @@
         <table
           class="w-full text-center text-lg mt-4 bg-white text-black overflow-hidden rounded-md"
         >
-          <thead class="bg-yellow-400">
+          <thead class="bg-[#9c9c9c]">
             <tr>
               <th class="py-2 px-4">Duration</th>
               <th class="py-2 px-4">Price</th>
