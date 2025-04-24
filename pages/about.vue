@@ -8,7 +8,7 @@
       <div
         v-for="(item, index) in journeySteps"
         :key="index"
-        class="group relative overflow-hidden rounded-lg shadow-lg transform md:hover:scale-105 transition duration-500 ease-in-out"
+        class="group relative overflow-hidden rounded-lg shadow-lg transform hover:scale-105 transition duration-500 ease-in-out"
       >
         <NuxtImg
           :src="item.img"
@@ -17,7 +17,7 @@
         />
 
         <div
-          class="absolute inset-0 bg-red-600/70 text-white opacity-0 md:group-hover:opacity-100 transition duration-500"
+          class="absolute inset-0 bg-red-600/70 text-white opacity-0 group-hover:opacity-100 transition duration-500"
           :class="{ 'opacity-100': isTouchDevice }"
         >
           <div class="flex justify-center items-center h-full text-center px-4">

@@ -1,7 +1,7 @@
 <template>
   <section
     ref="sectionRef"
-    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-700 to-red-800  pt-16 pb-12 lg:px-20 text-white overflow-hidden"
+    class="relative flex flex-col lg:flex-row bg-gradient-to-r from-red-700 to-red-800 pt-16 pb-12 lg:px-20 text-white overflow-hidden"
   >
     <!-- Men Text -->
     <div
@@ -17,8 +17,8 @@
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white cursor-pointer hover:text-red-700 transition duration-300"
-          @click="goToRegister"
+          class="shadow-2xl my-button mx-auto h-16 w-64 flex justify-center items-center rounded-lg cursor-pointer relative overflow-hidden border border-white px-6 py-2 font-semibold hover:bg-white hover:text-red-700 transition duration-300"
+          @click="goToRegisterMen"
         >
           JOIN NOW
         </button>
@@ -65,7 +65,7 @@
           mi, et mollis tellus neque vitae elit.
         </p>
         <button
-          class="border border-white px-6 py-2 rounded-md font-semibold hover:bg-white cursor-pointer hover:text-red-700 transition duration-300"
+          class="shadow-2xl my-button mx-auto h-16 w-64 flex justify-center items-center rounded-lg cursor-pointer relative overflow-hidden border border-white px-6 py-2 font-semibold hover:bg-white hover:text-red-700 transition duration-300"
           @click="goToRegisterWomen"
         >
           JOIN NOW
@@ -80,7 +80,6 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const sectionRef = ref(null)
 const inView = ref(false)
-
 let observer
 
 onMounted(() => {
@@ -101,11 +100,76 @@ onUnmounted(() => {
   }
 })
 
-const router = useRouter()
-const goToRegister = () => {
-  router.push('/register-men')
+const goToRegisterMen = () => {
+  navigateTo('/register-men')
 }
 const goToRegisterWomen = () => {
-  router.push('/register-women')
+  navigateTo('/register-women')
 }
 </script>
+
+<style scoped>
+.my-button::before {
+  content: '';
+  position: absolute;
+  margin: auto;
+  width: 0%;
+  height: 0%;
+  background: #ffffff;
+  transition: 0.5s ease-out;
+  border-radius: 100% 100% 100% 100%;
+  opacity: 0%;
+}
+
+.my-button:hover:before {
+  width: 500px;
+  height: 500px;
+  transition: 0.5s ease-out;
+  border-radius: 0;
+  animation: opacity-in 0.7s forwards ease-out;
+}
+
+.my-button:hover {
+  animation: bouncerino-in 0.5s forwards alternate ease-out;
+}
+.my-button:hover:p {
+  transform: scale(5);
+  transition: 0.7s ease-out;
+}
+
+.my-button {
+  animation: bouncerino-out 0.5s;
+}
+@keyframes bouncerino-in {
+  100% {
+    transform: scale(1.075);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  50% {
+    transform: scale(1.075);
+  }
+  40% {
+    transform: scale(1.09);
+  }
+}
+
+@keyframes bouncerino-out {
+  100% {
+    transform: scale(1);
+  }
+  0% {
+    transform: scale(1.075);
+  }
+}
+
+@keyframes opacity-in {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+</style>

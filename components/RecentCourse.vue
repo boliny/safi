@@ -9,7 +9,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
       <!-- GOLD -->
       <div
-        class="relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <!-- <div
           class="absolute inset-0 w-full h-full -z-10 bg-gradient-to-br from-yellow-400 via-white to-yellow-700 animate-shine rounded-t-2xl"
@@ -70,7 +70,7 @@
 
       <!-- SILVER -->
       <div
-        class="relative bg-gradient-to-br from-gray-300 to-gray-500 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-gradient-to-br from-gray-300 to-gray-500 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <!-- <div
           class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-gray-300 to-gray-500 animate-shine rounded-t-2xl"
@@ -129,7 +129,7 @@
 
       <!-- BRONZE -->
       <div
-        class="relative bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
         <!-- <div
           class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] animate-shine rounded-t-2xl"
@@ -217,5 +217,50 @@ h3,
 p {
   color: black;
   font-weight: bold;
+}
+
+.holographic-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  transition: all 0.5s ease;
+}
+
+.holographic-card h2 {
+  color: #fff;
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.holographic-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3)
+  );
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.holographic-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.holographic-card:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
 }
 </style>

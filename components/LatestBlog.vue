@@ -28,7 +28,7 @@
 
     <div class="flex justify-center mt-6">
       <button
-        class="relative cursor-pointer bg-gray-900 px-6 py-3 rounded text-white text-lg font-semibold overflow-hidden group"
+        class="btn btn-1 hover-filled-slide-down relative cursor-pointer bg-gray-900 px-6 py-3 rounded text-white text-lg font-semibold overflow-hidden group"
         @click="goToBlog"
       >
         <span
@@ -115,3 +115,29 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+/*--- btn-1 ---*/
+.btn-1::before {
+  background-color: rgb(28, 31, 30);
+  transition: 0.3s ease-out;
+}
+.btn-1 span {
+  color: rgb(255, 255, 255);
+  border: 1px solid rgb(28, 31, 30);
+  transition: 0.2s 0.1s;
+}
+.btn-1 span:hover {
+  color: rgb(28, 31, 30);
+  transition: 0.2s 0.1s;
+}
+
+/* 1.hover-filled-slide-down */
+.btn.hover-filled-slide-down::before {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+</style>
