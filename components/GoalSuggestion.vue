@@ -82,7 +82,7 @@
 
     <button
       @click="calculateGoalCalories"
-      class="bg-blue-600 text-white px-4 py-2 rounded-xl w-full hover:bg-blue-700 transition"
+      class="bg-red-600 text-white px-4 py-2 rounded-xl w-full hover:bg-red-700 transition"
     >
       Calculate
     </button>

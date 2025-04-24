@@ -3,7 +3,7 @@
     ref="sectionRef"
     class="bg-black bg-opacity-90 text-white py-20 relative overflow-hidden"
   >
-    <!-- خلفية باهتة + تدرج + لمعة -->
+    <!-- Background with overlay and shine -->
     <div class="absolute inset-0">
       <NuxtImg
         src="/imgs/6.jpg"
@@ -18,20 +18,20 @@
       />
     </div>
 
-    <!-- محتوى المربعات -->
+    <!-- Feature Boxes -->
     <div
-      class="relative z-10 max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 transition-all duration-700"
+      class="relative z-10 max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700"
       :class="{
         'opacity-100 translate-y-0': inView,
         'opacity-0 translate-y-10': !inView,
       }"
     >
-      <FeatureBox icon="bolt" title="Responsive & Retina Ready" />
-      <FeatureBox icon="image" title="Video & Images Background" />
-      <FeatureBox icon="calendar-alt" title="Calendar and Event Manager" />
-      <FeatureBox icon="palette" title="Unlimited Colors Support" />
-      <FeatureBox icon="video" title="Parallax Video Background" />
-      <FeatureBox icon="cogs" title="Powerful Theme Option" />
+      <FeatureBox icon="dumbbell" title="Customized Workout Plans" />
+      <FeatureBox icon="utensils" title="Personalized Nutrition Guide" />
+      <FeatureBox icon="video" title="HD Training Videos" />
+      <FeatureBox icon="comments" title="1-on-1 Live Coaching" />
+      <FeatureBox icon="chart-line" title="Progress Tracking" />
+      <FeatureBox icon="mobile-alt" title="Train Anytime, Anywhere" />
     </div>
   </section>
 </template>
