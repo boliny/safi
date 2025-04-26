@@ -12,7 +12,7 @@
         type="number"
         class="w-full border border-gray-300 rounded-xl px-4 py-2"
         placeholder="Enter your weight"
-      />
+      >
     </div>
 
     <div class="space-y-2">
@@ -22,7 +22,7 @@
         type="number"
         class="w-full border border-gray-300 rounded-xl px-4 py-2"
         placeholder="Enter your height"
-      />
+      >
     </div>
 
     <div class="space-y-2">
@@ -32,7 +32,7 @@
         type="number"
         class="w-full border border-gray-300 rounded-xl px-4 py-2"
         placeholder="Enter your age"
-      />
+      >
     </div>
 
     <div class="space-y-2">
@@ -81,8 +81,8 @@
     </div>
 
     <button
-      @click="calculateGoalCalories"
       class="bg-red-600 text-white px-4 py-2 rounded-xl w-full hover:bg-red-700 transition"
+      @click="calculateGoalCalories"
     >
       Calculate
     </button>

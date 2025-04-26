@@ -4,12 +4,16 @@
   >
     <h1
       class="text-center text-2xl md:text-4xl font-bold my-8 uppercase text-white"
+      data-aos="fade-up"
+      data-aos-delay="100"
     >
       I can help you with
     </h1>
 
     <div
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 gap-y-10 max-w-6xl mx-auto"
+      data-aos="fade-up"
+      data-aos-delay="200"
     >
       <div
         v-for="(service, index) in services"
@@ -42,6 +46,17 @@
 </template>
 
 <script setup>
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  AOS.init({
+    duration: 1000,
+    once: true,
+  })
+})
+
 const services = [
   {
     title: 'Title 1',

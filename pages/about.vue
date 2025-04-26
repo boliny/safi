@@ -14,6 +14,7 @@
           :src="item.img"
           alt="journey step image"
           class="w-full h-[600px] object-cover"
+          loading="lazy"
         />
 
         <div
@@ -73,6 +74,48 @@ const journeySteps = [
     text: 'We celebrate your achievements and plan for the next stage in your ongoing fitness journey.',
   },
 ]
+useHead({
+  title: "Coach's Journey | Personal Fitness Phases",
+  meta: [
+    {
+      name: 'description',
+      content:
+        "Explore the phases of a coach's journey with personalized training and nutrition plans. Discover how to overcome challenges and achieve fitness success.",
+    },
+    {
+      name: 'keywords',
+      content:
+        'coach journey, fitness journey, training phases, personalized fitness, gym training, success, health',
+    },
+    { name: 'author', content: 'Training Website' },
+    {
+      property: 'og:title',
+      content: "Coach's Journey | Personal Fitness Phases",
+    },
+    {
+      property: 'og:description',
+      content:
+        'Step through the journey of personalized training with insights into overcoming challenges, improving your fitness, and achieving success.',
+    },
+    { property: 'og:type', content: 'website' },
+    {
+      property: 'og:url',
+      content: 'https://your-website-url.com/coachs-journey',
+    }, // Update with your actual URL
+    { property: 'og:image', content: '/path-to-image/journey-image.jpg' }, // Replace with an actual image
+    { name: 'twitter:card', content: 'summary_large_image' },
+    {
+      name: 'twitter:title',
+      content: "Coach's Journey | Personal Fitness Phases",
+    },
+    {
+      name: 'twitter:description',
+      content:
+        "Follow the coach's journey with personalized fitness training through various phases and challenges to achieve success.",
+    },
+    { name: 'twitter:image', content: '/path-to-image/journey-image.jpg' }, // Replace with an actual image URL
+  ],
+})
 </script>
 
 <style scoped>

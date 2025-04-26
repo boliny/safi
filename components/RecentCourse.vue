@@ -2,11 +2,19 @@
   <section
     class="bg-gradient-to-r from-gray-900 to-gray-700 py-16 px-4 text-center"
   >
-    <h2 class="text-3xl md:text-4xl font-bold text-white uppercase mb-10">
+    <h2
+      class="text-3xl md:text-4xl font-bold text-white uppercase mb-10"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
       Offers & Packages
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
       <!-- GOLD -->
       <div
         class="holographic-card relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
@@ -188,6 +196,20 @@
     </div>
   </section>
 </template>
+
+<script>
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+export default {
+  mounted() {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    })
+  },
+}
+</script>
 
 <style scoped>
 @keyframes shine {

@@ -12,6 +12,7 @@
         alt="Gym"
         class="gym-image"
         :style="{ transform: `translateX(${imageOffset}px)` }"
+        loading="lazy"
       />
     </div>
 
@@ -93,20 +94,26 @@ export default {
 
 <style scoped>
 .hero-section {
-  background-image: url(/public/bg.gif);
+  background-image: url('/public/bg-black.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   position: relative;
   padding-top: 3rem;
   padding-bottom: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-container {
   height: auto;
   padding: 1rem 0;
+  position: relative;
+  overflow: hidden;
 }
+
 @media (min-width: 768px) {
   .image-container {
     height: 100vh;
@@ -117,8 +124,9 @@ export default {
 .gym-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
+  transition: transform 0.2s ease-out;
   animation: slideUp 1.5s ease-out forwards;
 }
 

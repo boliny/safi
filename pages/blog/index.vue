@@ -7,7 +7,9 @@
     <div class="container mx-auto px-2 sm:px-4 p-10">
       <!-- Header -->
       <header class="text-center py-6 sm:py-8">
-        <h1 class="text-3xl sm:text-4xl font-bold">BLOG</h1>
+        <h1 class="text-3xl sm:text-4xl font-bold">
+          Latest Articles & Stories
+        </h1>
       </header>
 
       <!-- Layout with Sidebar + Content -->
@@ -16,15 +18,16 @@
         <div class="space-y-16">
           <!-- Featured Post -->
           <div
-            v-if="filteredPosts.length"
+            v-if="blogStore.filteredPosts.length"
             class="cursor-pointer"
             @click="goToMain()"
           >
             <div class="relative overflow-hidden rounded-lg group">
               <NuxtImg
-                :src="filteredPosts[0].thumbnail"
+                :src="blogStore.filteredPosts[0].image"
                 alt="Post Image"
-                class="w-full h-[250px] sm:h-[300px] object-contain transition-transform duration-500 delay-150 group-hover:scale-105"
+                loading="lazy"
+                class="w-full h-[250px] sm:h-[300px] object-cover transition-transform duration-500 delay-150 group-hover:scale-105"
               />
               <div
                 class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -45,7 +48,7 @@
               <h1
                 class="text-xl sm:text-3xl font-bold mt-2 hover:text-blue-600 transition"
               >
-                {{ filteredPosts[0].title }}
+                {{ blogStore.filteredPosts[0].title }}
               </h1>
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
                 People know who they have the potential to be...
@@ -66,7 +69,7 @@
           <!-- Blog Posts -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div
-              v-for="post in filteredPosts.slice(1)"
+              v-for="post in blogStore.filteredPosts.slice(1)"
               :key="post.id"
               class="max-w-full text-center"
             >
@@ -75,9 +78,10 @@
                 @click="goToItem(post.id)"
               >
                 <NuxtImg
-                  :src="post.thumbnail"
+                  :src="post.image"
                   alt="Post Image"
-                  class="w-full h-[250px] sm:h-[300px] object-contain transition-transform duration-500 delay-150 group-hover:scale-105"
+                  loading="lazy"
+                  class="w-full h-[250px] sm:h-[300px] object-cover transition-transform duration-500 delay-150 group-hover:scale-105"
                 />
                 <div
                   class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
@@ -99,12 +103,12 @@
                 <span><i class="fas fa-eye mr-1" /> {{ post.views }}</span>
                 <span
                   class="flex items-center space-x-1 cursor-pointer"
-                  @click="toggleLike(post.id)"
+                  @click="blogStore.toggleLike(post.id)"
                 >
                   <i
                     class="fas fa-heart transition-colors duration-300"
                     :class="
-                      likedPosts.includes(post.id)
+                      blogStore.likedPosts.includes(post.id)
                         ? 'text-red-500'
                         : 'text-gray-400'
                     "
@@ -141,10 +145,37 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-
 import { useColorMode } from '@vueuse/core'
+import { useHead } from '@unhead/vue'
+import { onMounted } from 'vue'
+import { useBlogsStore } from '@/stores/blogs'
+
+const blogStore = useBlogsStore()
+
+onMounted(() => {
+  if (!blogStore.blogs.length) {
+    blogStore.fetchBlogs()
+  }
+})
+
+useHead({
+  title: 'Blog | My Website',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Latest blog posts and stories in various topics including life, productivity, and more.',
+    },
+    { name: 'robots', content: 'index, follow' },
+    { property: 'og:title', content: 'Blog | My Website' },
+    {
+      property: 'og:description',
+      content: 'Discover helpful and inspiring blog posts.',
+    },
+    { property: 'og:type', content: 'website' },
+  ],
+})
 
 const colorMode = useColorMode({
   emitAuto: true,
@@ -155,42 +186,9 @@ const colorMode = useColorMode({
   storageKey: 'vueuse-color-scheme',
 })
 
-const getRandomViews = () => Math.floor(Math.random() * 1000 + 100)
-const getRandomLikes = () => Math.floor(Math.random() * 300 + 20)
-
-// نستخدم transform هنا لتعديل البيانات بدل ما نعدلها بعدين
-const { data } = await useFetch('https://dummyjson.com/products', {
-  transform: (res) => {
-    return {
-      ...res,
-      products: res.products.map((post) => ({
-        ...post,
-        views: getRandomViews(),
-        likes: getRandomLikes(),
-      })),
-    }
-  },
-})
-
-const posts = ref(data.value.products || [])
-const likedPosts = ref([])
-
-const filteredPosts = computed(() => posts.value.filter(Boolean))
-
-const toggleLike = (postId) => {
-  const index = posts.value.findIndex((p) => p.id === postId)
-  if (likedPosts.value.includes(postId)) {
-    posts.value[index].likes--
-    likedPosts.value = likedPosts.value.filter((id) => id !== postId)
-  } else {
-    posts.value[index].likes++
-    likedPosts.value.push(postId)
-  }
-}
-
 const router = useRouter()
 const goToItem = (id) => router.push(`/blog/${id}`)
-const goToMain = () => router.push(`/blog/${filteredPosts.value[0].id}`)
+const goToMain = () => router.push(`/blog/${blogStore.filteredPosts[0].id}`)
 </script>
 
 <style>

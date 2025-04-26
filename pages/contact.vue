@@ -6,6 +6,7 @@
         src="/imgs/10.jpg"
         alt="Contact Image"
         class="w-full h-full object-cover min-h-[300px] md:min-h-screen"
+        loading="lazy"
       />
     </div>
 

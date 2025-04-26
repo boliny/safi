@@ -1,10 +1,18 @@
 <template>
   <div class="bg-gradient-to-r from-red-700 to-red-800 py-10 overflow-hidden">
-    <h2 class="text-center text-2xl md:text-3xl font-bold text-white mb-6">
+    <h2
+      class="text-center text-2xl md:text-3xl font-bold text-white mb-6"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
       RESULTS I HAVE HELPED CREATE
     </h2>
 
-    <div class="relative max-w-6xl mx-auto px-4 sm:px-6">
+    <div
+      class="relative max-w-6xl mx-auto px-4 sm:px-6"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(testimonial, index) in testimonials"
@@ -34,6 +42,7 @@
               <NuxtImg
                 :src="testimonial.image"
                 class="w-16 h-16 rounded-full border-2 border-orange-400"
+                loading="lazy"
               />
             </div>
             <h3 class="text-base font-semibold text-black">
@@ -91,6 +100,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import KeenSlider from 'keen-slider'
 import 'keen-slider/keen-slider.min.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default {
   setup() {
@@ -98,6 +109,11 @@ export default {
     const slider = ref(null)
 
     onMounted(() => {
+      AOS.init({
+        duration: 1000,
+        once: true,
+      })
+
       slider.value = new KeenSlider(sliderRef.value, {
         loop: true,
         slides: {

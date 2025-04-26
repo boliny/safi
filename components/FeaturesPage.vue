@@ -9,6 +9,7 @@
         src="/imgs/6.jpg"
         alt="background"
         class="w-full h-full object-cover opacity-20"
+        loading="lazy"
       />
       <div
         class="absolute inset-0 bg-gradient-to-tr from-black via-transparent to-black opacity-40"

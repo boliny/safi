@@ -296,23 +296,50 @@ const submitForm = async () => {
   }
 }
 useHead({
-  title: 'تسجيل الرجال - موقع التدريب',
+  title: "Men's Registration Form | Personal Training Program",
   meta: [
     {
       name: 'description',
-      content: 'سجلي الآن في برنامج التدريب الخاص بالرجال',
+      content:
+        'Fill out the men’s registration form to join a personalized fitness and training program tailored to your goals.',
     },
     {
       name: 'keywords',
-      content: 'تسجيل, تدريب رجال, استمارة, جيم, تمارين منزلية',
+      content:
+        'men training, registration form, fitness coaching, gym, home workouts, personal trainer',
     },
-    { name: 'author', content: 'اسم المدرب أو اسم الموقع' },
-    { property: 'og:title', content: 'تسجيل الرجال - موقع التدريب' },
+    { name: 'author', content: 'Coach Name or Website Name' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {
+      property: 'og:title',
+      content: "Men's Registration Form | Personal Training Program",
+    },
     {
       property: 'og:description',
-      content: 'انضمي إلى أقوى برامج التدريب المخصصة للرجال',
+      content:
+        'Join now and start your transformation with a plan designed specifically for men by a certified fitness coach.',
     },
     { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://yourdomain.com/register-men' },
+    {
+      property: 'og:image',
+      content: 'https://yourdomain.com/og-images/men-register.png',
+    },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    {
+      name: 'twitter:title',
+      content: "Men's Registration Form | Personal Training Program",
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Sign up today and start a customized fitness journey guided by a professional coach.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://yourdomain.com/og-images/men-register.png',
+    },
   ],
 })
 </script>

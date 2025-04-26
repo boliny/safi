@@ -28,6 +28,7 @@
         class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-black"
       />
     </div>
+
     <!-- Title -->
     <div>
       <h2 class="uppercase text-xl font-semibold tracking-widest">Must Read</h2>
@@ -37,13 +38,13 @@
     <!-- Articles -->
     <div class="space-y-4">
       <div
-        v-for="(post, index) in posts"
+        v-for="(post, index) in filteredPosts"
         :key="index"
         class="flex gap-4 items-start cursor-pointer"
         @click="goToItem(post.id)"
       >
         <NuxtImg
-          :src="post.thumbnail"
+          :src="post.image"
           alt="article image"
           class="w-16 h-16 object-cover"
         />
@@ -65,8 +66,28 @@
 </template>
 
 <script setup>
-const { data } = await useFetch('https://dummyjson.com/products')
+import { useBlogsStore } from '@/stores/blogs'
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const blogStore = useBlogsStore()
 const router = useRouter()
-const posts = computed(() => data.value?.products.slice(0, 4) || [])
-const goToItem = (id) => router.push(`/blog/${id}`)
+
+// البيانات الخاصة بالبحث
+const searchQuery = ref('')
+
+// الحصول على المقالات من المتجر
+const posts = computed(() => blogStore.blogs.slice(0, 4)) // اختر أول 4 مقالات فقط
+
+// تصفية المقالات بناءً على البحث
+const filteredPosts = computed(() => {
+  if (!searchQuery.value) return posts.value
+  return posts.value.filter((post) =>
+    post.title.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
+
+const goToItem = (id) => {
+  router.push(`/blog/${id}`)
+}
 </script>

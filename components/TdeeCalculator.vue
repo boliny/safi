@@ -67,8 +67,8 @@
     </div>
 
     <button
-      @click="calculateTDEE"
       class="bg-red-600 text-white px-4 py-2 rounded-xl w-full hover:bg-red-700 transition"
+      @click="calculateTDEE"
     >
       Calculate
     </button>

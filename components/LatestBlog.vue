@@ -1,17 +1,27 @@
 <template>
   <div class="bg-gradient-to-r from-gray-900 to-gray-500 py-10">
-    <h2 class="text-center text-2xl md:text-3xl font-bold mb-6 text-white">
+    <!-- Blog Section Title -->
+    <h2
+      class="text-center text-2xl md:text-3xl font-bold mb-6 text-white"
+      data-aos="fade-up"
+      data-aos-delay="100"
+    >
       Blog
     </h2>
 
-    <div class="relative max-w-5xl mx-auto px-4">
+    <!-- Blog Slider -->
+    <div
+      class="relative max-w-5xl mx-auto px-4"
+      data-aos="fade-up"
+      data-aos-delay="200"
+    >
       <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(blog, index) in blogs"
           :key="index"
           class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden"
         >
-          <NuxtImg :src="blog.image" class="w-full h-56 object-cover" />
+          <NuxtImg :src="blog.image" class="w-full h-56 object-cover" loading="lazy" />
           <div class="p-4">
             <h3 class="text-lg font-semibold text-gray-900">
               {{ blog.title }}
@@ -26,6 +36,7 @@
       </div>
     </div>
 
+    <!-- Go to Blog Button -->
     <div class="flex justify-center mt-6">
       <button
         class="btn btn-1 hover-filled-slide-down relative cursor-pointer bg-gray-900 px-6 py-3 rounded text-white text-lg font-semibold overflow-hidden group"
@@ -50,9 +61,17 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import KeenSlider from 'keen-slider'
 import 'keen-slider/keen-slider.min.css'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 export default {
   setup() {
+    onMounted(() => {
+      AOS.init({
+        duration: 1000,
+        once: true,
+      })
+    })
     const sliderRef = ref(null)
     let sliderInstance = null
     let interval = null
@@ -80,20 +99,18 @@ export default {
       },
     ])
 
+    // Initialize the slider
     onMounted(() => {
       sliderInstance = new KeenSlider(sliderRef.value, {
         loop: true,
         breakpoints: {
-          '(min-width: 768px)': {
-            slides: { perView: 2, spacing: 20 },
-          },
-          '(min-width: 1024px)': {
-            slides: { perView: 3, spacing: 24 },
-          },
+          '(min-width: 768px)': { slides: { perView: 2, spacing: 20 } },
+          '(min-width: 1024px)': { slides: { perView: 3, spacing: 24 } },
         },
-        slides: { perView: 1, spacing: 15 }, // الوضع الافتراضي للموبايل
+        slides: { perView: 1, spacing: 15 }, // Default for mobile
       })
 
+      // Auto slide every 3 seconds
       interval = setInterval(() => {
         if (sliderInstance) {
           sliderInstance.next()
@@ -101,6 +118,7 @@ export default {
       }, 3000)
     })
 
+    // Cleanup when component is destroyed
     onBeforeUnmount(() => {
       if (interval) clearInterval(interval)
       if (sliderInstance) sliderInstance.destroy()
@@ -108,6 +126,8 @@ export default {
 
     return { blogs, sliderRef }
   },
+
+  // Navigate to blog page
   methods: {
     goToBlog() {
       navigateTo('/blog')
@@ -122,11 +142,13 @@ export default {
   background-color: rgb(28, 31, 30);
   transition: 0.3s ease-out;
 }
+
 .btn-1 span {
   color: rgb(255, 255, 255);
   border: 1px solid rgb(28, 31, 30);
   transition: 0.2s 0.1s;
 }
+
 .btn-1 span:hover {
   color: rgb(28, 31, 30);
   transition: 0.2s 0.1s;

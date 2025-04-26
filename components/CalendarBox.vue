@@ -14,6 +14,7 @@
           :src="card.image"
           alt="Workout"
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
         <!-- Red overlay -->
         <div

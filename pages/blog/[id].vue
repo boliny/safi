@@ -1,36 +1,29 @@
 <template>
-  <div class="container" v-if="blog">
-    <h1 class="title">{{ blog.title }}</h1>
-    <img
-      :src="blog.thumbnail"
+  <div v-if="post" class="container">
+    <h1 class="title">{{ post.title }}</h1>
+    <NuxtImg
+      v-if="post.image"
+      :src="post.image"
       alt="Blog image"
       class="blog-img"
-      v-if="blog.thumbnail"
+      loading="lazy"
     />
-    <p class="blog-content">{{ blog.content }}</p>
+    <p class="blog-content">{{ post.description }}</p>
   </div>
-  <div v-else class="loading">Loading...</div>
+
+  <div v-else class="loading">Post not found.</div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { useBlogsStore } from '@/stores/blogs'
 
+const blogStore = useBlogsStore()
 const route = useRoute()
-const id = route.params.id
+const id = Number(route.params.id)
 
-const blog = ref(null)
-
-onMounted(async () => {
-  try {
-    // هنا بنفترض إنه عندك API بهذا الشكل
-    const res = await fetch(`https://dummyjson.com/products/${id}`)
-    const data = await res.json()
-    blog.value = data
-  } catch (error) {
-    console.error('Error fetching blog:', error)
-  }
-})
+const post = computed(() => blogStore.blogs.find((p) => p.id === id))
 </script>
 
 <style scoped>

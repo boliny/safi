@@ -208,23 +208,50 @@ const submitForm = async () => {
   }
 }
 useHead({
-  title: 'تسجيل النساء - موقع التدريب',
+  title: "Women's Registration Form | Personal Training Program",
   meta: [
     {
       name: 'description',
-      content: 'سجلي الآن في برنامج التدريب الخاص بالنساء',
+      content:
+        'Fill out the women’s registration form to join a customized fitness program tailored to your needs and goals.',
     },
     {
       name: 'keywords',
-      content: 'تسجيل, تدريب نساء, استمارة, جيم, تمارين منزلية',
+      content:
+        'women training, registration form, female fitness, home workouts, gym program, personal coaching',
     },
-    { name: 'author', content: 'اسم المدرب أو اسم الموقع' },
-    { property: 'og:title', content: 'تسجيل النساء - موقع التدريب' },
+    { name: 'author', content: 'Coach Name or Website Name' },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    {
+      property: 'og:title',
+      content: "Women's Registration Form | Personal Training Program",
+    },
     {
       property: 'og:description',
-      content: 'انضمي إلى أقوى برامج التدريب المخصصة للسيدات',
+      content:
+        'Join a professional fitness coaching program for women, customized to help you reach your personal health goals.',
     },
     { property: 'og:type', content: 'website' },
+    { property: 'og:url', content: 'https://yourdomain.com/register-women' },
+    {
+      property: 'og:image',
+      content: 'https://yourdomain.com/og-images/women-register.png',
+    },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    {
+      name: 'twitter:title',
+      content: "Women's Registration Form | Personal Training Program",
+    },
+    {
+      name: 'twitter:description',
+      content:
+        'Sign up for a women-only training program and get personalized coaching at home or in the gym.',
+    },
+    {
+      name: 'twitter:image',
+      content: 'https://yourdomain.com/og-images/women-register.png',
+    },
   ],
 })
 </script>

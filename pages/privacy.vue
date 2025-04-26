@@ -84,3 +84,42 @@
     </div>
   </section>
 </template>
+
+<script setup>
+useHead({
+  title: 'Privacy Policy | Training Website',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Read our Privacy Policy to understand how we collect, use, and protect your personal information when using our fitness services.',
+    },
+    {
+      name: 'keywords',
+      content:
+        'privacy policy, personal data, user data, data protection, fitness privacy, information collection',
+    },
+    { name: 'author', content: 'Training Website' },
+    { property: 'og:title', content: 'Privacy Policy | Training Website' },
+    {
+      property: 'og:description',
+      content:
+        'This page explains how your personal data is collected and protected while using our services.',
+    },
+    { property: 'og:type', content: 'website' },
+    {
+      property: 'og:url',
+      content: 'https://your-website-url.com/privacy-policy',
+    }, // Replace with your real URL
+    { property: 'og:image', content: '/images/privacy-banner.jpg' }, // Replace with a real image path
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Privacy Policy | Training Website' },
+    {
+      name: 'twitter:description',
+      content:
+        'Understand how we protect and use your personal data on our training platform.',
+    },
+    { name: 'twitter:image', content: '/images/privacy-banner.jpg' }, // Replace if needed
+  ],
+})
+</script>

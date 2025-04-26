@@ -10,7 +10,7 @@
         class="text-2xl font-bold text-orange-500 cursor-pointer"
         @click="navigateAndClose('/')"
       >
-        <NuxtImg src="/logo-01.png" alt="logo" class="w-15 h-15" />
+        <NuxtImg src="/logo-01.png" alt="logo" class="w-15 h-15" loading="lazy" />
       </div>
 
       <!-- Desktop Links -->

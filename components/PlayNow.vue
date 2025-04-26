@@ -7,6 +7,7 @@
       src="/imgs/7.jpg"
       alt="Training"
       class="absolute inset-0 w-full h-full object-cover z-0"
+      loading="lazy"
     />
 
     <!-- overlay أحمر شفاف -->

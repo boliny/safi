@@ -38,6 +38,7 @@
             ? 'translate-y-0 opacity-100 scale-100'
             : 'translate-y-10 opacity-0 scale-90',
         ]"
+        loading="lazy"
       />
       <NuxtImg
         src="/imgs/51.png"
@@ -48,6 +49,7 @@
             ? 'translate-y-0 opacity-100 scale-100'
             : 'translate-y-10 opacity-0 scale-90',
         ]"
+        loading="lazy"
       />
     </div>
 

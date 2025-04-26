@@ -56,6 +56,7 @@
           src="/logo1.png"
           alt="SkyLink Logo"
           class="h-22 w-auto object-contain"
+          loading="lazy"
         />
       </a>
     </div>
