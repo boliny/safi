@@ -1,6 +1,5 @@
 <template>
   <div class="bg-gradient-to-r from-gray-900 to-gray-500 py-10">
-    <!-- Blog Section Title -->
     <h2
       class="text-center text-2xl md:text-3xl font-bold mb-8 text-white"
       data-aos="fade-up"
@@ -9,25 +8,23 @@
       Blog
     </h2>
 
-    <!-- Blog Slider -->
     <div
       class="relative max-w-6xl mx-auto px-6"
       data-aos="fade-up"
       data-aos-delay="200"
     >
-      <div ref="sliderRef" class="keen-slider space-x-8">
-        <!-- عرض المنتجات في السلايدر -->
+      <div ref="sliderRef" class="keen-slider">
         <div
           v-for="(post, index) in blogStore.filteredPosts"
           :key="index"
-          class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden"
+          class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
         >
           <NuxtImg
             :src="post.image"
             class="w-full h-56 object-cover"
             loading="lazy"
           />
-          <div class="p-4">
+          <div class="p-4 flex-1 flex flex-col justify-between">
             <h3 class="text-lg font-semibold text-gray-900">
               {{ post.title }}
             </h3>
@@ -41,9 +38,48 @@
           </div>
         </div>
       </div>
+
+      <!-- الزر السابق -->
+      <button
+        class="prev-btn hidden md:flex absolute left-[-40px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
+        @click="prevSlide"
+      >
+        <svg
+          class="w-6 h-6 text-orange-600"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      <!-- الزر التالي -->
+      <button
+        class="next-btn hidden md:flex absolute right-[-40px] top-1/2 transform -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow items-center justify-center cursor-pointer"
+        @click="nextSlide"
+      >
+        <svg
+          class="w-6 h-6 text-orange-600"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
     </div>
 
-    <!-- Go to Blog Button -->
     <div class="flex justify-center mt-8">
       <button
         class="btn btn-1 hover-filled-slide-down relative cursor-pointer bg-gray-900 px-8 py-4 rounded text-white text-lg font-semibold overflow-hidden group"
@@ -75,12 +111,12 @@ import { useBlogsStore } from '@/stores/blogs'
 export default {
   setup() {
     const blogStore = useBlogsStore()
-    const displayedPosts = computed(() => {
-      // لاختيار كل المدخلات دون تقيد بعدد معين هنا
-      return blogStore.filteredPosts
-    })
+    const sliderRef = ref(null)
+    let sliderInstance = null
+    let interval = null
 
-    // إصلاح مشكلة goToItem
+    const displayedPosts = computed(() => blogStore.filteredPosts)
+
     const goToItem = (id) => {
       navigateTo(`/blog/${id}`)
     }
@@ -89,46 +125,97 @@ export default {
       navigateTo('/blog')
     }
 
+    const initializeSlider = () => {
+      if (sliderInstance) sliderInstance.destroy()
+
+      sliderInstance = new KeenSlider(sliderRef.value, {
+        loop: true,
+        slides: {
+          perView: 3,
+          spacing: 30,
+        },
+        breakpoints: {
+          '(max-width: 768px)': {
+            slides: { perView: 1, spacing: 10 },
+          },
+          '(min-width: 769px) and (max-width: 1024px)': {
+            slides: { perView: 2, spacing: 20 },
+          },
+          '(min-width: 1025px)': {
+            slides: { perView: 3, spacing: 30 },
+          },
+        },
+        created() {
+          startAutoPlay()
+        },
+        destroyed() {
+          stopAutoPlay()
+        },
+      })
+
+      sliderRef.value.addEventListener('mouseenter', stopAutoPlay)
+      sliderRef.value.addEventListener('mouseleave', startAutoPlay)
+    }
+
+    const startAutoPlay = () => {
+      stopAutoPlay() // نحذف القديم الأول
+      interval = setInterval(() => {
+        if (sliderInstance) {
+          sliderInstance.next()
+        }
+      }, 3000) // كل 3 ثواني
+    }
+
+    const stopAutoPlay = () => {
+      if (interval) {
+        clearInterval(interval)
+        interval = null
+      }
+    }
+
+    const prevSlide = () => {
+      if (sliderInstance) {
+        sliderInstance.prev()
+      }
+    }
+
+    const nextSlide = () => {
+      if (sliderInstance) {
+        sliderInstance.next()
+      }
+    }
+
     onMounted(() => {
       AOS.init({
         duration: 1000,
-        once: true, // إزالة offset
+        once: true,
       })
+
       if (!blogStore.blogs.length) {
         blogStore.fetchBlogs()
       }
 
-      // Initialize the slider after blogs are fetched
-      if (blogStore.filteredPosts.length) {
+      setTimeout(() => {
         initializeSlider()
-      }
+      }, 500)
     })
 
-    const sliderRef = ref(null)
-    let sliderInstance = null
-
-    // Initialize the slider with autoplay
-    const initializeSlider = () => {
-      sliderInstance = new KeenSlider(sliderRef.value, {
-        loop: true,
-        breakpoints: {
-          '(min-width: 768px)': { slides: { perView: 3, spacing: 32 } },
-          '(min-width: 1024px)': { slides: { perView: 3, spacing: 36 } },
-        },
-        slides: { perView: 3, spacing: 20 },
-        duration: 1000, // تعيين سرعة الأنيميشن بين الشرائح
-        interval: 500, // المدة بين كل سلايد
-        autoplay: true, // تفعيل التمرير التلقائي
-        draggable: true, // تمكين السحب اليدوي
-      })
-    }
-
-    // Cleanup when component is destroyed
     onBeforeUnmount(() => {
-      if (sliderInstance) sliderInstance.destroy()
+      if (sliderInstance) {
+        sliderInstance.destroy()
+      }
+      stopAutoPlay()
     })
 
-    return { blogStore, sliderRef, displayedPosts, goToItem, goToBlog }
+    return {
+      blogStore,
+      sliderRef,
+      displayedPosts,
+      goToItem,
+      goToBlog,
+      prevSlide,
+      nextSlide,
+    }
   },
 }
 </script>
