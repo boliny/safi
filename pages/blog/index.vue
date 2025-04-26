@@ -17,12 +17,11 @@
         <!-- Main Content -->
         <div class="space-y-16">
           <!-- Featured Post -->
-          <div
-            v-if="blogStore.filteredPosts.length"
-            class="cursor-pointer"
-            @click="goToMain()"
-          >
-            <div class="relative overflow-hidden rounded-lg group">
+          <div v-if="blogStore.filteredPosts.length" class="cursor-pointer">
+            <div
+              class="relative overflow-hidden rounded-lg group"
+              @click="goToMain()"
+            >
               <NuxtImg
                 :src="blogStore.filteredPosts[0].image"
                 alt="Post Image"
@@ -47,19 +46,17 @@
               <p class="text-xs sm:text-sm uppercase tracking-wide">Life</p>
               <h1
                 class="text-xl sm:text-3xl font-bold mt-2 hover:text-blue-600 transition"
+                @click="goToMain()"
               >
                 {{ blogStore.filteredPosts[0].title }}
               </h1>
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
                 People know who they have the potential to be...
               </p>
+              <!-- زر READ MORE الرئيسي -->
               <button
-                class="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-black rounded-full text-black hover:bg-black hover:text-white cursor-pointer transition-all delay-150 text-sm"
-                :class="
-                  colorMode === 'dark'
-                    ? 'bg-white text-black'
-                    : 'bg-black text-white'
-                "
+                class="mt-4 cursor-pointer sm:mt-6 px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform border hover:scale-105 active:scale-95 shadow-sm hover:shadow-md dark:border-white dark:bg-white dark:text-black dark:hover:bg-transparent dark:hover:text-white border-black bg-black text-white hover:bg-white hover:text-black"
+                @click="goToMain()"
               >
                 READ MORE
               </button>
@@ -120,13 +117,9 @@
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
                 {{ post.description }}
               </p>
+              <!-- زر READ MORE لكل بوست -->
               <button
-                class="mt-4 sm:mt-6 px-4 sm:px-6 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-all delay-150 text-sm cursor-pointer"
-                :class="
-                  colorMode === 'dark'
-                    ? 'bg-white text-black'
-                    : 'bg-black text-white'
-                "
+                class="mt-4 cursor-pointer sm:mt-6 px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform border hover:scale-105 active:scale-95 shadow-sm hover:shadow-md dark:border-white dark:bg-white dark:text-black dark:hover:bg-transparent dark:hover:text-white border-black bg-black text-white hover:bg-white hover:text-black"
                 @click="goToItem(post.id)"
               >
                 READ MORE
@@ -145,9 +138,8 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import { useColorMode } from '@vueuse/core'
-import { useHead } from '@unhead/vue'
+import { useHead } from '#imports'
 import { onMounted } from 'vue'
 import { useBlogsStore } from '@/stores/blogs'
 
@@ -186,9 +178,8 @@ const colorMode = useColorMode({
   storageKey: 'vueuse-color-scheme',
 })
 
-const router = useRouter()
-const goToItem = (id) => router.push(`/blog/${id}`)
-const goToMain = () => router.push(`/blog/${blogStore.filteredPosts[0].id}`)
+const goToItem = (id) => navigateTo(`/blog/${id}`)
+const goToMain = () => navigateTo(`/blog/${blogStore.filteredPosts[0].id}`)
 </script>
 
 <style>

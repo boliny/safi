@@ -1,14 +1,21 @@
 <template>
-  <div v-if="post" class="container">
-    <h1 class="title">{{ post.title }}</h1>
-    <NuxtImg
-      v-if="post.image"
-      :src="post.image"
-      alt="Blog image"
-      class="blog-img"
-      loading="lazy"
-    />
-    <p class="blog-content">{{ post.description }}</p>
+  <div
+    v-if="post"
+    :class="
+      colorMode === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'
+    "
+  >
+    <div class="container">
+      <h1 class="title">{{ post.title }}</h1>
+      <NuxtImg
+        v-if="post.image"
+        :src="post.image"
+        alt="Blog image"
+        class="blog-img"
+        loading="lazy"
+      />
+      <p class="blog-content">{{ post.description }}</p>
+    </div>
   </div>
 
   <div v-else class="loading">Post not found.</div>
@@ -18,6 +25,16 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useBlogsStore } from '@/stores/blogs'
+import { useColorMode } from '@vueuse/core'
+
+const colorMode = useColorMode({
+  emitAuto: true,
+  modes: {
+    dark: 'dark',
+    light: 'light',
+  },
+  storageKey: 'vueuse-color-scheme',
+})
 
 const blogStore = useBlogsStore()
 const route = useRoute()

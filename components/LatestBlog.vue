@@ -2,7 +2,7 @@
   <div class="bg-gradient-to-r from-gray-900 to-gray-500 py-10">
     <!-- Blog Section Title -->
     <h2
-      class="text-center text-2xl md:text-3xl font-bold mb-6 text-white"
+      class="text-center text-2xl md:text-3xl font-bold mb-8 text-white"
       data-aos="fade-up"
       data-aos-delay="100"
     >
@@ -11,35 +11,42 @@
 
     <!-- Blog Slider -->
     <div
-      class="relative max-w-5xl mx-auto px-4"
+      class="relative max-w-6xl mx-auto px-6"
       data-aos="fade-up"
       data-aos-delay="200"
     >
-      <div ref="sliderRef" class="keen-slider">
+      <div ref="sliderRef" class="keen-slider space-x-8">
+        <!-- عرض المنتجات في السلايدر -->
         <div
-          v-for="(blog, index) in blogs"
+          v-for="(post, index) in blogStore.filteredPosts"
           :key="index"
           class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden"
         >
-          <NuxtImg :src="blog.image" class="w-full h-56 object-cover" loading="lazy" />
+          <NuxtImg
+            :src="post.image"
+            class="w-full h-56 object-cover"
+            loading="lazy"
+          />
           <div class="p-4">
             <h3 class="text-lg font-semibold text-gray-900">
-              {{ blog.title }}
+              {{ post.title }}
             </h3>
             <a
-              href="#"
               class="text-blue-500 text-sm font-semibold mt-3 inline-block"
-              >Read More</a
+              href="#"
+              @click.prevent="goToItem(post.id)"
             >
+              Read More
+            </a>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Go to Blog Button -->
-    <div class="flex justify-center mt-6">
+    <div class="flex justify-center mt-8">
       <button
-        class="btn btn-1 hover-filled-slide-down relative cursor-pointer bg-gray-900 px-6 py-3 rounded text-white text-lg font-semibold overflow-hidden group"
+        class="btn btn-1 hover-filled-slide-down relative cursor-pointer bg-gray-900 px-8 py-4 rounded text-white text-lg font-semibold overflow-hidden group"
         @click="goToBlog"
       >
         <span
@@ -58,80 +65,70 @@
 </template>
 
 <script>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import KeenSlider from 'keen-slider'
 import 'keen-slider/keen-slider.min.css'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { useBlogsStore } from '@/stores/blogs'
 
 export default {
   setup() {
+    const blogStore = useBlogsStore()
+    const displayedPosts = computed(() => {
+      // لاختيار كل المدخلات دون تقيد بعدد معين هنا
+      return blogStore.filteredPosts
+    })
+
+    // إصلاح مشكلة goToItem
+    const goToItem = (id) => {
+      navigateTo(`/blog/${id}`)
+    }
+
+    const goToBlog = () => {
+      navigateTo('/blog')
+    }
+
     onMounted(() => {
       AOS.init({
         duration: 1000,
-        once: true,
+        once: true, // إزالة offset
       })
+      if (!blogStore.blogs.length) {
+        blogStore.fetchBlogs()
+      }
+
+      // Initialize the slider after blogs are fetched
+      if (blogStore.filteredPosts.length) {
+        initializeSlider()
+      }
     })
+
     const sliderRef = ref(null)
     let sliderInstance = null
-    let interval = null
 
-    const blogs = ref([
-      {
-        image: 'https://picsum.photos/400/300?random=1',
-        title: 'How to be 1% Better Every Day',
-      },
-      {
-        image: 'https://picsum.photos/400/300?random=2',
-        title: '5 Habits of Highly Effective People',
-      },
-      {
-        image: 'https://picsum.photos/400/300?random=3',
-        title: 'Why Mindset Matters',
-      },
-      {
-        image: 'https://picsum.photos/400/300?random=4',
-        title: 'Building a Strong Morning Routine',
-      },
-      {
-        image: 'https://picsum.photos/400/300?random=5',
-        title: 'The Power of Gratitude',
-      },
-    ])
-
-    // Initialize the slider
-    onMounted(() => {
+    // Initialize the slider with autoplay
+    const initializeSlider = () => {
       sliderInstance = new KeenSlider(sliderRef.value, {
         loop: true,
         breakpoints: {
-          '(min-width: 768px)': { slides: { perView: 2, spacing: 20 } },
-          '(min-width: 1024px)': { slides: { perView: 3, spacing: 24 } },
+          '(min-width: 768px)': { slides: { perView: 3, spacing: 32 } },
+          '(min-width: 1024px)': { slides: { perView: 3, spacing: 36 } },
         },
-        slides: { perView: 1, spacing: 15 }, // Default for mobile
+        slides: { perView: 3, spacing: 20 },
+        duration: 1000, // تعيين سرعة الأنيميشن بين الشرائح
+        interval: 500, // المدة بين كل سلايد
+        autoplay: true, // تفعيل التمرير التلقائي
+        draggable: true, // تمكين السحب اليدوي
       })
-
-      // Auto slide every 3 seconds
-      interval = setInterval(() => {
-        if (sliderInstance) {
-          sliderInstance.next()
-        }
-      }, 3000)
-    })
+    }
 
     // Cleanup when component is destroyed
     onBeforeUnmount(() => {
-      if (interval) clearInterval(interval)
       if (sliderInstance) sliderInstance.destroy()
     })
 
-    return { blogs, sliderRef }
-  },
-
-  // Navigate to blog page
-  methods: {
-    goToBlog() {
-      navigateTo('/blog')
-    },
+    return { blogStore, sliderRef, displayedPosts, goToItem, goToBlog }
   },
 }
 </script>
