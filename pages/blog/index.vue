@@ -40,7 +40,35 @@
               <span class="flex items-center space-x-1 cursor-pointer">
                 <i class="fas fa-heart text-red-500" /><span>245</span>
               </span>
-              <span><i class="fas fa-share-alt mr-1" /> Share</span>
+              <div>
+                <!-- Share -->
+                <div class="relative group cursor-pointer">
+                  <div
+                    class="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition"
+                  >
+                    <i class="fas fa-share-alt mr-1" />
+                    <span>Share</span>
+                  </div>
+                  <div
+                    class="absolute top-8 left-1/2 -translate-x-1/2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 transition-all duration-300 ease-out z-20"
+                  >
+                    <ul
+                      class="flex flex-col text-sm text-gray-700 dark:text-gray-200"
+                    >
+                      <li v-for="(link, i) in socialLinks" :key="i">
+                        <a
+                          :href="link.href"
+                          target="_blank"
+                          class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          <i :class="link.icon + ' mr-2 ' + link.color" />
+                          {{ link.name }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="max-w-2xl mx-auto text-center mt-6 sm:mt-10">
               <p class="text-xs sm:text-sm uppercase tracking-wide">Life</p>
@@ -112,7 +140,33 @@
                   />
                   <span>{{ post.likes }}</span>
                 </span>
-                <span><i class="fas fa-share-alt mr-1" /> Share</span>
+                <!-- Share -->
+                <div class="relative group cursor-pointer">
+                  <div
+                    class="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition"
+                  >
+                    <i class="fas fa-share-alt mr-1" />
+                    <span>Share</span>
+                  </div>
+                  <div
+                    class="absolute top-8 left-1/2 -translate-x-1/2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 transition-all duration-300 ease-out z-20"
+                  >
+                    <ul
+                      class="flex flex-col text-sm text-gray-700 dark:text-gray-200"
+                    >
+                      <li v-for="(link, i) in socialLinks" :key="i">
+                        <a
+                          :href="link.href"
+                          target="_blank"
+                          class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          <i :class="link.icon + ' mr-2 ' + link.color" />
+                          {{ link.name }}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
                 {{ post.description }}
@@ -150,6 +204,33 @@ onMounted(() => {
     blogStore.fetchBlogs()
   }
 })
+
+const socialLinks = [
+  {
+    name: 'Facebook',
+    href: 'https://facebook.com',
+    icon: 'fab fa-facebook',
+    color: 'text-blue-600',
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com',
+    icon: 'fab fa-twitter',
+    color: 'text-sky-400',
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com',
+    icon: 'fab fa-linkedin',
+    color: 'text-blue-700',
+  },
+  {
+    name: 'WhatsApp',
+    href: 'https://wa.me/?text=Check%20this%20out',
+    icon: 'fab fa-whatsapp',
+    color: 'text-green-500',
+  },
+]
 
 useHead({
   title: 'Blog | My Website',
