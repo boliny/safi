@@ -19,7 +19,7 @@
           :key="index"
           class="keen-slider__slide bg-white rounded-xl shadow-md overflow-hidden flex flex-col"
         >
-          <NuxtImg
+          <img
             :src="post.image"
             class="w-full h-56 object-cover"
             loading="lazy"
