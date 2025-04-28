@@ -1,30 +1,29 @@
-<!-- pages/error.vue -->
 <template>
   <div
-    class="flex flex-col justify-center items-center min-h-screen text-center bg-gray-100"
+    class="flex items-center justify-center min-h-screen text-center bg-gray-100"
   >
-    <h1 class="text-6xl font-bold text-red-600 mb-4">{{ error.statusCode }}</h1>
-    <h2 class="text-2xl font-semibold mb-2">
-      {{ error.message || 'Something went wrong!' }}
-    </h2>
-    <p class="text-gray-600 mb-6">
-      Please check the URL or go back to the homepage.
-    </p>
-    <NuxtLink
-      to="/"
-      class="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600"
-    >
-      Go Home
-    </NuxtLink>
+    <div>
+      <h1 class="text-6xl font-bold mb-4 text-red-600">
+        {{ error.statusCode }} 
+      </h1>
+      <p class="text-2xl mb-8">
+        {{ error.message || 'Oops! Something went wrong.' }}
+      </p>
+      <NuxtLink
+        to="/"
+        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-full"
+      >
+        Back to Home
+      </NuxtLink>
+    </div>
   </div>
 </template>
 
-<script setup>
-defineProps({
-  error: Object,
-})
+<script setup lang="ts">
+defineProps<{
+  error: {
+    statusCode: number
+    message: string
+  }
+}>()
 </script>
-
-<style scoped>
-/* تحسينات بسيطة */
-</style>

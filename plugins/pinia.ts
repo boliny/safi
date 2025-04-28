@@ -1,7 +1,8 @@
 // plugins/pinia.js
 import { createPinia } from 'pinia'
+import { defineNuxtPlugin } from '#app'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const pinia = createPinia()
-  nuxtApp.vueApp.use(pinia) // قم باستخدام Pinia مع تطبيق Vue
+  nuxtApp.vueApp.use(pinia) // Use Pinia with Vue app
 })

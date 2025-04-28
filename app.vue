@@ -7,7 +7,6 @@
     />
 
     <!-- Apply transition to NuxtPage -->
-
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
@@ -15,8 +14,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useColorMode } from '@vueuse/core'
+
+// تفعيل الـ colorMode
+const colorMode = useColorMode({
+  emitAuto: true,
+  modes: {
+    dark: 'dark',
+    light: 'light',
+  },
+  storageKey: 'vueuse-color-scheme', // تخزين القيمة لتذكر آخر وضع
+})
+
+// تحديث الـ class عند التغيير في الـ colorMode
+watch(colorMode.value, (newMode) => {
+  // إضافة أو إزالة الـ dark class من الـ html أو body
+  document.documentElement.classList.toggle('dark', newMode === 'dark')
+})
 
 const x = ref(0)
 const y = ref(0)
@@ -34,9 +49,7 @@ onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
 })
 
-// 🌙 Color Mode
-const colorMode = useColorMode()
-
+// إضافة روابط أو عناصر إلى head (إذا كنت تستخدم Nuxt 3)
 useHead({
   link: [
     {

@@ -1,4 +1,3 @@
-<!-- pages/register-women.vue -->
 <template>
   <div class="max-w-2xl mx-auto p-10">
     <h1 class="text-2xl font-bold mb-4 text-center">
@@ -159,8 +158,32 @@
   </div>
 </template>
 
-<script setup>
-const form = reactive({
+<script setup lang="ts">
+import { reactive, ref, computed } from 'vue'
+
+interface FormData {
+  name: string
+  age: string
+  address: string
+  email: string
+  facebook: string
+  phone: string
+  birthdate: string
+  height: string
+  weight: string
+  neck: string
+  waist: string
+  injuries: string
+  injuryDetails: string
+  diseases: string
+  diseaseDetails: string
+  level: string
+  continuity: string
+  trainingPlace: string
+  trainingDays: string
+}
+
+const form = reactive<FormData>({
   name: '',
   age: '',
   address: '',
@@ -207,51 +230,21 @@ const submitForm = async () => {
     loading.value = false
   }
 }
-useHead({
-  title: "Women's Registration Form | Personal Training Program",
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Fill out the women’s registration form to join a customized fitness program tailored to your needs and goals.',
-    },
-    {
-      name: 'keywords',
-      content:
-        'women training, registration form, female fitness, home workouts, gym program, personal coaching',
-    },
-    { name: 'author', content: 'Coach Name or Website Name' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    {
-      property: 'og:title',
-      content: "Women's Registration Form | Personal Training Program",
-    },
-    {
-      property: 'og:description',
-      content:
-        'Join a professional fitness coaching program for women, customized to help you reach your personal health goals.',
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://yourdomain.com/register-women' },
-    {
-      property: 'og:image',
-      content: 'https://yourdomain.com/og-images/women-register.png',
-    },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    {
-      name: 'twitter:title',
-      content: "Women's Registration Form | Personal Training Program",
-    },
-    {
-      name: 'twitter:description',
-      content:
-        'Sign up for a women-only training program and get personalized coaching at home or in the gym.',
-    },
-    {
-      name: 'twitter:image',
-      content: 'https://yourdomain.com/og-images/women-register.png',
-    },
-  ],
-})
 </script>
+
+<style scoped>
+.input {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  width: 100%;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  background-color: #ffffff;
+}
+</style>

@@ -12,6 +12,28 @@
         </h1>
       </header>
 
+      <!-- Filter By Category -->
+      <div class="text-center mb-8">
+        <select
+          v-model="selectedCategory"
+          class="px-4 py-2 border rounded-md"
+          :class="
+            colorMode === 'dark'
+              ? 'bg-gray-900 text-white'
+              : 'bg-white text-black'
+          "
+        >
+          <option value="">All Categories</option>
+          <option
+            v-for="category in categories"
+            :key="category"
+            :value="category"
+          >
+            {{ category }}
+          </option>
+        </select>
+      </div>
+
       <!-- Layout with Sidebar + Content -->
       <div class="grid grid-cols-1 md:grid-cols-[1fr_280px] gap-8">
         <!-- Main Content -->
@@ -94,7 +116,7 @@
           <!-- Blog Posts -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div
-              v-for="post in blogStore.filteredPosts.slice(1)"
+              v-for="post in filteredPosts"
               :key="post.id"
               class="max-w-full text-center"
             >
@@ -128,15 +150,14 @@
                 <span><i class="fas fa-eye mr-1" /> {{ post.views }}</span>
                 <span
                   class="flex items-center space-x-1 cursor-pointer"
-                  @click="blogStore.toggleLike(post.id)"
+                  @click="toggleLike(post.id)"
                 >
                   <i
                     class="fas fa-heart transition-colors duration-300"
-                    :class="
-                      blogStore.likedPosts.includes(post.id)
-                        ? 'text-red-500'
-                        : 'text-gray-400'
-                    "
+                    :class="{
+                      'text-red-500': likedPosts.includes(post.id),
+                      'text-gray-400': !likedPosts.includes(post.id),
+                    }"
                   />
                   <span>{{ post.likes }}</span>
                 </span>
@@ -194,15 +215,28 @@
 <script setup>
 import { useColorMode } from '@vueuse/core'
 import { useHead } from '#imports'
-import { onMounted } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useBlogsStore } from '@/stores/blogs'
 
 const blogStore = useBlogsStore()
+const selectedCategory = ref('')
+const likedPosts = ref([])
+
+const categories = ['Life', 'Technology', 'Health', 'Entertainment']
 
 onMounted(() => {
   if (!blogStore.blogs.length) {
     blogStore.fetchBlogs()
   }
+})
+
+const filteredPosts = computed(() => {
+  if (selectedCategory.value) {
+    return blogStore.filteredPosts.filter(
+      (post) => post.category === selectedCategory.value
+    )
+  }
+  return blogStore.filteredPosts
 })
 
 const socialLinks = [
@@ -261,6 +295,14 @@ const colorMode = useColorMode({
 
 const goToItem = (id) => navigateTo(`/blog/${id}`)
 const goToMain = () => navigateTo(`/blog/${blogStore.filteredPosts[0].id}`)
+
+const toggleLike = (id) => {
+  if (likedPosts.value.includes(id)) {
+    likedPosts.value = likedPosts.value.filter((postId) => postId !== id)
+  } else {
+    likedPosts.value.push(id)
+  }
+}
 </script>
 
 <style>

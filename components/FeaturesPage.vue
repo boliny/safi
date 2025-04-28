@@ -1,7 +1,7 @@
 <template>
   <section
     ref="sectionRef"
-    class="bg-black bg-opacity-90 text-white py-20 relative overflow-hidden"
+    class="bg-black/90 text-white py-20 relative overflow-hidden"
   >
     <!-- Background with overlay and shine -->
     <div class="absolute inset-0">
@@ -21,7 +21,7 @@
 
     <!-- Feature Boxes -->
     <div
-      class="relative z-10 max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-700"
+      class="relative z-10 max-w-6xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 transition-all duration-700"
       :class="{
         'opacity-100 translate-y-0': inView,
         'opacity-0 translate-y-10': !inView,

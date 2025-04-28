@@ -1,8 +1,11 @@
 <template>
-  <section class="bg-gradient-to-b from-white to-gray-100 py-20 px-4 md:px-12">
-    <h2 class="text-4xl font-bold text-center mb-16 text-black">
-      Coach's Journey
-    </h2>
+  <section
+    class="py-20 px-4 md:px-12"
+    :class="
+      colorMode === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'
+    "
+  >
+    <h2 class="text-4xl font-bold text-center mb-16">Coach's Journey</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <div
@@ -35,6 +38,9 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useColorMode } from '@vueuse/core'
+
+const colorMode = useColorMode()
 
 const isTouchDevice = ref(false)
 

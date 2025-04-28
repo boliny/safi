@@ -1,5 +1,10 @@
 <template>
-  <section class="min-h-screen flex flex-col md:flex-row bg-white">
+  <section
+    class="min-h-screen flex flex-col md:flex-row"
+    :class="
+      colorMode === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-black'
+    "
+  >
     <!-- Left Image -->
     <div class="md:w-1/2 w-full">
       <NuxtImg
@@ -13,8 +18,8 @@
     <!-- Right Form Content -->
     <div class="md:w-1/2 w-full flex flex-col justify-center px-8 py-12">
       <div class="max-w-xl mx-auto">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
-        <p class="text-gray-600 mb-8">
+        <h2 class="text-4xl font-bold mb-4">Get in Touch</h2>
+        <p class="mb-8">
           Have a question or want to work together? Fill out the form and I'll
           get back to you as soon as possible.
         </p>
@@ -43,7 +48,7 @@
           ></textarea>
           <button
             type="submit"
-            class="w-full bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition-all duration-300"
+            class="w-full cursor-pointer bg-red-600 text-white py-3 rounded-md font-semibold hover:bg-red-700 transition-all duration-300"
           >
             Send Message
           </button>
@@ -55,6 +60,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useColorMode } from '@vueuse/core'
+
+const colorMode = useColorMode()
 
 const form = ref({
   name: '',

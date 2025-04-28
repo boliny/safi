@@ -70,7 +70,7 @@
           >Front Body Images (Optional)</label
         >
 
-        <!-- زر اختيار الصور -->
+        <!-- Image upload -->
         <div
           class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
           @click="triggerFileInput('front')"
@@ -78,7 +78,7 @@
           📷 Click to upload or drag and drop images
         </div>
 
-        <!-- input خارج clickable area -->
+        <!-- Hidden input -->
         <input
           ref="frontInput"
           type="file"
@@ -88,7 +88,7 @@
           @change="handleFile($event, 'frontImages')"
         />
 
-        <!-- عرض الصور -->
+        <!-- Preview images -->
         <div class="flex flex-wrap gap-2 mt-2">
           <div
             v-for="(img, index) in previews.frontImages"
@@ -117,7 +117,7 @@
           >Back Body Images (Optional)</label
         >
 
-        <!-- زر اختيار الصور -->
+        <!-- Image upload -->
         <div
           class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
           @click="triggerFileInput('back')"
@@ -125,7 +125,7 @@
           📷 Click to upload or drag and drop images
         </div>
 
-        <!-- input خارج clickable area -->
+        <!-- Hidden input -->
         <input
           ref="backInput"
           type="file"
@@ -135,7 +135,7 @@
           @change="handleFile($event, 'backImages')"
         />
 
-        <!-- عرض الصور -->
+        <!-- Preview images -->
         <div class="flex flex-wrap gap-2 mt-2">
           <div
             v-for="(img, index) in previews.backImages"
@@ -153,8 +153,47 @@
           </div>
         </div>
       </div>
-
-      <!-- Optional inputs -->
+      <!-- inbody IMAGES -->
+      <div
+        class="flex flex-col gap-2"
+        @dragover.prevent
+        @drop="handleDrop($event, 'inbodyImages')"
+      >
+        <label class="font-medium text-gray-700"
+          >inbody report Images (Optional)</label
+        >
+        <div
+          class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
+          @click="triggerFileInput('inbody')"
+        >
+          📷 Click to upload or drag and drop images
+        </div>
+        <input
+          ref="inbodyInput"
+          type="file"
+          accept="image/*"
+          multiple
+          class="hidden"
+          @change="handleFile($event, 'inbodyImages')"
+        />
+        <div class="flex flex-wrap gap-2 mt-2">
+          <div
+            v-for="(img, index) in previews.inbodyImages"
+            :key="'inbody-' + index"
+            class="relative w-24 h-24"
+          >
+            <img :src="img.url" class="w-full h-full object-cover rounded" />
+            <button
+              type="button"
+              @click="removeImage('inbodyImages', index)"
+              class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Optional fields -->
       <input
         v-model="form.illness"
         placeholder="Write illnesses or leave empty"
@@ -166,7 +205,7 @@
         class="input"
       />
 
-      <!-- Selects -->
+      <!-- Select inputs -->
       <select v-model="form.level" class="input" required>
         <option disabled value="">Select Level</option>
         <option>Beginner</option>
@@ -205,81 +244,129 @@
     </form>
   </div>
 </template>
-
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
 
-const frontInput = ref(null)
-const backInput = ref(null)
+interface FormData {
+  name: string
+  age: number | null
+  address: string
+  email: string
+  facebook: string
+  phone: string
+  birthdate: string
+  height: number | null
+  weight: number | null
+  illness: string
+  injuries: string
+  level: string
+  consistency: string
+  place: string
+  daysPerWeek: number | null
+  frontImages: File[]
+  backImages: File[]
+  inbodyImages: []
+}
 
-const previews = reactive({
-  frontImages: [],
-  backImages: [],
-})
+interface PreviewData {
+  frontImages: { url: string; file: File }[]
+  backImages: { url: string; file: File }[]
+  inbodyImages: { url: string; file: File }[]
+}
 
-const form = reactive({
+const form = reactive<FormData>({
   name: '',
-  age: '',
+  age: null,
   address: '',
   email: '',
   facebook: '',
   phone: '',
   birthdate: '',
-  height: '',
-  weight: '',
+  height: null,
+  weight: null,
   illness: '',
   injuries: '',
   level: '',
   consistency: '',
   place: '',
-  daysPerWeek: '',
+  daysPerWeek: null,
   frontImages: [],
   backImages: [],
+  inbodyImages: [],
 })
 
-const triggerFileInput = (side) => {
-  if (side === 'front') frontInput.value.click()
-  if (side === 'back') backInput.value.click()
+const previews = reactive<PreviewData>({
+  frontImages: [],
+  backImages: [],
+  inbodyImages: [],
+})
+
+const frontInput = ref<HTMLInputElement | null>(null)
+const backInput = ref<HTMLInputElement | null>(null)
+const inbodyInput = ref<HTMLInputElement | null>(null)
+const isUploading = ref(false)
+
+const triggerFileInput = (side: string) => {
+  if (side === 'front' && frontInput.value) frontInput.value.click()
+  if (side === 'back' && backInput.value) backInput.value.click()
+  if (side === 'inbody' && inbodyInput.value) inbodyInput.value.click()
 }
 
-const handleFile = (event, key) => {
-  const files = Array.from(event.target.files)
+const handleFile = (event: Event, key: keyof FormData) => {
+  const input = event.target as HTMLInputElement
+  const files = Array.from(input.files as FileList)
+  isUploading.value = true
   files.forEach((file) => {
-    form[key].push(file)
-    const reader = new FileReader()
-    reader.onload = () => {
-      previews[key].push({ url: reader.result, file })
+    if (Array.isArray(form[key])) {
+      ;(form[key] as File[]).push(file)
+      const reader = new FileReader()
+      reader.onload = () => {
+        previews[key as keyof PreviewData].push({
+          url: reader.result as string,
+          file,
+        })
+        isUploading.value = false
+      }
+      reader.readAsDataURL(file)
     }
-    reader.readAsDataURL(file)
   })
 }
 
-const handleDrop = (event, key) => {
-  const files = Array.from(event.dataTransfer.files)
+const handleDrop = (event: DragEvent, key: keyof FormData) => {
+  const files = Array.from(event.dataTransfer?.files as FileList)
   files.forEach((file) => {
-    form[key].push(file)
-    const reader = new FileReader()
-    reader.onload = () => {
-      previews[key].push({ url: reader.result, file })
+    if (Array.isArray(form[key])) {
+      ;(form[key] as File[]).push(file)
+      const reader = new FileReader()
+      reader.onload = () => {
+        previews[key as keyof PreviewData].push({
+          url: reader.result as string,
+          file,
+        })
+      }
+      reader.readAsDataURL(file)
     }
-    reader.readAsDataURL(file)
   })
 }
-
-const removeImage = (key, index) => {
-  form[key].splice(index, 1)
-  previews[key].splice(index, 1)
+const removeImage = (key: keyof FormData, index: number) => {
+  if (Array.isArray(form[key])) {
+    ;(form[key] as File[]).splice(index, 1)
+    previews[key as keyof PreviewData].splice(index, 1)
+  }
 }
 
 const submitForm = async () => {
   const formData = new FormData()
   for (const key in form) {
-    if (Array.isArray(form[key])) {
-      form[key].forEach((file) => {
+    if (Array.isArray(form[key as keyof typeof form])) {
+      ;(form[key as keyof typeof form] as File[]).forEach((file) => {
         formData.append(key, file)
       })
-    } else if (form[key]) {
-      formData.append(key, form[key])
+    } else if (
+      form[key as keyof typeof form] !== null &&
+      form[key as keyof typeof form] !== 0
+    ) {
+      formData.append(key, String(form[key as keyof typeof form]))
     }
   }
 
@@ -289,66 +376,27 @@ const submitForm = async () => {
       body: formData,
     })
     await res.json()
-    alert('Submitted successfully!')
+    alert('Form submitted successfully!')
   } catch (err) {
     console.error(err)
-    alert('Error while submitting')
+    alert('An error occurred while submitting')
   }
 }
-useHead({
-  title: "Men's Registration Form | Personal Training Program",
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Fill out the men’s registration form to join a personalized fitness and training program tailored to your goals.',
-    },
-    {
-      name: 'keywords',
-      content:
-        'men training, registration form, fitness coaching, gym, home workouts, personal trainer',
-    },
-    { name: 'author', content: 'Coach Name or Website Name' },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    {
-      property: 'og:title',
-      content: "Men's Registration Form | Personal Training Program",
-    },
-    {
-      property: 'og:description',
-      content:
-        'Join now and start your transformation with a plan designed specifically for men by a certified fitness coach.',
-    },
-    { property: 'og:type', content: 'website' },
-    { property: 'og:url', content: 'https://yourdomain.com/register-men' },
-    {
-      property: 'og:image',
-      content: 'https://yourdomain.com/og-images/men-register.png',
-    },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    {
-      name: 'twitter:title',
-      content: "Men's Registration Form | Personal Training Program",
-    },
-    {
-      name: 'twitter:description',
-      content:
-        'Sign up today and start a customized fitness journey guided by a professional coach.',
-    },
-    {
-      name: 'twitter:image',
-      content: 'https://yourdomain.com/og-images/men-register.png',
-    },
-  ],
-})
 </script>
 
 <style scoped>
 .input {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   width: 100%;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  outline: none;
+  background-color: #ffffff;
 }
 </style>
