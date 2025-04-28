@@ -11,36 +11,21 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-regular-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/vue-fontawesome": "^3.0.8",
     "@nuxt/eslint": "^1.3.0",
-    "@nuxt/fonts": "^0.11.1",
+    "@nuxt/fonts": "^0.11.2",
     "@nuxt/icon": "^1.12.0",
     "@nuxt/image": "^1.10.0",
-    "@nuxt/ui": "^3.0.2",
-    "@nuxtjs/color-mode": "^3.5.2",
-    "@tailwindcss/vite": "^4.1.4",
+    "@nuxt/ui": "^3.1.0",
     "@vueuse/motion": "^3.0.3",
     "aos": "^2.3.4",
-    "gsap": "^3.12.7",
+    "eslint": "^9.25.1",
     "keen-slider": "^6.8.6",
-    "motion": "^12.7.4",
-    "nuxt": "^3.16.2",
+    "nuxt": "^3.17.0",
     "pinia": "^3.0.2",
     "typescript": "^5.8.3",
     "vue": "^3.5.13",
-    "vue-loading-skeleton": "^1.1.9",
-    "vue-router": "^4.5.0"
-  },
-  "devDependencies": {
-    "@nuxtjs/tailwindcss": "^6.13.2",
-    "autoprefixer": "^10.4.21",
-    "eslint": "^9.24.0",
-    "eslint-config-prettier": "^10.1.2",
-    "eslint-plugin-prettier": "^5.2.6",
-    "postcss": "^8.5.3",
-    "prettier": "^3.5.3",
-    "tailwindcss": "^4.1.4"
+    "vue-router": "^4.5.1"
   }
 }

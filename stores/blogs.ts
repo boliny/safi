@@ -30,10 +30,11 @@ export const useBlogsStore = defineStore('blogs', () => {
       const res = await fetch('https://fakestoreapi.in/api/products')
       const data: FetchBlogsResponse = await res.json()
       blogs.value = data.products.map(
-        (post): Blog => ({
+        (post: Omit<Blog, 'views' | 'likes'>): Blog => ({
           id: Number(post.id),
           title: String(post.title),
           description: String(post.description),
+          image: String(post.image),
           price: Number(post.price),
           views: getRandomViews(),
           likes: getRandomLikes(),

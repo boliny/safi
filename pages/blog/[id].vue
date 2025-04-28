@@ -24,7 +24,7 @@
           class="flex flex-wrap justify-center items-center gap-4 sm:gap-6 my-5 text-xs sm:text-sm"
         >
           <span class="flex items-center"
-            ><i class="fas fa-calendar-alt mr-1" /> Apr 8, 2025</span
+            ><i class="fas fa-calendar-alt mr-1" /> {{ formattedDate }}</span
           >
           <span class="flex items-center"
             ><i class="fas fa-eye mr-1" /> {{ post.views }}</span
@@ -220,6 +220,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useBlogsStore } from '@/stores/blogs'
 import { useColorMode } from '@vueuse/core'
+import { useHead } from '#imports'
 
 const colorMode = useColorMode()
 
@@ -233,6 +234,12 @@ const currentIndex = computed(() =>
 )
 const prevPost = computed(() => blogStore.blogs[currentIndex.value - 1])
 const nextPost = computed(() => blogStore.blogs[currentIndex.value + 1])
+
+// تنسيق التاريخ
+const formattedDate = computed(() => {
+  const date = new Date(post.value?.date || '')
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+})
 
 interface SocialLink {
   name: string
@@ -294,4 +301,18 @@ const shareLinks: Pick<SocialLink, 'href' | 'icon' | 'color'>[] = [
 const otherProducts = computed(() =>
   blogStore.blogs.filter((p) => p.id !== id).slice(0, 2)
 )
+
+// توليد Meta Tags
+useHead({
+  title: computed(() => post.value?.title || 'Blog Post'),
+  meta: [
+    { name: 'description', content: post.value?.description || '' },
+    { property: 'og:title', content: post.value?.title || '' },
+    { property: 'og:description', content: post.value?.description || '' },
+    { property: 'og:type', content: 'article' },
+    { property: 'twitter:card', content: 'summary_large_image' },
+    { property: 'twitter:title', content: post.value?.title || '' },
+    { property: 'twitter:description', content: post.value?.description || '' },
+  ],
+})
 </script>
