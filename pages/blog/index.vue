@@ -154,7 +154,7 @@
                 class="text-lg sm:text-2xl font-bold mt-2 cursor-pointer hover:text-blue-600 transition-colors"
                 @click="goToItem(post.id)"
               >
-                {{ post.title }}
+                {{ truncateWords(post.title, 10) }}
               </h1>
               <div
                 class="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm mt-2"
@@ -203,7 +203,7 @@
                 </div>
               </div>
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
-                {{ post.description }}
+                {{ truncateWords(post.description, 30) }}
               </p>
               <!-- زر READ MORE لكل بوست -->
               <button
@@ -315,6 +315,13 @@ const toggleLike = (id) => {
   } else {
     likedPosts.value.push(id)
   }
+}
+
+const truncateWords = (text, wordLimit) => {
+  const words = text.split(' ')
+  return words.length > wordLimit
+    ? words.slice(0, wordLimit).join(' ') + '...'
+    : text
 }
 </script>
 

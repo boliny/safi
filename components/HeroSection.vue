@@ -98,7 +98,6 @@ export default {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
   position: relative;
   padding-top: 3rem;
   padding-bottom: 3rem;

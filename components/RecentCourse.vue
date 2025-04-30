@@ -17,22 +17,18 @@
     >
       <!-- GOLD -->
       <div
-        class="holographic-card relative bg-gradient-to-br from-yellow-400 to-yellow-700 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-black/70 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <!-- <div
-          class="absolute inset-0 w-full h-full -z-10 bg-gradient-to-br from-yellow-400 via-white to-yellow-700 animate-shine rounded-t-2xl"
-        /> -->
-        <!-- <div
-          class="absolute inset-0 bg-white opacity-30 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
 
-        <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow text-black">
+        <h3
+          class="text-4xl text-yellow-500 font-bold uppercase mb-4 drop-shadow"
+        >
           Gold
         </h3>
-        <p class="text-center mb-9 text-lg text-black font-bold">
+        <p class="text-center mb-9 text-lg text-white font-bold">
           Daily follow-up on WhatsApp
         </p>
 
@@ -78,20 +74,16 @@
 
       <!-- SILVER -->
       <div
-        class="holographic-card relative bg-gradient-to-br from-gray-300 to-gray-500 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-black/70 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <!-- <div
-          class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-gray-300 to-gray-500 animate-shine rounded-t-2xl"
-        />
-        <div
-          class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
 
-        <h3 class="text-2xl font-bold uppercase mb-4 drop-shadow">Silver</h3>
-        <p class="text-center mb-4 text-md">
+        <h3 class="text-4xl font-bold uppercase text-white/80 mb-4 drop-shadow">
+          Silver
+        </h3>
+        <p class="text-center mb-4 font-bold text-md">
           Follow-up only on Mondays & Fridays via WhatsApp
         </p>
 
@@ -137,20 +129,18 @@
 
       <!-- BRONZE -->
       <div
-        class="holographic-card relative bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
+        class="holographic-card relative bg-black/70 text-white p-6 flex flex-col rounded-2xl shadow-2xl group overflow-hidden transition-transform duration-300 hover:scale-105"
       >
-        <!-- <div
-          class="absolute top-0 left-0 w-full h-full opacity-10 bg-gradient-to-br from-[#cd7f32] to-[#8b5a2b] animate-shine rounded-t-2xl"
-        />
-        <div
-          class="absolute inset-0 bg-white opacity-10 blur-md pointer-events-none transition duration-300 group-hover:opacity-20"
-        /> -->
         <div
           class="absolute -top-1/2 left-1/2 w-[200%] h-[200%] bg-gradient-to-tr from-white/20 via-white/5 to-transparent translate-x-[-50%] group-hover:animate-pulse opacity-20 pointer-events-none"
         />
 
-        <h3 class="text-2xl uppercase mb-4 drop-shadow">Bronze</h3>
-        <p class="text-center mb-2 text-lg">
+        <h3
+          class="text-4xl font-bold uppercase text-[#cd7f32] mb-4 drop-shadow"
+        >
+          Bronze
+        </h3>
+        <p class="text-center font-bold mb-2 text-lg">
           Full detailed program without follow-up
         </p>
 
@@ -235,12 +225,6 @@ export default {
 tr {
   border-bottom: 1px solid #777;
 }
-h3,
-p {
-  color: black;
-  font-weight: bold;
-}
-
 .holographic-card {
   display: flex;
   justify-content: center;

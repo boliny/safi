@@ -16,7 +16,7 @@
         <h1
           class="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-6 break-words"
         >
-          {{ post.title }}
+          {{ truncateWords(post.title, 10) }}
         </h1>
 
         <!-- Info Bar -->
@@ -84,7 +84,7 @@
 
         <!-- Description -->
         <p class="text-base sm:text-lg leading-7 mb-6 px-2 sm:px-0">
-          {{ post.description }}
+          {{ truncateWords(post.description, 30) }}
         </p>
 
         <!-- Share This -->
@@ -129,7 +129,7 @@
                     class="fas fa-arrow-left text-lg sm:text-xl text-gray-500"
                   />
                   <p class="text-sm sm:text-lg font-bold">
-                    {{ prevPost.title }}
+                    {{ truncateWords(prevPost.title, 5) }}
                   </p>
                 </div>
               </div>
@@ -148,7 +148,7 @@
                 >
                 <div class="flex items-center gap-2">
                   <p class="text-sm sm:text-lg font-bold">
-                    {{ nextPost.title }}
+                    {{ truncateWords(nextPost.title, 5) }}
                   </p>
                   <i
                     class="fas fa-arrow-right text-lg sm:text-xl text-gray-500"
@@ -192,7 +192,7 @@
               <h3
                 class="text-base sm:text-lg font-bold text-white mb-4 drop-shadow-lg"
               >
-                {{ product.title }}
+                {{ truncateWords(product.title, 5) }}
               </h3>
               <NuxtLink
                 :to="`/blog/${product.id}`"
@@ -301,6 +301,13 @@ const shareLinks: Pick<SocialLink, 'href' | 'icon' | 'color'>[] = [
 const otherProducts = computed(() =>
   blogStore.blogs.filter((p) => p.id !== id).slice(0, 2)
 )
+
+const truncateWords = (text: string, wordLimit: number) => {
+  const words = text.split(' ')
+  return words.length > wordLimit
+    ? words.slice(0, wordLimit).join(' ') + '...'
+    : text
+}
 
 // توليد Meta Tags
 useHead({

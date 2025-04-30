@@ -6,10 +6,10 @@
     <div class="absolute inset-0 bg-gray-900/70 bg-opacity-70" />
     <div class="relative z-10 max-w-3xl mx-auto text-center">
       <h2 class="text-4xl md:text-6xl font-bold leading-tight text-orange-500">
-        Sign Up
+        Join Our Community
       </h2>
       <p class="mt-4 text-lg opacity-80">
-        Stay updated with the latest news and insights from our company.
+        Stay updated with the latest news and insights from our company.<br />
         Subscribe now and never miss an update!
       </p>
       <div class="mt-6 flex justify-center">

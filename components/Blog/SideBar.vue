@@ -49,23 +49,14 @@
           class="w-16 h-16 object-cover"
         />
         <p class="text-sm font-medium leading-snug">
-          {{ post.title }}
+          {{ truncateWords(post.title, 5) }}
         </p>
       </div>
-    </div>
-
-    <!-- Free Course Ad -->
-    <div class="relative cursor-pointer">
-      <NuxtImg
-        src="https://themes.pixelwars.org/efor/demo-04/wp-content/uploads/sites/6/2019/03/banner2.jpg"
-        alt="Free course"
-        class="w-full object-cover"
-      />
     </div>
   </aside>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useBlogsStore } from '@/stores/blogs'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -87,7 +78,14 @@ const filteredPosts = computed(() => {
   )
 })
 
-const goToItem = (id) => {
+const goToItem = (id: number) => {
   router.push(`/blog/${id}`)
+}
+
+const truncateWords = (text: string, wordLimit: number) => {
+  const words = text.split(' ')
+  return words.length > wordLimit
+    ? words.slice(0, wordLimit).join(' ') + '...'
+    : text
 }
 </script>
