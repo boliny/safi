@@ -103,19 +103,12 @@ const colorMode = useColorMode({
   transition: all 0.3s ease-in-out;
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -3px;
-  width: 0;
-  height: 2px;
-  background: #ff0000;
-  transition: all 0.3s ease-in-out;
-  transform: translateX(-50%);
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }
 
-.nav-link:hover::after {
-  width: 100%;
+.nav-link.active {
+  color: #ffcc00;
 }
 </style>
