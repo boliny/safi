@@ -125,7 +125,7 @@
                 @click="goToItem(post.id)"
               >
                 <NuxtImg
-                  :src="String(post.image)"
+                  :src="post.image"
                   alt="Post Image"
                   loading="lazy"
                   class="w-full h-[250px] sm:h-[300px] object-cover transition-transform duration-500 delay-150 group-hover:scale-105"
