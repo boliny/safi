@@ -61,13 +61,17 @@
               <span><i class="fas fa-eye mr-1" /> 980</span>
               <span
                 class="flex items-center space-x-1 cursor-pointer"
-                @click="toggleLike(post.id)"
+                @click="toggleLike(blogStore.filteredPosts[0].id)"
               >
                 <i
                   class="fas fa-heart transition-colors duration-300"
                   :class="{
-                    'text-red-500': likedPosts.includes(post.id),
-                    'text-gray-400': !likedPosts.includes(post.id),
+                    'text-red-500': likedPosts.includes(
+                      blogStore.filteredPosts[0].id
+                    ),
+                    'text-gray-400': !likedPosts.includes(
+                      blogStore.filteredPosts[0].id
+                    ),
                   }"
                 /><span>245</span>
               </span>
@@ -110,7 +114,7 @@
                 {{ blogStore.filteredPosts[0].title }}
               </h1>
               <p class="mt-4 leading-relaxed text-sm sm:text-base">
-                People know who they have the potential to be...
+                {{ blogStore.filteredPosts[0].description }}
               </p>
               <!-- زر READ MORE الرئيسي -->
               <button
