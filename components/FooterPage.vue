@@ -48,7 +48,7 @@
       >
         © 2025 All rights reserved.
         <NuxtImg
-          src="/logo1.png"
+          :src="colorMode === 'dark' ? '/logo-dark.png' : '/logo-light.png'"
           alt="SkyLink Logo"
           class="h-22 w-auto object-contain"
           loading="lazy"
@@ -115,12 +115,7 @@ const colorMode = useColorMode({
   transform: translateX(-50%);
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
+.nav-link:hover::after {
   width: 100%;
-}
-
-.nav-link.active {
-  color: #ffcc00;
 }
 </style>

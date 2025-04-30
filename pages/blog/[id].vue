@@ -47,7 +47,7 @@
           <!-- Share -->
           <div class="relative group cursor-pointer">
             <div
-              class="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition"
+              class="flex items-center space-x-1 hover:text-red-500 transition"
             >
               <i class="fas fa-share-alt mr-1" />
               <span>Share</span>

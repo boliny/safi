@@ -59,8 +59,17 @@
             >
               <span><i class="fas fa-calendar-alt mr-1" /> Apr 8, 2025</span>
               <span><i class="fas fa-eye mr-1" /> 980</span>
-              <span class="flex items-center space-x-1 cursor-pointer">
-                <i class="fas fa-heart text-red-500" /><span>245</span>
+              <span
+                class="flex items-center space-x-1 cursor-pointer"
+                @click="toggleLike(post.id)"
+              >
+                <i
+                  class="fas fa-heart transition-colors duration-300"
+                  :class="{
+                    'text-red-500': likedPosts.includes(post.id),
+                    'text-gray-400': !likedPosts.includes(post.id),
+                  }"
+                /><span>245</span>
               </span>
               <div>
                 <!-- Share -->
