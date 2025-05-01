@@ -1,251 +1,275 @@
 <template>
-  <div class="max-w-2xl mx-auto p-10">
-    <h1 class="text-2xl font-bold mb-4 text-center">Men's Registration Form</h1>
-    <form class="grid grid-cols-1 gap-4" @submit.prevent="submitForm">
-      <!-- Basic inputs -->
-      <input
-        v-model="form.name"
-        placeholder="Full Name"
-        class="input"
-        required
-      />
-      <input
-        v-model="form.age"
-        type="number"
-        placeholder="Age"
-        class="input"
-        min="18"
-        required
-      />
-      <input
-        v-model="form.address"
-        placeholder="Address"
-        class="input"
-        required
-      />
-      <input
-        v-model="form.email"
-        type="email"
-        placeholder="Email"
-        class="input"
-        required
-      />
-      <input
-        v-model="form.facebook"
-        placeholder="Facebook Profile"
-        class="input"
-        required
-      />
-      <input
-        v-model="form.phone"
-        placeholder="Phone Number"
-        class="input"
-        required
-      />
-      <input v-model="form.birthdate" type="date" class="input" required />
-      <input
-        v-model="form.height"
-        type="number"
-        placeholder="Height (cm)"
-        class="input"
-        required
-        min="50"
-      />
-      <input
-        v-model="form.weight"
-        type="number"
-        placeholder="Weight (kg)"
-        class="input"
-        required
-        min="30"
-      />
-
-      <!-- FRONT IMAGES -->
-      <div
-        class="flex flex-col gap-2"
-        @dragover.prevent
-        @drop="handleDrop($event, 'frontImages')"
-      >
-        <label class="font-medium text-gray-700"
-          >Front Body Images (Optional)</label
-        >
-
-        <!-- Image upload -->
-        <div
-          class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
-          @click="triggerFileInput('front')"
-        >
-          📷 Click to upload or drag and drop images
-        </div>
-
-        <!-- Hidden input -->
+  <div
+    :data-theme="colorMode"
+    :class="
+      colorMode === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-black'
+    "
+  >
+    <div
+      class="max-w-2xl mx-auto p-10"
+      :class="
+        colorMode === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-black'
+      "
+    >
+      <h1 class="text-2xl font-bold mb-4 text-center">
+        Men's Registration Form
+      </h1>
+      <form class="grid grid-cols-1 gap-4" @submit.prevent="submitForm">
+        <!-- Basic inputs -->
         <input
-          ref="frontInput"
-          type="file"
-          accept="image/*"
-          multiple
-          class="hidden"
-          @change="handleFile($event, 'frontImages')"
+          v-model="form.name"
+          placeholder="Full Name"
+          class="input"
+          required
+        />
+        <input
+          v-model="form.age"
+          type="number"
+          placeholder="Age"
+          class="input"
+          min="18"
+          required
+        />
+        <input
+          v-model="form.address"
+          placeholder="Address"
+          class="input"
+          required
+        />
+        <input
+          v-model="form.email"
+          type="email"
+          placeholder="Email"
+          class="input"
+          required
+        />
+        <input
+          v-model="form.facebook"
+          placeholder="Facebook Profile"
+          class="input"
+          required
+        />
+        <input
+          v-model="form.phone"
+          placeholder="Phone Number"
+          class="input"
+          required
+        />
+        <input v-model="form.birthdate" type="date" class="input" required />
+        <input
+          v-model="form.height"
+          type="number"
+          placeholder="Height (cm)"
+          class="input"
+          required
+          min="50"
+        />
+        <input
+          v-model="form.weight"
+          type="number"
+          placeholder="Weight (kg)"
+          class="input"
+          required
+          min="30"
         />
 
-        <!-- Preview images -->
-        <div class="flex flex-wrap gap-2 mt-2">
-          <div
-            v-for="(img, index) in previews.frontImages"
-            :key="'front-' + index"
-            class="relative w-24 h-24"
+        <!-- FRONT IMAGES -->
+        <div
+          class="flex flex-col gap-2"
+          @dragover.prevent
+          @drop="handleDrop($event, 'frontImages')"
+        >
+          <label class="font-medium text-gray-700"
+            >Front Body Images (Optional)</label
           >
-            <img :src="img.url" class="w-full h-full object-cover rounded" />
-            <button
-              type="button"
-              @click="removeImage('frontImages', index)"
-              class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+
+          <!-- Image upload -->
+          <div
+            class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
+            @click="triggerFileInput('front')"
+          >
+            📷 Click to upload or drag and drop images
+          </div>
+
+          <!-- Hidden input -->
+          <input
+            ref="frontInput"
+            type="file"
+            accept="image/*"
+            multiple
+            class="hidden"
+            @change="handleFile($event, 'frontImages')"
+          />
+
+          <!-- Preview images -->
+          <div class="flex flex-wrap gap-2 mt-2">
+            <div
+              v-for="(img, index) in previews.frontImages"
+              :key="'front-' + index"
+              class="relative w-24 h-24"
             >
-              ×
-            </button>
+              <img :src="img.url" class="w-full h-full object-cover rounded" />
+              <button
+                type="button"
+                @click="removeImage('frontImages', index)"
+                class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+              >
+                ×
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- BACK IMAGES -->
-      <div
-        class="flex flex-col gap-2"
-        @dragover.prevent
-        @drop="handleDrop($event, 'backImages')"
-      >
-        <label class="font-medium text-gray-700"
-          >Back Body Images (Optional)</label
-        >
-
-        <!-- Image upload -->
+        <!-- BACK IMAGES -->
         <div
-          class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
-          @click="triggerFileInput('back')"
+          class="flex flex-col gap-2"
+          @dragover.prevent
+          @drop="handleDrop($event, 'backImages')"
         >
-          📷 Click to upload or drag and drop images
-        </div>
+          <label class="font-medium text-gray-700"
+            >Back Body Images (Optional)</label
+          >
 
-        <!-- Hidden input -->
+          <!-- Image upload -->
+          <div
+            class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
+            @click="triggerFileInput('back')"
+          >
+            📷 Click to upload or drag and drop images
+          </div>
+
+          <!-- Hidden input -->
+          <input
+            ref="backInput"
+            type="file"
+            accept="image/*"
+            multiple
+            class="hidden"
+            @change="handleFile($event, 'backImages')"
+          />
+
+          <!-- Preview images -->
+          <div class="flex flex-wrap gap-2 mt-2">
+            <div
+              v-for="(img, index) in previews.backImages"
+              :key="'back-' + index"
+              class="relative w-24 h-24"
+            >
+              <img :src="img.url" class="w-full h-full object-cover rounded" />
+              <button
+                type="button"
+                @click="removeImage('backImages', index)"
+                class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- inbody IMAGES -->
+        <div
+          class="flex flex-col gap-2"
+          @dragover.prevent
+          @drop="handleDrop($event, 'inbodyImages')"
+        >
+          <label class="font-medium text-gray-700"
+            >inbody report Images (Optional)</label
+          >
+          <div
+            class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
+            @click="triggerFileInput('inbody')"
+          >
+            📷 Click to upload or drag and drop images
+          </div>
+          <input
+            ref="inbodyInput"
+            type="file"
+            accept="image/*"
+            multiple
+            class="hidden"
+            @change="handleFile($event, 'inbodyImages')"
+          />
+          <div class="flex flex-wrap gap-2 mt-2">
+            <div
+              v-for="(img, index) in previews.inbodyImages"
+              :key="'inbody-' + index"
+              class="relative w-24 h-24"
+            >
+              <img :src="img.url" class="w-full h-full object-cover rounded" />
+              <button
+                type="button"
+                @click="removeImage('inbodyImages', index)"
+                class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Optional fields -->
         <input
-          ref="backInput"
-          type="file"
-          accept="image/*"
-          multiple
-          class="hidden"
-          @change="handleFile($event, 'backImages')"
+          v-model="form.illness"
+          placeholder="Write illnesses or leave empty"
+          class="input"
+        />
+        <input
+          v-model="form.injuries"
+          placeholder="Write injuries or leave empty"
+          class="input"
         />
 
-        <!-- Preview images -->
-        <div class="flex flex-wrap gap-2 mt-2">
-          <div
-            v-for="(img, index) in previews.backImages"
-            :key="'back-' + index"
-            class="relative w-24 h-24"
-          >
-            <img :src="img.url" class="w-full h-full object-cover rounded" />
-            <button
-              type="button"
-              @click="removeImage('backImages', index)"
-              class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- inbody IMAGES -->
-      <div
-        class="flex flex-col gap-2"
-        @dragover.prevent
-        @drop="handleDrop($event, 'inbodyImages')"
-      >
-        <label class="font-medium text-gray-700"
-          >inbody report Images (Optional)</label
-        >
-        <div
-          class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
-          @click="triggerFileInput('inbody')"
-        >
-          📷 Click to upload or drag and drop images
-        </div>
+        <!-- Select inputs -->
+        <select v-model="form.level" class="input" required>
+          <option disabled value="">Select Level</option>
+          <option>Beginner</option>
+          <option>Intermediate</option>
+          <option>Advanced</option>
+        </select>
+
+        <select v-model="form.consistency" class="input" required>
+          <option disabled value="">Are you consistent?</option>
+          <option>Consistent</option>
+          <option>Inactive</option>
+        </select>
+
+        <select v-model="form.place" class="input" required>
+          <option disabled value="">Workout Location</option>
+          <option>Home</option>
+          <option>Gym</option>
+        </select>
+
         <input
-          ref="inbodyInput"
-          type="file"
-          accept="image/*"
-          multiple
-          class="hidden"
-          @change="handleFile($event, 'inbodyImages')"
+          v-model="form.daysPerWeek"
+          type="number"
+          placeholder="Workout Days per Week"
+          class="input"
+          required
+          min="1"
+          max="7"
         />
-        <div class="flex flex-wrap gap-2 mt-2">
-          <div
-            v-for="(img, index) in previews.inbodyImages"
-            :key="'inbody-' + index"
-            class="relative w-24 h-24"
-          >
-            <img :src="img.url" class="w-full h-full object-cover rounded" />
-            <button
-              type="button"
-              @click="removeImage('inbodyImages', index)"
-              class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
-            >
-              ×
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- Optional fields -->
-      <input
-        v-model="form.illness"
-        placeholder="Write illnesses or leave empty"
-        class="input"
-      />
-      <input
-        v-model="form.injuries"
-        placeholder="Write injuries or leave empty"
-        class="input"
-      />
 
-      <!-- Select inputs -->
-      <select v-model="form.level" class="input" required>
-        <option disabled value="">Select Level</option>
-        <option>Beginner</option>
-        <option>Intermediate</option>
-        <option>Advanced</option>
-      </select>
-
-      <select v-model="form.consistency" class="input" required>
-        <option disabled value="">Are you consistent?</option>
-        <option>Consistent</option>
-        <option>Inactive</option>
-      </select>
-
-      <select v-model="form.place" class="input" required>
-        <option disabled value="">Workout Location</option>
-        <option>Home</option>
-        <option>Gym</option>
-      </select>
-
-      <input
-        v-model="form.daysPerWeek"
-        type="number"
-        placeholder="Workout Days per Week"
-        class="input"
-        required
-        min="1"
-        max="7"
-      />
-
-      <button
-        type="submit"
-        class="bg-red-600 text-white py-2 px-4 rounded hover:bg-orange-700 transition delay-75"
-      >
-        Submit
-      </button>
-    </form>
+        <button
+          type="submit"
+          class="bg-red-600 text-white py-2 px-4 rounded hover:bg-orange-700 transition delay-75"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+import { useColorMode } from '@vueuse/core'
+
+const colorMode = useColorMode({
+  emitAuto: true,
+  modes: {
+    dark: 'dark',
+    light: 'light',
+  },
+  storageKey: 'vueuse-color-scheme',
+})
 
 interface FormData {
   name: string
@@ -385,18 +409,63 @@ const submitForm = async () => {
 </script>
 
 <style scoped>
-.input {
+.input,
+select,
+textarea {
   padding: 0.75rem;
   border: 1px solid #ccc;
   border-radius: 0.375rem;
   width: 100%;
   background-color: #f9f9f9;
   transition: all 0.3s ease;
+  color: #333; /* اللون الافتراضي للنص داخل الحقول */
 }
 
-.input:focus {
+.input:focus,
+select:focus,
+textarea:focus {
   border-color: #3b82f6;
   outline: none;
   background-color: #ffffff;
+}
+
+input::placeholder,
+select::placeholder,
+textarea::placeholder {
+  color: #9da3ad; /* اللون الافتراضي للـ placeholder */
+}
+
+/* تخصيص اللون للنص داخل الحقول و الـ placeholder بناءً على الـ colorMode */
+input:focus::placeholder,
+select:focus::placeholder,
+textarea:focus::placeholder {
+  color: #9da3ad; /* نفس اللون عند التركيز */
+}
+
+[data-theme='dark'] input,
+[data-theme='dark'] select,
+[data-theme='dark'] textarea {
+  background-color: #333; /* لون الخلفية في الوضع الداكن */
+  color: #fff; /* النص داخل الحقول في الوضع الداكن */
+}
+
+[data-theme='dark'] input::placeholder,
+[data-theme='dark'] select::placeholder,
+[data-theme='dark'] textarea::placeholder {
+  color: #bbb; /* لون الـ placeholder في الوضع الداكن */
+}
+
+/* تخصيص اللون للنص داخل الحقول و الـ placeholder في الوضع الفاتح */
+[data-theme='light'] input,
+[data-theme='light'] select,
+[data-theme='light'] textarea {
+  background-color: #f9f9f9; /* خلفية فاتحة في الوضع العادي */
+  color: #333; /* نص مظلم في الوضع العادي */
+}
+
+[data-theme='light'] input::placeholder,
+[data-theme='light'] select::placeholder,
+[data-theme='light'] textarea::placeholder {
+  color: #9da3ad; /* لون الـ placeholder في الوضع الفاتح */
 }
 </style>

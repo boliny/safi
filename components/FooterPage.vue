@@ -1,7 +1,9 @@
 <template>
   <footer
-    class="lg:p-10 p-4 grid grid-cols-1 justify-center items-center md:grid-cols-3 sm:grid-cols-2 gap-6"
-    :class="colorMode === 'dark' ? 'bg-black text-white' : 'bg-white text-black'"
+    class="lg:p-10 border-t border-gray-700 p-4 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 gap-6"
+    :class="
+      colorMode === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-black'
+    "
   >
     <!-- Site Info (Desktop) -->
     <div class="hidden md:block">
@@ -34,7 +36,9 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div class="border-t border-gray-700 text-center text-sm pt-4 col-span-full">
+    <div
+      class="border-t border-gray-700 text-center text-sm pt-4 col-span-full"
+    >
       <a
         href="https://www.skylink-eg.com/en"
         target="_blank"
