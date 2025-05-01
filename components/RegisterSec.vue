@@ -34,9 +34,6 @@
         alt="Man"
         :class="[
           'w-full sm:w-1/2 object-contain h-64 sm:h-96 transition-all duration-1000',
-          inView
-            ? 'translate-y-0 opacity-100 scale-100'
-            : 'translate-y-10 opacity-0 scale-90',
         ]"
         loading="lazy"
       />
@@ -45,9 +42,6 @@
         alt="Woman"
         :class="[
           'w-full sm:w-1/2 object-contain h-64 sm:h-96 grayscale transition-all duration-1000 delay-200',
-          inView
-            ? 'translate-y-0 opacity-100 scale-100'
-            : 'translate-y-10 opacity-0 scale-90',
         ]"
         loading="lazy"
       />
@@ -78,29 +72,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 
 const sectionRef = ref(null)
-const inView = ref(false)
-let observer
-
-onMounted(() => {
-  observer = new IntersectionObserver(
-    ([entry]) => {
-      inView.value = entry.isIntersecting
-    },
-    { threshold: 0.3 }
-  )
-  if (sectionRef.value) {
-    observer.observe(sectionRef.value)
-  }
-})
-
-onUnmounted(() => {
-  if (sectionRef.value && observer) {
-    observer.unobserve(sectionRef.value)
-  }
-})
 
 const goToRegisterMen = () => {
   navigateTo('/register-men')
@@ -141,37 +115,5 @@ const goToRegisterWomen = () => {
 
 .my-button {
   animation: bouncerino-out 0.5s;
-}
-@keyframes bouncerino-in {
-  100% {
-    transform: scale(1.075);
-  }
-  70% {
-    transform: scale(1.08);
-  }
-  50% {
-    transform: scale(1.075);
-  }
-  40% {
-    transform: scale(1.09);
-  }
-}
-
-@keyframes bouncerino-out {
-  100% {
-    transform: scale(1);
-  }
-  0% {
-    transform: scale(1.075);
-  }
-}
-
-@keyframes opacity-in {
-  from {
-    opacity: 100%;
-  }
-  to {
-    opacity: 0%;
-  }
 }
 </style>

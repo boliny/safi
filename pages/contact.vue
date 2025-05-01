@@ -20,11 +20,11 @@
       <div class="max-w-xl mx-auto">
         <h2 class="text-4xl font-bold mb-4">Get in Touch</h2>
         <p class="mb-8">
-          Have a question or want to work together? Fill out the form and I'll
-          get back to you as soon as possible.
+          Have a question or want to work together? Fill out the form and I’ll
+          get back to you.
         </p>
 
-        <form @submit.prevent="submitForm" class="space-y-6">
+        <form class="space-y-6" @submit.prevent="submitForm">
           <!-- Name -->
           <div>
             <input
@@ -37,6 +37,7 @@
                   ? 'border-red-500 focus:ring-red-500'
                   : 'border-gray-300 focus:ring-red-500'
               "
+              @blur="validateField('name')"
             />
             <p v-if="errors.name" class="text-red-500 text-sm mt-1">
               {{ errors.name }}
@@ -53,9 +54,11 @@
               :class="
                 errors.email
                   ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-gray-500'
               "
+              @blur="validateField('email')"
             />
+
             <p v-if="errors.email" class="text-red-500 text-sm mt-1">
               {{ errors.email }}
             </p>
@@ -65,17 +68,26 @@
           <div>
             <textarea
               v-model="form.message"
+              @blur="validateField('message')"
+              :maxlength="500"
               rows="5"
-              placeholder="Your Message (at least 20 characters)"
+              placeholder="Your Message (20–500 characters)"
               class="w-full border px-4 py-3 rounded-md focus:outline-none focus:ring-2 resize-none"
               :class="
                 errors.message
                   ? 'border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:ring-red-500'
+                  : 'border-gray-300 focus:ring-gray-500'
               "
-            ></textarea>
-            <p v-if="errors.message" class="text-red-500 text-sm mt-1">
-              {{ errors.message }}
+            />
+            <p
+              class="text-sm mt-1 text-right"
+              :class="
+                form.message.length > maxLength
+                  ? 'text-red-500'
+                  : 'text-gray-500'
+              "
+            >
+              {{ form.message.length }} / {{ maxLength }} characters
             </p>
           </div>
 
@@ -86,6 +98,14 @@
           >
             Send Message
           </button>
+
+          <!-- Success Message -->
+          <p
+            v-if="successMessage"
+            class="text-green-600 mt-4 text-center font-medium"
+          >
+            {{ successMessage }}
+          </p>
         </form>
       </div>
     </div>
@@ -96,24 +116,22 @@
 import { ref } from 'vue'
 import { useColorMode } from '@vueuse/core'
 
-// Theme
 const colorMode = useColorMode()
 
-// Form Data
 const form = ref({
   name: '',
   email: '',
   message: '',
 })
 
-// Error Handling
 const errors = ref({
   name: '',
   email: '',
   message: '',
 })
 
-// Validate Inputs
+const successMessage = ref('')
+
 const validateForm = () => {
   let isValid = true
   errors.value = { name: '', email: '', message: '' }
@@ -143,17 +161,47 @@ const validateForm = () => {
   return isValid
 }
 
-// Handle Submit
 const submitForm = () => {
   if (validateForm()) {
-    alert(
-      `Message sent!\nName: ${form.value.name}\nEmail: ${form.value.email}\nMessage: ${form.value.message}`
-    )
+    successMessage.value = 'Message sent successfully!'
     form.value = { name: '', email: '', message: '' }
+    setTimeout(() => {
+      successMessage.value = ''
+    }, 4000)
   }
 }
+const validateField = (field) => {
+  const value = form.value[field].trim()
+  errors.value[field] = ''
 
-// Page Metadata
+  switch (field) {
+    case 'name':
+      if (!value) {
+        errors.value.name = 'Name is required.'
+      }
+      break
+    case 'email': {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!value) {
+        errors.value.email = 'Email is required.'
+      } else if (!emailRegex.test(value)) {
+        errors.value.email = 'Enter a valid email address.'
+      }
+      break
+    }
+    case 'message':
+      if (!value) {
+        errors.value.message = 'Message is required.'
+      } else if (value.length < 20) {
+        errors.value.message = 'Message must be at least 20 characters.'
+      } else if (value.length > maxLength) {
+        errors.value.message = `Message must not exceed ${maxLength} characters.`
+      }
+      break
+  }
+}
+const maxLength = 500
+
 useHead({
   title: 'Contact Me',
   meta: [
