@@ -1,21 +1,20 @@
 // stores/blogs.ts
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
-// نوع كل Blog
 interface Blog {
   id: number
   title: string
   description: string
+  image: string
   price: number
   views: number
   likes: number
-  [key: string]: number | string // Restricting index signature to number and string types
+  [key: string]: number | string
 }
 
-// نوع الريسبونس اللي جاي من الـ API
 interface FetchBlogsResponse {
-  products: Omit<Blog, 'views' | 'likes'>[] // المنتجات بدون views و likes لأن دول بنضيفهم احنا
+  products: Omit<Blog, 'views' | 'likes'>[]
 }
 
 const getRandomViews = (): number => Math.floor(Math.random() * 1000 + 100)
@@ -25,12 +24,31 @@ export const useBlogsStore = defineStore('blogs', () => {
   const blogs = ref<Blog[]>([])
   const likedPosts = ref<number[]>([])
 
+  // ✅ استرجاع الـ Likes من localStorage عند بداية التشغيل
+  if (import.meta.client) {
+    const savedLikes = localStorage.getItem('likedPosts')
+    if (savedLikes) {
+      likedPosts.value = JSON.parse(savedLikes)
+    }
+  }
+
+  // ✅ مراقبة أي تغيير في likedPosts وتحديث localStorage
+  watch(
+    likedPosts,
+    (newLikes) => {
+      if (import.meta.client) {
+        localStorage.setItem('likedPosts', JSON.stringify(newLikes))
+      }
+    },
+    { deep: true }
+  )
+
   const fetchBlogs = async (): Promise<void> => {
     try {
       const res = await fetch('https://fakestoreapi.in/api/products')
       const data: FetchBlogsResponse = await res.json()
       blogs.value = data.products.map(
-        (post: Omit<Blog, 'views' | 'likes'>): Blog => ({
+        (post): Blog => ({
           id: Number(post.id),
           title: String(post.title),
           description: String(post.description),

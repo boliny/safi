@@ -261,6 +261,58 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useColorMode } from '@vueuse/core'
+import { z } from 'zod'
+
+// المخطط الأساسي للبيانات
+const registrationSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  age: z.number().min(18, 'You must be at least 18'),
+  address: z.string().min(1, 'Address is required'),
+  email: z.string().email('Invalid email'),
+  facebook: z.string().url('Invalid Facebook URL'),
+  phone: z.string().min(7, 'Phone number too short'),
+  birthdate: z.string().min(1, 'Birthdate required'),
+  height: z.number().min(50, 'Minimum height is 50 cm'),
+  weight: z.number().min(30, 'Minimum weight is 30 kg'),
+  illness: z.string().optional(),
+  injuries: z.string().optional(),
+  level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
+  consistency: z.enum(['Consistent', 'Inactive']),
+  place: z.enum(['Home', 'Gym']),
+  daysPerWeek: z.number().min(1).max(7),
+  frontImages: z.array(z.instanceof(File)).optional(),
+  backImages: z.array(z.instanceof(File)).optional(),
+  inbodyImages: z.array(z.instanceof(File)).optional(),
+})
+
+const submitForm = async () => {
+  try {
+    // نحاول التحقق من صحة البيانات أولًا
+    const validated = registrationSchema.parse(form)
+
+    // تجهيز البيانات للإرسال بعد التحقق
+    const formData = new FormData()
+    for (const key in validated) {
+      const value = validated[key as keyof typeof validated]
+      if (Array.isArray(value)) {
+        value.forEach((file) => {
+          formData.append(`${key}[]`, file)
+        })
+      } else {
+        formData.append(key, String(value))
+      }
+    }
+
+    // إرسال البيانات هنا
+    console.log('Form is valid, sending...', validated)
+    // const res = await fetch('/api/submit', { method: 'POST', body: formData })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error('Validation errors:', error.errors)
+      alert(error.errors.map((e) => e.message).join('\n'))
+    }
+  }
+}
 
 const colorMode = useColorMode({
   emitAuto: true,
@@ -376,34 +428,6 @@ const removeImage = (key: keyof FormData, index: number) => {
   if (Array.isArray(form[key])) {
     ;(form[key] as File[]).splice(index, 1)
     previews[key as keyof PreviewData].splice(index, 1)
-  }
-}
-
-const submitForm = async () => {
-  const formData = new FormData()
-  for (const key in form) {
-    if (Array.isArray(form[key as keyof typeof form])) {
-      ;(form[key as keyof typeof form] as File[]).forEach((file) => {
-        formData.append(key, file)
-      })
-    } else if (
-      form[key as keyof typeof form] !== null &&
-      form[key as keyof typeof form] !== 0
-    ) {
-      formData.append(key, String(form[key as keyof typeof form]))
-    }
-  }
-
-  try {
-    const res = await fetch('/api/register-men', {
-      method: 'POST',
-      body: formData,
-    })
-    await res.json()
-    alert('Form submitted successfully!')
-  } catch (err) {
-    console.error(err)
-    alert('An error occurred while submitting')
   }
 }
 </script>

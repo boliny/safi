@@ -132,6 +132,3 @@ const activityDescription = computed(() => {
 })
 </script>
 
-<style scoped>
-/* Custom styles */
-</style>

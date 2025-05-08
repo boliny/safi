@@ -12,6 +12,7 @@
       />
     </div>
 
+
     <div class="space-y-2">
       <label class="block font-medium">Height (cm):</label>
       <input
@@ -23,8 +24,8 @@
     </div>
 
     <button
-      @click="calculateBMI"
       class="bg-red-600 cursor-pointer text-white px-4 py-2 rounded-xl w-full hover:bg-red-700 transition"
+      @click="calculateBMI"
     >
       Calculate
     </button>
@@ -58,7 +59,3 @@ const bmiStatus = computed(() => {
   return 'Obese'
 })
 </script>
-
-<style scoped>
-/* Custom styles */
-</style>

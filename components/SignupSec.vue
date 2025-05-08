@@ -75,11 +75,3 @@
     </div>
   </section>
 </template>
-
-<style scoped>
-/* If you want to use a background image for the section */
-.bg-cover {
-  background-size: cover;
-  background-position: center;
-}
-</style>

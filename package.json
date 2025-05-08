@@ -18,14 +18,24 @@
     "@nuxt/icon": "^1.12.0",
     "@nuxt/image": "^1.10.0",
     "@nuxt/ui": "^3.1.0",
+    "@primeuix/themes": "^1.0.3",
+    "@primevue/themes": "^4.3.3",
     "@vueuse/motion": "^3.0.3",
     "aos": "^2.3.4",
     "eslint": "^9.25.1",
     "keen-slider": "^6.8.6",
-    "nuxt": "^3.17.0",
+    "nuxt": "^3.16.2",
     "pinia": "^3.0.2",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.3.3",
+    "toastify-js": "^1.12.0",
     "typescript": "^5.8.3",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.1"
+    "vue-router": "^4.5.1",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@primevue/nuxt-module": "^4.3.3",
+    "@types/toastify-js": "^1.12.4"
   }
 }

@@ -26,7 +26,7 @@
           />
           <div class="p-4 flex-1 flex flex-col justify-between">
             <h3 class="text-lg font-semibold text-gray-900">
-              {{ post.title }}
+              {{ truncateWords(post.title, 5) }}
             </h3>
             <a
               class="text-blue-500 text-sm font-semibold mt-3 inline-block"
@@ -116,6 +116,13 @@ export default {
     let interval = null
 
     const displayedPosts = computed(() => blogStore.filteredPosts)
+
+    const truncateWords = (text, wordLimit) => {
+      const words = text.split(' ')
+      return words.length > wordLimit
+        ? words.slice(0, wordLimit).join(' ') + '...'
+        : text
+    }
 
     const goToItem = (id) => {
       navigateTo(`/blog/${id}`)
@@ -215,6 +222,7 @@ export default {
       goToBlog,
       prevSlide,
       nextSlide,
+      truncateWords,
     }
   },
 }

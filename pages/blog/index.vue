@@ -126,11 +126,16 @@
             </div>
           </div>
 
-          <!-- Blog Posts -->
+          <!-- Blog Posts with Infinite Scroll -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div
-              v-for="post in filteredPosts"
+              v-for="(post, index) in visiblePosts.slice(1)"
               :key="post.id"
+              :ref="
+                index === visiblePosts.length - 2
+                  ? (el) => (lastItem = el)
+                  : null
+              "
               class="max-w-full text-center"
             >
               <div
@@ -151,61 +156,16 @@
                 {{ post.category }}
               </p>
               <h1
-                class="text-lg sm:text-2xl font-bold mt-2 cursor-pointer hover:text-blue-600 transition-colors"
+                class="text-lg sm:text-2xl font-bold h-20 overflow-hidden my-2 cursor-pointer hover:text-blue-600 transition-colors"
                 @click="goToItem(post.id)"
               >
-                {{ truncateWords(post.title, 10) }}
+                {{ truncateWords(post.title, 5) }}
               </h1>
-              <div
-                class="flex flex-wrap justify-center items-center gap-2 text-xs sm:text-sm mt-2"
+              <p
+                class="my-4 leading-relaxed text-sm sm:text-base overflow-hidden h-20"
               >
-                <span><i class="fas fa-calendar-alt mr-1" /> Apr 8, 2025</span>
-                <span><i class="fas fa-eye mr-1" /> {{ post.views }}</span>
-                <span
-                  class="flex items-center space-x-1 cursor-pointer"
-                  @click="toggleLike(post.id)"
-                >
-                  <i
-                    class="fas fa-heart transition-colors duration-300"
-                    :class="{
-                      'text-red-500': likedPosts.includes(post.id),
-                      'text-gray-400': !likedPosts.includes(post.id),
-                    }"
-                  />
-                  <span>{{ post.likes }}</span>
-                </span>
-                <!-- Share -->
-                <div class="relative group cursor-pointer">
-                  <div
-                    class="flex items-center space-x-1 text-gray-500 hover:text-red-500 transition"
-                  >
-                    <i class="fas fa-share-alt mr-1" />
-                    <span>Share</span>
-                  </div>
-                  <div
-                    class="absolute top-8 left-1/2 -translate-x-1/2 w-40 bg-white dark:bg-gray-800 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 scale-95 group-hover:scale-100 transition-all duration-300 ease-out z-20"
-                  >
-                    <ul
-                      class="flex flex-col text-sm text-gray-700 dark:text-gray-200"
-                    >
-                      <li v-for="(link, i) in socialLinks" :key="i">
-                        <a
-                          :href="link.href"
-                          target="_blank"
-                          class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          <i :class="link.icon + ' mr-2 ' + link.color" />
-                          {{ link.name }}
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <p class="mt-4 leading-relaxed text-sm sm:text-base">
                 {{ truncateWords(post.description, 30) }}
               </p>
-              <!-- زر READ MORE لكل بوست -->
               <button
                 class="mt-4 cursor-pointer sm:mt-6 px-4 sm:px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out transform border hover:scale-105 active:scale-95 shadow-sm hover:shadow-md dark:border-white dark:bg-white dark:text-black dark:hover:bg-transparent dark:hover:text-white border-black bg-black text-white hover:bg-white hover:text-black"
                 @click="goToItem(post.id)"
@@ -215,7 +175,6 @@
             </div>
           </div>
         </div>
-
         <!-- Sidebar -->
         <aside class="md:sticky md:top-8 md:self-start h-fit">
           <BlogSideBar />
@@ -226,7 +185,7 @@
 </template>
 
 <script setup>
-import { useColorMode } from '@vueuse/core'
+import { useColorMode, useInfiniteScroll } from '@vueuse/core'
 import { useHead } from '#imports'
 import { onMounted, ref, computed } from 'vue'
 import { useBlogsStore } from '@/stores/blogs'
@@ -234,14 +193,32 @@ import { useBlogsStore } from '@/stores/blogs'
 const blogStore = useBlogsStore()
 const selectedCategory = ref('')
 const likedPosts = ref([])
-
 const categories = ['Life', 'Technology', 'Health', 'Entertainment']
+const lastItem = ref(null)
+const currentPage = ref(1)
+const perPage = 5
+const isLoadingMore = ref(false)
+const visiblePosts = computed(() => {
+  return filteredPosts.value.slice(0, currentPage.value * perPage)
+})
 
 onMounted(() => {
   if (!blogStore.blogs.length) {
     blogStore.fetchBlogs()
   }
 })
+
+useInfiniteScroll(
+  lastItem,
+  async () => {
+    if (visiblePosts.value.length >= filteredPosts.value.length) return
+    isLoadingMore.value = true
+    await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate delay
+    currentPage.value++
+    isLoadingMore.value = false
+  },
+  { distance: 100 }
+)
 
 const filteredPosts = computed(() => {
   if (selectedCategory.value) {

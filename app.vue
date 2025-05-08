@@ -75,9 +75,7 @@ html {
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  transition:
-    transform 0.1s ease-out,
-    background 0.3s ease;
+  transition: transform 0.1s ease-out, background 0.3s ease;
   mix-blend-mode: difference;
   transform-origin: center;
 }
