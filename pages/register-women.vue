@@ -173,6 +173,88 @@
 <script setup lang="ts">
 import { reactive, ref, computed } from 'vue'
 import { useColorMode } from '@vueuse/core'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+import { z } from 'zod'
+
+// Enhanced email validation schema
+const registrationSchema = z.object({
+  name: z.string().min(1, 'Name is required'),
+  age: z.number().min(18, 'You must be at least 18'),
+  address: z.string().min(1, 'Address is required'),
+  email: z
+    .string()
+    .email('Invalid email format')
+    .min(1, 'Email is required')
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      'Invalid email format'
+    )
+    .refine(
+      (email) => {
+        const [, domain] = email.split('@')
+        const commonDomains = [
+          'gmail.com',
+          'yahoo.com',
+          'hotmail.com',
+          'outlook.com',
+          'icloud.com',
+          'aol.com',
+        ]
+        return (
+          commonDomains.includes(domain) ||
+          /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain)
+        )
+      },
+      { message: 'Please use a valid email domain' }
+    )
+    .refine(
+      (email) => !/(\.\.|\.-|-\.)/.test(email),
+      'Email cannot contain consecutive dots or dot-hyphen combinations'
+    ),
+  facebook: z.string().url('Invalid Facebook URL'),
+  phone: z.string().min(7, 'Phone number too short'),
+  birthdate: z.string().min(1, 'Birthdate required'),
+  height: z.number().min(50, 'Minimum height is 50 cm'),
+  weight: z.number().min(30, 'Minimum weight is 30 kg'),
+  illness: z.string().optional(),
+  injuries: z.string().optional(),
+  level: z.enum(['Beginner', 'Intermediate', 'Advanced']),
+  consistency: z.enum(['Consistent', 'Inactive']),
+  place: z.enum(['Home', 'Gym']),
+  daysPerWeek: z.number().min(1).max(7),
+})
+
+const submitForm = async () => {
+  try {
+    const validated = registrationSchema.parse(form)
+    const formData = new FormData()
+    for (const key in validated) {
+      const value = validated[key as keyof typeof validated]
+      if (Array.isArray(value)) {
+        value.forEach((file) => {
+          formData.append(`${key}[]`, file)
+        })
+      } else {
+        formData.append(key, String(value))
+      }
+    }
+
+    console.log('Form is valid, sending...', validated)
+    toast.success('Form submitted successfully!')
+    // Example: Send data to an API
+    // const res = await fetch('/api/submit', { method: 'POST', body: formData })
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      console.error('Validation errors:', error.errors)
+      error.errors.forEach((e) => {
+        toast.error(e.message)
+      })
+    } else {
+      toast.error('An unexpected error occurred')
+    }
+  }
+}
 
 const colorMode = useColorMode({
   emitAuto: true,
@@ -232,26 +314,6 @@ const message = ref('')
 const messageColor = computed(() =>
   message.value.includes('success') ? 'text-green-600' : 'text-red-600'
 )
-
-const submitForm = async () => {
-  loading.value = true
-  message.value = ''
-  try {
-    const res = await fetch('/api/register-women', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    })
-
-    if (!res.ok) throw new Error('Error submitting form')
-    message.value = 'Form submitted successfully!'
-  } catch (e) {
-    message.value = 'There was an error submitting the form.'
-    console.error(e)
-  } finally {
-    loading.value = false
-  }
-}
 </script>
 
 <style scoped>

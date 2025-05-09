@@ -68,7 +68,6 @@
           <div>
             <textarea
               v-model="form.message"
-              @blur="validateField('message')"
               :maxlength="500"
               rows="5"
               placeholder="Your Message (20–500 characters)"
@@ -78,6 +77,7 @@
                   ? 'border-red-500 focus:ring-red-500'
                   : 'border-gray-300 focus:ring-gray-500'
               "
+              @blur="validateField('message')"
             />
             <p
               class="text-sm mt-1 text-right"

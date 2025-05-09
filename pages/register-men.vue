@@ -15,65 +15,128 @@
         Men's Registration Form
       </h1>
       <form class="grid grid-cols-1 gap-4" @submit.prevent="submitForm">
-        <!-- Basic inputs -->
-        <input
-          v-model="form.name"
-          placeholder="Full Name"
-          class="input"
-          required
-        />
-        <input
-          v-model="form.age"
-          type="number"
-          placeholder="Age"
-          class="input"
-          min="18"
-          required
-        />
-        <input
-          v-model="form.address"
-          placeholder="Address"
-          class="input"
-          required
-        />
-        <input
-          v-model="form.email"
-          type="email"
-          placeholder="Email"
-          class="input"
-          required
-        />
-        <input
-          v-model="form.facebook"
-          placeholder="Facebook Profile"
-          class="input"
-          required
-        />
-        <input
-          v-model="form.phone"
-          placeholder="Phone Number"
-          class="input"
-          required
-        />
-        <input v-model="form.birthdate" type="date" class="input" required />
-        <input
-          v-model="form.height"
-          type="number"
-          placeholder="Height (cm)"
-          class="input"
-          required
-          min="50"
-        />
-        <input
-          v-model="form.weight"
-          type="number"
-          placeholder="Weight (kg)"
-          class="input"
-          required
-          min="30"
-        />
+        <!-- Basic Fields -->
+        <div class="flex flex-col gap-2">
+          <label for="name" class="font-medium text-gray-700">Full Name</label>
+          <input
+            id="name"
+            v-model="form.name"
+            placeholder="Enter your full name"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
 
-        <!-- FRONT IMAGES -->
+        <div class="flex flex-col gap-2">
+          <label for="age" class="font-medium text-gray-700">Age</label>
+          <input
+            id="age"
+            v-model="form.age"
+            type="number"
+            placeholder="Enter your age"
+            class="input"
+            min="18"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="address" class="font-medium text-gray-700">Address</label>
+          <input
+            id="address"
+            v-model="form.address"
+            placeholder="Enter your address"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="email" class="font-medium text-gray-700"
+            >Email Address</label
+          >
+          <input
+            id="email"
+            v-model="form.email"
+            type="email"
+            placeholder="Enter your email"
+            class="input"
+            @blur="validateEmail"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="facebook" class="font-medium text-gray-700"
+            >Facebook Profile</label
+          >
+          <input
+            id="facebook"
+            v-model="form.facebook"
+            placeholder="Enter your Facebook profile URL"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="phone" class="font-medium text-gray-700"
+            >Phone Number</label
+          >
+          <input
+            id="phone"
+            type="tel"
+            v-model="form.phone"
+            placeholder="Enter your phone number"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="birthdate" class="font-medium text-gray-700"
+            >Birthdate</label
+          >
+          <input
+            id="birthdate"
+            v-model="form.birthdate"
+            type="date"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="height" class="font-medium text-gray-700"
+            >Height (cm)</label
+          >
+          <input
+            id="height"
+            v-model="form.height"
+            type="number"
+            placeholder="Enter your height"
+            class="input"
+            min="50"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="weight" class="font-medium text-gray-700"
+            >Weight (kg)</label
+          >
+          <input
+            id="weight"
+            v-model="form.weight"
+            type="number"
+            placeholder="Enter your weight"
+            class="input"
+            min="30"
+            autocomplete="off"
+          />
+        </div>
+
+        <!-- Front Body Images -->
         <div
           class="flex flex-col gap-2"
           @dragover.prevent
@@ -82,16 +145,12 @@
           <label class="font-medium text-gray-700"
             >Front Body Images (Optional)</label
           >
-
-          <!-- Image upload -->
           <div
             class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
             @click="triggerFileInput('front')"
           >
             📷 Click to upload or drag and drop images
           </div>
-
-          <!-- Hidden input -->
           <input
             ref="frontInput"
             type="file"
@@ -99,9 +158,8 @@
             multiple
             class="hidden"
             @change="handleFile($event, 'frontImages')"
+            autocomplete="off"
           />
-
-          <!-- Preview images -->
           <div class="flex flex-wrap gap-2 mt-2">
             <div
               v-for="(img, index) in previews.frontImages"
@@ -111,8 +169,8 @@
               <img :src="img.url" class="w-full h-full object-cover rounded" />
               <button
                 type="button"
-                @click="removeImage('frontImages', index)"
                 class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                @click="removeImage('frontImages', index)"
               >
                 ×
               </button>
@@ -120,7 +178,7 @@
           </div>
         </div>
 
-        <!-- BACK IMAGES -->
+        <!-- Back Body Images -->
         <div
           class="flex flex-col gap-2"
           @dragover.prevent
@@ -129,16 +187,12 @@
           <label class="font-medium text-gray-700"
             >Back Body Images (Optional)</label
           >
-
-          <!-- Image upload -->
           <div
             class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
             @click="triggerFileInput('back')"
           >
             📷 Click to upload or drag and drop images
           </div>
-
-          <!-- Hidden input -->
           <input
             ref="backInput"
             type="file"
@@ -146,9 +200,8 @@
             multiple
             class="hidden"
             @change="handleFile($event, 'backImages')"
+            autocomplete="off"
           />
-
-          <!-- Preview images -->
           <div class="flex flex-wrap gap-2 mt-2">
             <div
               v-for="(img, index) in previews.backImages"
@@ -158,22 +211,23 @@
               <img :src="img.url" class="w-full h-full object-cover rounded" />
               <button
                 type="button"
-                @click="removeImage('backImages', index)"
                 class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                @click="removeImage('backImages', index)"
               >
                 ×
               </button>
             </div>
           </div>
         </div>
-        <!-- inbody IMAGES -->
+
+        <!-- Inbody Report Images -->
         <div
           class="flex flex-col gap-2"
           @dragover.prevent
           @drop="handleDrop($event, 'inbodyImages')"
         >
           <label class="font-medium text-gray-700"
-            >inbody report Images (Optional)</label
+            >Inbody Report Images (Optional)</label
           >
           <div
             class="flex flex-col items-center justify-center px-4 py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer text-gray-600 text-sm hover:bg-gray-50 transition text-center min-h-[80px]"
@@ -188,6 +242,7 @@
             multiple
             class="hidden"
             @change="handleFile($event, 'inbodyImages')"
+            autocomplete="off"
           />
           <div class="flex flex-wrap gap-2 mt-2">
             <div
@@ -198,59 +253,96 @@
               <img :src="img.url" class="w-full h-full object-cover rounded" />
               <button
                 type="button"
-                @click="removeImage('inbodyImages', index)"
                 class="absolute top-0 right-0 text-white bg-black bg-opacity-70 rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                @click="removeImage('inbodyImages', index)"
               >
                 ×
               </button>
             </div>
           </div>
         </div>
-        <!-- Optional fields -->
-        <input
-          v-model="form.illness"
-          placeholder="Write illnesses or leave empty"
-          class="input"
-        />
-        <input
-          v-model="form.injuries"
-          placeholder="Write injuries or leave empty"
-          class="input"
-        />
 
-        <!-- Select inputs -->
-        <select v-model="form.level" class="input" required>
-          <option disabled value="">Select Level</option>
-          <option>Beginner</option>
-          <option>Intermediate</option>
-          <option>Advanced</option>
-        </select>
+        <!-- Optional Fields -->
+        <div class="flex flex-col gap-2">
+          <label for="illness" class="font-medium text-gray-700"
+            >Illnesses (Optional)</label
+          >
+          <input
+            id="illness"
+            v-model="form.illness"
+            placeholder="List any illnesses or leave empty"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
 
-        <select v-model="form.consistency" class="input" required>
-          <option disabled value="">Are you consistent?</option>
-          <option>Consistent</option>
-          <option>Inactive</option>
-        </select>
+        <div class="flex flex-col gap-2">
+          <label for="injuries" class="font-medium text-gray-700"
+            >Injuries (Optional)</label
+          >
+          <input
+            id="injuries"
+            v-model="form.injuries"
+            placeholder="List any injuries or leave empty"
+            class="input"
+            autocomplete="off"
+          />
+        </div>
 
-        <select v-model="form.place" class="input" required>
-          <option disabled value="">Workout Location</option>
-          <option>Home</option>
-          <option>Gym</option>
-        </select>
+        <!-- Dropdown Fields -->
+        <div class="flex flex-col gap-2">
+          <label for="level" class="font-medium text-gray-700"
+            >Fitness Level</label
+          >
+          <select id="level" v-model="form.level" class="input">
+            <option disabled value="">Select your level</option>
+            <option>Beginner</option>
+            <option>Intermediate</option>
+            <option>Advanced</option>
+          </select>
+        </div>
 
-        <input
-          v-model="form.daysPerWeek"
-          type="number"
-          placeholder="Workout Days per Week"
-          class="input"
-          required
-          min="1"
-          max="7"
-        />
+        <div class="flex flex-col gap-2">
+          <label for="consistency" class="font-medium text-gray-700"
+            >Consistency</label
+          >
+          <select id="consistency" v-model="form.consistency" class="input">
+            <option disabled value="">Are you consistent?</option>
+            <option>Consistent</option>
+            <option>Inactive</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="place" class="font-medium text-gray-700"
+            >Workout Location</label
+          >
+          <select id="place" v-model="form.place" class="input">
+            <option disabled value="">Select workout location</option>
+            <option>Home</option>
+            <option>Gym</option>
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="daysPerWeek" class="font-medium text-gray-700"
+            >Workout Days per Week</label
+          >
+          <input
+            id="daysPerWeek"
+            v-model="form.daysPerWeek"
+            type="number"
+            placeholder="Enter days per week"
+            class="input"
+            min="1"
+            max="7"
+            autocomplete="off"
+          />
+        </div>
 
         <button
           type="submit"
-          class="bg-red-600 text-white py-2 px-4 rounded hover:bg-orange-700 transition delay-75"
+          class="bg-red-600 cursor-pointer text-white py-2 px-4 rounded hover:bg-orange-700 transition delay-75"
         >
           Submit
         </button>
@@ -258,20 +350,52 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useColorMode } from '@vueuse/core'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 import { z } from 'zod'
 
-// المخطط الأساسي للبيانات
+// Enhanced email validation schema
 const registrationSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
+  name: z.string().min(1, 'Name is '),
   age: z.number().min(18, 'You must be at least 18'),
-  address: z.string().min(1, 'Address is required'),
-  email: z.string().email('Invalid email'),
+  address: z.string().min(1, 'Address is '),
+  email: z
+    .string()
+    .email('Invalid email format')
+    .min(1, 'Email is ')
+    .regex(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      'Invalid email format'
+    )
+    .refine(
+      (email) => {
+        const [, domain] = email.split('@')
+        const commonDomains = [
+          'gmail.com',
+          'yahoo.com',
+          'hotmail.com',
+          'outlook.com',
+          'icloud.com',
+          'aol.com',
+        ]
+        return (
+          commonDomains.includes(domain) ||
+          /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(domain)
+        )
+      },
+      { message: 'Please use a valid email domain' }
+    )
+    .refine(
+      (email) => !/(\.\.|\.-|-\.)/.test(email),
+      'Email cannot contain consecutive dots or dot-hyphen combinations'
+    ),
   facebook: z.string().url('Invalid Facebook URL'),
   phone: z.string().min(7, 'Phone number too short'),
-  birthdate: z.string().min(1, 'Birthdate required'),
+  birthdate: z.string().min(1, 'Birthdate '),
   height: z.number().min(50, 'Minimum height is 50 cm'),
   weight: z.number().min(30, 'Minimum weight is 30 kg'),
   illness: z.string().optional(),
@@ -287,10 +411,7 @@ const registrationSchema = z.object({
 
 const submitForm = async () => {
   try {
-    // نحاول التحقق من صحة البيانات أولًا
     const validated = registrationSchema.parse(form)
-
-    // تجهيز البيانات للإرسال بعد التحقق
     const formData = new FormData()
     for (const key in validated) {
       const value = validated[key as keyof typeof validated]
@@ -303,13 +424,31 @@ const submitForm = async () => {
       }
     }
 
-    // إرسال البيانات هنا
     console.log('Form is valid, sending...', validated)
+    toast.success('Form submitted successfully!')
+    // Example: Send data to an API
     // const res = await fetch('/api/submit', { method: 'POST', body: formData })
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error('Validation errors:', error.errors)
-      alert(error.errors.map((e) => e.message).join('\n'))
+      error.errors.forEach((e) => {
+        toast.error(e.message)
+      })
+    } else {
+      toast.error('An unexpected error occurred')
+    }
+  }
+}
+
+// Real-time email validation
+const validateEmail = () => {
+  try {
+    registrationSchema.shape.email.parse(form.email)
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      error.errors.forEach((e) => {
+        toast.warning(e.message)
+      })
     }
   }
 }
@@ -341,7 +480,7 @@ interface FormData {
   daysPerWeek: number | null
   frontImages: File[]
   backImages: File[]
-  inbodyImages: []
+  inbodyImages: File[]
 }
 
 interface PreviewData {
@@ -424,6 +563,7 @@ const handleDrop = (event: DragEvent, key: keyof FormData) => {
     }
   })
 }
+
 const removeImage = (key: keyof FormData, index: number) => {
   if (Array.isArray(form[key])) {
     ;(form[key] as File[]).splice(index, 1)
@@ -442,7 +582,7 @@ textarea {
   width: 100%;
   background-color: #f9f9f9;
   transition: all 0.3s ease;
-  color: #333; /* اللون الافتراضي للنص داخل الحقول */
+  color: #333;
 }
 
 .input:focus,
@@ -456,40 +596,38 @@ textarea:focus {
 input::placeholder,
 select::placeholder,
 textarea::placeholder {
-  color: #9da3ad; /* اللون الافتراضي للـ placeholder */
+  color: #9da3ad;
 }
 
-/* تخصيص اللون للنص داخل الحقول و الـ placeholder بناءً على الـ colorMode */
 input:focus::placeholder,
 select:focus::placeholder,
 textarea:focus::placeholder {
-  color: #9da3ad; /* نفس اللون عند التركيز */
+  color: #9da3ad;
 }
 
 [data-theme='dark'] input,
 [data-theme='dark'] select,
 [data-theme='dark'] textarea {
-  background-color: #333; /* لون الخلفية في الوضع الداكن */
-  color: #fff; /* النص داخل الحقول في الوضع الداكن */
+  background-color: #333;
+  color: #fff;
 }
 
 [data-theme='dark'] input::placeholder,
 [data-theme='dark'] select::placeholder,
 [data-theme='dark'] textarea::placeholder {
-  color: #bbb; /* لون الـ placeholder في الوضع الداكن */
+  color: #bbb;
 }
 
-/* تخصيص اللون للنص داخل الحقول و الـ placeholder في الوضع الفاتح */
 [data-theme='light'] input,
 [data-theme='light'] select,
 [data-theme='light'] textarea {
-  background-color: #f9f9f9; /* خلفية فاتحة في الوضع العادي */
-  color: #333; /* نص مظلم في الوضع العادي */
+  background-color: #f9f9f9;
+  color: #333;
 }
 
 [data-theme='light'] input::placeholder,
 [data-theme='light'] select::placeholder,
 [data-theme='light'] textarea::placeholder {
-  color: #9da3ad; /* لون الـ placeholder في الوضع الفاتح */
+  color: #9da3ad;
 }
 </style>
