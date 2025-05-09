@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="lg:p-10 border-t border-gray-700 p-4 grid grid-cols-1 md:grid-cols-2 sm:grid-cols-2 gap-6"
+    class="lg:px-5 border-t border-gray-700 p-4 grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2"
     :class="
       colorMode === 'dark' ? 'bg-black text-white' : 'bg-gray-100 text-black'
     "
@@ -36,9 +36,7 @@
     </div>
 
     <!-- Bottom Bar -->
-    <div
-      class="border-t border-gray-700 text-center text-sm pt-4 col-span-full"
-    >
+    <div class="text-center text-sm pt-4">
       <a
         href="https://www.skylink-eg.com/en"
         target="_blank"
